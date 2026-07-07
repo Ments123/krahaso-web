@@ -68,14 +68,16 @@ export function ScrollJourney() {
         </Reveal>
       </div>
 
-      <div className="mx-auto grid max-w-[1180px] grid-cols-1 items-start gap-5 px-6 pb-[60px] md:grid-cols-[.9fr_1.1fr]">
-        {/* sticky phone */}
-        <div className="relative z-[1] mb-1.5 justify-self-center md:sticky md:top-20 md:mb-0">
-          <div
-            className="w-[300px] rounded-[44px] bg-black p-2.5"
-            style={{ boxShadow: "0 44px 100px -30px rgba(0,0,0,.75)" }}
-          >
-            <div className="relative h-[600px] overflow-hidden rounded-[34px] bg-ground">
+      <div className="mx-auto grid max-w-[1180px] grid-cols-[138px_1fr] items-start gap-4 px-4 pb-[60px] sm:grid-cols-[165px_1fr] md:grid-cols-[.9fr_1.1fr] md:gap-5 md:px-6">
+        {/* phone — pinned beside the steps; scaled down on mobile so both fit side by side */}
+        <div className="sticky top-16 z-[1] self-start justify-self-center md:top-20">
+          <div className="h-[286px] w-[138px] sm:h-[341px] sm:w-[165px] md:h-auto md:w-auto">
+            <div className="origin-top-left scale-[0.46] sm:scale-[0.55] md:scale-100">
+              <div
+                className="w-[300px] rounded-[44px] bg-black p-2.5"
+                style={{ boxShadow: "0 44px 100px -30px rgba(0,0,0,.75)" }}
+              >
+                <div className="relative h-[600px] overflow-hidden rounded-[34px] bg-ground">
               {/* Screen 0 — shopping list */}
               <div className="v3screen" data-i="0" data-on={on(0)}>
                 <div className="bg-white px-[18px] pb-3 pt-[18px]">
@@ -222,6 +224,8 @@ export function ScrollJourney() {
                   </button>
                 </div>
               </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -232,17 +236,16 @@ export function ScrollJourney() {
             <div
               key={s.n}
               data-step={i}
-              className="v3step flex min-h-[60vh] flex-col justify-center py-4 max-md:min-h-min max-md:py-2.5"
+              className="v3step flex min-h-[46vh] flex-col justify-center py-3 md:min-h-[60vh] md:py-4"
               data-on={on(i)}
             >
-              <div className="mb-2.5 font-display text-[15px] font-extrabold text-brand-soft">{s.n}</div>
-              <h3
-                className="mb-2 font-display font-bold"
-                style={{ fontSize: "clamp(28px,3.2vw,40px)" }}
-              >
+              <div className="mb-1.5 font-display text-[13px] font-extrabold text-brand-soft md:mb-2.5 md:text-[15px]">
+                {s.n}
+              </div>
+              <h3 className="mb-2 font-display font-bold text-[20px] sm:text-[26px] md:text-[34px] lg:text-[40px]">
                 {s.title}
               </h3>
-              <p className="max-w-[32ch] text-[17px] text-[#B4BEB8]">{s.copy}</p>
+              <p className="max-w-[32ch] text-[15px] text-[#B4BEB8] md:text-[17px]">{s.copy}</p>
             </div>
           ))}
         </div>
