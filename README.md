@@ -86,6 +86,12 @@ Unsplash URLs in `data/site.ts`.
 The app is a standard Next.js app — deploy to **Vercel** (recommended) or any
 Node host.
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FMents123%2Fkrahaso-web)
+
+Click the button above to import this repo into Vercel with zero config
+(framework, build command, and output are auto-detected — no env vars needed),
+or follow the manual steps below.
+
 ### Vercel
 
 1. Push this repo to GitHub/GitLab.
