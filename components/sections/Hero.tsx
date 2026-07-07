@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { ContainImg } from "@/components/ui/ContainImg";
 import { LogoTile } from "@/components/ui/LogoTile";
@@ -11,6 +11,40 @@ const IOS_FONT =
 
 export function Hero() {
   const [tab, setTab] = useState<"total" | "prod">("total");
+  const phoneRef = useRef<HTMLDivElement | null>(null);
+  const manual = useRef(false);
+
+  // Auto-reveal the "Për produkt" view as the phone scrolls up under the nav,
+  // and revert to "Totali" when it drops back down — so visitors discover the
+  // toggle is interactive. Stops the moment they tap it themselves.
+  useEffect(() => {
+    const el = phoneRef.current;
+    if (!el) return;
+    let ticking = false;
+    const evaluate = () => {
+      if (manual.current) return;
+      const top = el.getBoundingClientRect().top;
+      // hysteresis around the ~64px sticky nav to avoid flicker at the boundary
+      if (top < 56) setTab((t) => (t === "prod" ? t : "prod"));
+      else if (top > 108) setTab((t) => (t === "total" ? t : "total"));
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        evaluate();
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    evaluate();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const pick = (t: "total" | "prod") => {
+    manual.current = true;
+    setTab(t);
+  };
 
   return (
     <section className="relative overflow-hidden">
@@ -65,6 +99,7 @@ export function Hero() {
         {/* phone */}
         <div className="relative justify-self-center">
           <div
+            ref={phoneRef}
             className="relative w-[300px] rounded-[44px] bg-dark p-[11px]"
             style={{
               boxShadow: "0 44px 90px -30px rgba(14,21,18,.5)",
@@ -88,14 +123,14 @@ export function Hero() {
                   <button
                     type="button"
                     className={`seg ${tab === "total" ? "seg-on" : ""}`}
-                    onClick={() => setTab("total")}
+                    onClick={() => pick("total")}
                   >
                     Totali
                   </button>
                   <button
                     type="button"
                     className={`seg ${tab === "prod" ? "seg-on" : ""}`}
-                    onClick={() => setTab("prod")}
+                    onClick={() => pick("prod")}
                   >
                     Për produkt
                   </button>
@@ -103,6 +138,7 @@ export function Hero() {
               </div>
 
               <div className="flex flex-1 flex-col overflow-hidden px-3.5 pb-3.5 pt-1">
+                <div key={tab} className="flex flex-1 flex-col" style={{ animation: "heroSwap .4s ease" }}>
                 {tab === "total" ? (
                   <div className="flex flex-1 flex-col">
                     <div className="mb-2.5 rounded-2xl bg-white p-[13px] text-center">
@@ -180,6 +216,7 @@ export function Hero() {
                     </div>
                   </div>
                 )}
+                </div>
 
                 <a
                   href="#shkarko"
