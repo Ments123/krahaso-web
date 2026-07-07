@@ -69,8 +69,9 @@ export function ScrollJourney() {
       </div>
 
       <div className="mx-auto grid max-w-[1180px] grid-cols-[172px_1fr] items-start gap-3 px-4 pb-[60px] sm:grid-cols-[192px_1fr] sm:gap-4 md:grid-cols-[.9fr_1.1fr] md:gap-5 md:px-6">
-        {/* phone — pinned beside the steps; scaled down on mobile so both fit side by side */}
-        <div className="sticky top-16 z-[1] self-start justify-self-center md:top-20">
+        {/* phone — pinned beside the steps; centred in the viewport on mobile so it
+            doesn't stick to the top and leave a gap; scaled down so both columns fit */}
+        <div className="sticky top-[calc(50vh_-_178px)] z-[1] self-start justify-self-center sm:top-[calc(50vh_-_199px)] md:top-20">
           <div className="h-[356px] w-[172px] sm:h-[397px] sm:w-[192px] md:h-auto md:w-auto">
             <div className="origin-top-left scale-[0.573] sm:scale-[0.64] md:scale-100">
               <div
