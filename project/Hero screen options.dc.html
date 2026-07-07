@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#E9ECE6;color:#141C17;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;margin:0;line-height:1.02;letter-spacing:-0.02em}
+  .phone{width:300px;background:#0E1512;border-radius:44px;padding:11px;box-shadow:0 40px 80px -30px rgba(14,21,18,.5)}
+  .scr{background:#F5F7F4;border-radius:34px;overflow:hidden;height:620px;display:flex;flex-direction:column}
+  .lg{background:#fff;border:1px solid #E7EBE4;border-radius:9px;display:grid;place-items:center;overflow:hidden}
+  .lg img{max-width:100%;max-height:100%;object-fit:contain}
+  .badge{font-family:'Bricolage Grotesque';font-weight:800;font-size:13px;letter-spacing:.04em;background:#141C17;color:#fff;padding:5px 11px;border-radius:8px}
+  .seg{flex:1;text-align:center;font-size:13px;font-weight:500;color:#8A8A8E;padding:6px;border-radius:7px;cursor:pointer;transition:color .2s,background .2s,box-shadow .2s;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif}
+  .seg.seg-on{background:#fff;color:#1C1C1E;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+</style>
+<script>
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('[data-seg]');
+    if(!b) return;
+    var root = b.closest('.scr'); if(!root) return;
+    var tab = b.getAttribute('data-seg');
+    root.querySelectorAll('[data-seg]').forEach(function(s){ s.classList.toggle('seg-on', s.getAttribute('data-seg')===tab); });
+    var t = root.querySelector('[data-view="total"]'); if(t) t.style.display = tab==='total' ? 'flex' : 'none';
+    var p = root.querySelector('[data-view="prod"]'); if(p) p.style.display = tab==='prod' ? 'flex' : 'none';
+  });
+</script>
+</helmet>
+
+<section style="padding:48px 40px 70px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Helvetica,Arial,sans-serif">
+  <div style="max-width:640px;margin-bottom:8px">
+    <h1 style="font-size:34px;font-weight:800;font-family:'Bricolage Grotesque',sans-serif">Apple-inspired — 3 dizajne</h1>
+    <p style="color:#556054;font-size:16px;margin-top:10px">Frymëzuar nga iOS: hapësirë, tipografi sistemi, materiale të buta. Referoju si <b>2a</b>, <b>2b</b> ose <b>2c</b>.</p>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;margin-top:32px">
+
+    <!-- 2A: iOS grouped inset list -->
+    <div id="2a" style="display:flex;flex-direction:column;gap:16px;width:300px">
+      <div style="display:flex;align-items:center;gap:10px"><span class="badge">2A</span><div><div style="font-weight:700;font-size:16px">Grupim iOS</div><div style="font-size:12.5px;color:#6B7770">Listë inset si te Settings</div></div></div>
+      <div class="phone">
+        <div class="scr" style="background:#F2F2F7">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px 2px;font-size:14px;font-weight:600;color:#1C1C1E"><span>9:41</span><span style="width:22px;height:11px;border:1.5px solid #1C1C1E;border-radius:3px;opacity:.9"></span></div>
+          <div style="padding:14px 20px 8px"><div style="font-size:15px;color:#8A8A8E;font-weight:500">Shporta javore · 7 produkte</div><div style="font-size:30px;font-weight:700;letter-spacing:-.02em;color:#1C1C1E">Ku kushton më lirë?</div></div>
+          <div style="padding:8px 16px;flex:1">
+            <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)">
+              <div style="display:flex;align-items:center;gap:12px;padding-left:14px"><span class="lg" style="width:34px;height:34px;padding:3px"><img src="logos/viva.png" alt="Viva Fresh"></span><div style="flex:1;display:flex;align-items:center;justify-content:space-between;padding:13px 14px 13px 0;border-bottom:.5px solid #E5E5EA"><div><div style="font-size:16px;font-weight:600;color:#1C1C1E">Viva Fresh</div><div style="font-size:13px;color:#34C759;font-weight:500">Më e lira · 7/7</div></div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:18px;font-weight:700;color:#34C759">€22.45</span><span style="width:20px;height:20px;border-radius:999px;background:#34C759;color:#fff;display:grid;place-items:center;font-size:12px">✓</span></div></div></div>
+              <div style="display:flex;align-items:center;gap:12px;padding-left:14px"><span class="lg" style="width:34px;height:34px;padding:3px"><img src="logos/interex.png" alt="Interex"></span><div style="flex:1;display:flex;align-items:center;justify-content:space-between;padding:13px 14px 13px 0;border-bottom:.5px solid #E5E5EA"><div><div style="font-size:16px;font-weight:600;color:#1C1C1E">Interex</div><div style="font-size:13px;color:#8A8A8E">7/7 · +€0.85</div></div><span style="font-size:18px;font-weight:600;color:#1C1C1E">€23.30</span></div></div>
+              <div style="display:flex;align-items:center;gap:12px;padding-left:14px"><span class="lg" style="width:34px;height:34px;padding:3px"><img src="logos/etc.png" alt="ETC"></span><div style="flex:1;display:flex;align-items:center;justify-content:space-between;padding:13px 14px 13px 0;border-bottom:.5px solid #E5E5EA"><div><div style="font-size:16px;font-weight:600;color:#1C1C1E">ETC</div><div style="font-size:13px;color:#8A8A8E">6/7 · +€1.65</div></div><span style="font-size:18px;font-weight:600;color:#1C1C1E">€24.10</span></div></div>
+              <div style="display:flex;align-items:center;gap:12px;padding-left:14px"><span class="lg" style="width:34px;height:34px;padding:3px"><img src="logos/meridian.png" alt="Meridian Express"></span><div style="flex:1;display:flex;align-items:center;justify-content:space-between;padding:13px 14px 13px 0"><div><div style="font-size:16px;font-weight:600;color:#1C1C1E">Meridian</div><div style="font-size:13px;color:#8A8A8E">7/7 · +€2.60</div></div><span style="font-size:18px;font-weight:600;color:#1C1C1E">€25.05</span></div></div>
+            </div>
+            <div style="font-size:13px;color:#8A8A8E;padding:12px 14px 0">Kurse <b style="color:#34C759">€2.60</b> me shportën më të lirë.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2B: Apple Wallet pass -->
+    <div id="2b" style="display:flex;flex-direction:column;gap:16px;width:300px">
+      <div style="display:flex;align-items:center;gap:10px"><span class="badge">2B</span><div><div style="font-weight:700;font-size:16px">Wallet pass</div><div style="font-size:12.5px;color:#6B7770">Fituesi si kartë Wallet</div></div></div>
+      <div class="phone">
+        <div class="scr" style="background:#F2F2F7">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px 2px;font-size:14px;font-weight:600;color:#1C1C1E"><span>9:41</span><span style="width:22px;height:11px;border:1.5px solid #1C1C1E;border-radius:3px;opacity:.9"></span></div>
+          <div style="padding:12px 18px 6px"><div style="font-size:26px;font-weight:700;letter-spacing:-.02em;color:#1C1C1E">Shporta ime</div></div>
+          <div style="padding:6px 16px 0">
+            <div style="border-radius:22px;padding:20px;background:linear-gradient(150deg,#1E9E68,#0C6E47);color:#fff;box-shadow:0 12px 26px -10px rgba(12,110,71,.6);position:relative;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between"><span class="lg" style="width:44px;height:44px;padding:5px;border:0;border-radius:11px"><img src="logos/viva.png" alt="Viva Fresh"></span><span style="font-size:11px;font-weight:700;background:rgba(255,255,255,.22);padding:5px 10px;border-radius:999px;letter-spacing:.03em">MË E LIRA</span></div>
+              <div style="font-size:14px;opacity:.85;margin-top:16px">Viva Fresh · 7/7 produkte</div>
+              <div style="font-size:46px;font-weight:700;letter-spacing:-.02em;line-height:1.05">€22.45</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.2)"><span style="font-size:13px;opacity:.85">Kurse sot</span><span style="font-size:20px;font-weight:700">€2.60</span></div>
+            </div>
+            <div style="margin-top:16px;background:#fff;border-radius:16px;overflow:hidden">
+              <div style="display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:.5px solid #E5E5EA"><span class="lg" style="width:30px;height:30px;padding:3px"><img src="logos/interex.png" alt="Interex"></span><span style="flex:1;font-size:15px;font-weight:600;color:#1C1C1E">Interex</span><span style="font-size:13px;color:#8A8A8E;margin-right:8px">+€0.85</span><span style="font-size:16px;font-weight:600">€23.30</span></div>
+              <div style="display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:.5px solid #E5E5EA"><span class="lg" style="width:30px;height:30px;padding:3px"><img src="logos/etc.png" alt="ETC"></span><span style="flex:1;font-size:15px;font-weight:600;color:#1C1C1E">ETC</span><span style="font-size:13px;color:#8A8A8E;margin-right:8px">+€1.65</span><span style="font-size:16px;font-weight:600">€24.10</span></div>
+              <div style="display:flex;align-items:center;gap:11px;padding:13px 14px"><span class="lg" style="width:30px;height:30px;padding:3px"><img src="logos/meridian.png" alt="Meridian Express"></span><span style="flex:1;font-size:15px;font-weight:600;color:#1C1C1E">Meridian</span><span style="font-size:13px;color:#8A8A8E;margin-right:8px">+€2.60</span><span style="font-size:16px;font-weight:600">€25.05</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2C: large title + segmented + filled button -->
+    <div id="2c" style="display:flex;flex-direction:column;gap:16px;width:300px">
+      <div style="display:flex;align-items:center;gap:10px"><span class="badge">2C</span><div><div style="font-weight:700;font-size:16px">Titull i madh</div><div style="font-size:12.5px;color:#6B7770">Segmented + buton iOS</div></div></div>
+      <div class="phone">
+        <div class="scr" style="background:#F2F2F7">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px 2px;font-size:14px;font-weight:600;color:#1C1C1E"><span>9:41</span><span style="width:22px;height:11px;border:1.5px solid #1C1C1E;border-radius:3px;opacity:.9"></span></div>
+          <div style="padding:12px 18px 10px"><div style="font-size:30px;font-weight:700;letter-spacing:-.02em;color:#1C1C1E">Krahasimi</div>
+            <div style="display:flex;background:#E3E3E8;border-radius:9px;padding:2px;margin-top:14px"><span class="seg seg-on" data-seg="total">Totali</span><span class="seg" data-seg="prod">Për produkt</span></div>
+          </div>
+          <div style="padding:4px 16px;flex:1;display:flex;flex-direction:column">
+            <div data-view="total" style="flex:1;display:flex;flex-direction:column">
+              <div style="background:#fff;border-radius:16px;padding:18px;text-align:center;margin-bottom:14px"><div style="font-size:14px;color:#8A8A8E;font-weight:500">Kurse me shportën më të lirë</div><div style="font-size:44px;font-weight:700;letter-spacing:-.02em;color:#34C759;line-height:1.1">€2.60</div><div style="font-size:13px;color:#8A8A8E">Viva Fresh · €22.45</div></div>
+              <div style="background:#fff;border-radius:16px;overflow:hidden">
+                <div style="display:flex;align-items:center;gap:11px;padding:12px 14px;border-bottom:.5px solid #E5E5EA;background:#F1FBF4"><span class="lg" style="width:28px;height:28px;padding:2px"><img src="logos/viva.png" alt="Viva Fresh"></span><span style="flex:1;font-size:14px;font-weight:600">Viva Fresh</span><span style="font-size:15px;font-weight:700;color:#34C759">€22.45</span></div>
+                <div style="display:flex;align-items:center;gap:11px;padding:12px 14px;border-bottom:.5px solid #E5E5EA"><span class="lg" style="width:28px;height:28px;padding:2px"><img src="logos/interex.png" alt="Interex"></span><span style="flex:1;font-size:14px;font-weight:600;color:#1C1C1E">Interex</span><span style="font-size:15px;font-weight:600">€23.30</span></div>
+                <div style="display:flex;align-items:center;gap:11px;padding:12px 14px;border-bottom:.5px solid #E5E5EA"><span class="lg" style="width:28px;height:28px;padding:2px"><img src="logos/etc.png" alt="ETC"></span><span style="flex:1;font-size:14px;font-weight:600;color:#1C1C1E">ETC</span><span style="font-size:15px;font-weight:600">€24.10</span></div>
+                <div style="display:flex;align-items:center;gap:11px;padding:12px 14px"><span class="lg" style="width:28px;height:28px;padding:2px"><img src="logos/meridian.png" alt="Meridian Express"></span><span style="flex:1;font-size:14px;font-weight:600;color:#1C1C1E">Meridian</span><span style="font-size:15px;font-weight:600">€25.05</span></div>
+              </div>
+            </div>
+            <div data-view="prod" style="flex:1;display:none;flex-direction:column">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="display:flex;align-items:center;gap:7px"><span class="lg" style="width:24px;height:24px;padding:2px"><img src="logos/viva.png" alt="Viva Fresh"></span><span style="font-size:13px;font-weight:600;color:#1C1C1E">Viva Fresh</span></span><span style="font-size:12px;color:#8A8A8E">7 produkte</span></div>
+              <div style="background:#fff;border-radius:16px;overflow:hidden">
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:.5px solid #E5E5EA"><span style="width:28px;height:28px;border-radius:7px;overflow:hidden;background:#fff;border:1px solid #EDF0EA;flex:0 0 auto;display:grid;place-items:center"><img src="products/milk.png" alt="" style="width:100%;height:100%;object-fit:contain;padding:2px"></span><span style="flex:1;font-size:13.5px;font-weight:500;color:#1C1C1E">Qumësht 1L</span><span style="font-size:14px;font-weight:600">€1.19</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:.5px solid #E5E5EA"><span style="width:28px;height:28px;border-radius:7px;overflow:hidden;background:#F0F3EE;flex:0 0 auto"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=120&q=60&auto=format&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover"></span><span style="flex:1;font-size:13.5px;font-weight:500;color:#1C1C1E">Bukë</span><span style="font-size:14px;font-weight:600">€0.69</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:.5px solid #E5E5EA"><span style="width:28px;height:28px;border-radius:7px;overflow:hidden;background:#fff;border:1px solid #EDF0EA;flex:0 0 auto;display:grid;place-items:center"><img src="products/eggs.png" alt="" style="width:100%;height:100%;object-fit:contain;padding:2px"></span><span style="flex:1;font-size:13.5px;font-weight:500;color:#1C1C1E">Vezë, 10 copë</span><span style="font-size:14px;font-weight:600">€2.49</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:.5px solid #E5E5EA"><span style="width:28px;height:28px;border-radius:7px;overflow:hidden;background:#fff;border:1px solid #EDF0EA;flex:0 0 auto;display:grid;place-items:center"><img src="products/oil.png" alt="" style="width:100%;height:100%;object-fit:contain;padding:2px"></span><span style="flex:1;font-size:13.5px;font-weight:500;color:#1C1C1E">Vaj 1L</span><span style="font-size:14px;font-weight:600">€3.49</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:.5px solid #E5E5EA"><span style="width:28px;height:28px;border-radius:7px;overflow:hidden;background:#fff;border:1px solid #EDF0EA;flex:0 0 auto;display:grid;place-items:center"><img src="products/coffee.png" alt="" style="width:100%;height:100%;object-fit:contain;padding:2px"></span><span style="flex:1;font-size:13.5px;font-weight:500;color:#1C1C1E">Kafe 500g</span><span style="font-size:14px;font-weight:600">€4.99</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:.5px solid #E5E5EA"><span style="width:28px;height:28px;border-radius:7px;overflow:hidden;background:#F0F3EE;flex:0 0 auto"><img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=120&q=60&auto=format&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover"></span><span style="flex:1;font-size:13.5px;font-weight:500;color:#1C1C1E">Banane 1kg</span><span style="font-size:14px;font-weight:600">€1.60</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 12px"><span style="width:28px;height:28px;border-radius:7px;overflow:hidden;background:#fff;border:1px solid #EDF0EA;flex:0 0 auto;display:grid;place-items:center"><img src="products/detergent.png" alt="" style="width:100%;height:100%;object-fit:contain;padding:2px"></span><span style="flex:1;font-size:13.5px;font-weight:500;color:#1C1C1E">Detergjent 2L</span><span style="font-size:14px;font-weight:600">€8.00</span></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 4px 0"><span style="font-size:14px;font-weight:600;color:#1C1C1E">Totali</span><span style="font-size:20px;font-weight:700;color:#34C759">€22.45</span></div>
+            </div>
+            <button style="margin-top:auto;margin-bottom:14px;width:100%;background:#34C759;color:#fff;border:0;border-radius:14px;padding:15px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer">Zgjidh Viva Fresh</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding:48px 40px 70px">
+  <div style="max-width:640px;margin-bottom:8px">
+    <h1 style="font-size:34px;font-weight:800">Ekrani i krahasimit — 3 dizajne</h1>
+    <p style="color:#55605440;color:#556054;font-size:16px;margin-top:10px">Tre trajtime të ndryshme të të njëjtit ekran. Referoju secilit si <b>1a</b>, <b>1b</b> ose <b>1c</b> në bisedë.</p>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;margin-top:32px">
+
+    <!-- OPTION 1A: PODIUM -->
+    <div id="1a" style="display:flex;flex-direction:column;gap:16px;width:300px">
+      <div style="display:flex;align-items:center;gap:10px"><span class="badge">1A</span><div><div style="font-weight:700;font-size:16px">Podium</div><div style="font-size:12.5px;color:#6B7770">Fituesi i madh + rreshta kompaktë</div></div></div>
+      <div class="phone">
+        <div class="scr">
+          <div style="padding:18px 18px 14px;background:#159A63;color:#fff">
+            <div style="font-size:12px;opacity:.85;font-weight:600">Shporta javore · 7 produkte</div>
+            <div style="font-family:Bricolage Grotesque;font-weight:700;font-size:20px">Ku kushton më lirë?</div>
+          </div>
+          <div style="padding:16px;flex:1;background:#F5F7F4;display:flex;flex-direction:column">
+            <!-- winner -->
+            <div style="background:#0E1512;color:#fff;border-radius:20px;padding:18px;position:relative;overflow:hidden">
+              <div style="position:absolute;right:-24px;top:-24px;width:96px;height:96px;border-radius:50%;background:rgba(21,154,99,.25)"></div>
+              <div style="display:flex;align-items:center;gap:10px;position:relative">
+                <span class="lg" style="width:46px;height:46px;padding:5px"><img src="logos/viva.png" alt="Viva Fresh"></span>
+                <div><div style="background:#159A63;color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;display:inline-block;margin-bottom:3px">MË E LIRA</div><div style="font-weight:700;font-size:16px">Viva Fresh</div></div>
+              </div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:14px;position:relative">
+                <div><div style="font-size:11px;color:#9DB0A6">7/7 produkte</div><div style="font-family:Bricolage Grotesque;font-weight:800;font-size:38px;line-height:1">€22.45</div></div>
+                <div style="text-align:right"><div style="font-size:11px;color:#9DB0A6">kurse</div><div style="font-family:Bricolage Grotesque;font-weight:800;font-size:22px;color:#5FD79E">€2.60</div></div>
+              </div>
+            </div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#8A928A;text-transform:uppercase;margin:16px 0 8px">Alternativat</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:center;gap:11px;background:#fff;border:1px solid #E7EBE4;border-radius:13px;padding:11px"><span class="lg" style="width:34px;height:34px;padding:3px"><img src="logos/interex.png" alt="Interex"></span><div style="flex:1"><div style="font-weight:600;font-size:14px">Interex</div><div style="font-size:11px;color:#8A928A">7/7</div></div><div style="text-align:right"><div style="font-family:Bricolage Grotesque;font-weight:800;font-size:16px">€23.30</div><div style="font-size:10.5px;color:#B0463C;font-weight:600">+€0.85</div></div></div>
+              <div style="display:flex;align-items:center;gap:11px;background:#fff;border:1px solid #E7EBE4;border-radius:13px;padding:11px"><span class="lg" style="width:34px;height:34px;padding:3px"><img src="logos/etc.png" alt="ETC"></span><div style="flex:1"><div style="font-weight:600;font-size:14px">ETC</div><div style="font-size:11px;color:#8A928A">6/7</div></div><div style="text-align:right"><div style="font-family:Bricolage Grotesque;font-weight:800;font-size:16px">€24.10</div><div style="font-size:10.5px;color:#B0463C;font-weight:600">+€1.65</div></div></div>
+              <div style="display:flex;align-items:center;gap:11px;background:#fff;border:1px solid #E7EBE4;border-radius:13px;padding:11px"><span class="lg" style="width:34px;height:34px;padding:3px"><img src="logos/meridian.png" alt="Meridian Express"></span><div style="flex:1"><div style="font-weight:600;font-size:14px">Meridian</div><div style="font-size:11px;color:#8A928A">7/7</div></div><div style="text-align:right"><div style="font-family:Bricolage Grotesque;font-weight:800;font-size:16px">€25.05</div><div style="font-size:10.5px;color:#B0463C;font-weight:600">+€2.60</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 1B: BARS -->
+    <div id="1b" style="display:flex;flex-direction:column;gap:16px;width:300px">
+      <div style="display:flex;align-items:center;gap:10px"><span class="badge">1B</span><div><div style="font-weight:700;font-size:16px">Shirita krahasimi</div><div style="font-size:12.5px;color:#6B7770">Diferenca duket me sy</div></div></div>
+      <div class="phone">
+        <div class="scr" style="background:#fff">
+          <div style="padding:18px;border-bottom:1px solid #EDF0EA;display:flex;align-items:center;justify-content:space-between">
+            <div><div style="font-size:12px;color:#8A928A;font-weight:600">Shporta javore · 7 produkte</div><div style="font-family:Bricolage Grotesque;font-weight:700;font-size:20px">Ku kushton më lirë?</div></div>
+            <span style="width:32px;height:32px;border-radius:9px;background:#159A63;color:#fff;font-family:Bricolage Grotesque;font-weight:800;display:grid;place-items:center">K</span>
+          </div>
+          <div style="padding:18px 16px;flex:1;display:flex;flex-direction:column;gap:20px">
+            <div>
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px"><span class="lg" style="width:30px;height:30px;padding:3px"><img src="logos/viva.png" alt="Viva Fresh"></span><span style="font-weight:700;font-size:14px;flex:1">Viva Fresh</span><span style="font-family:Bricolage Grotesque;font-weight:800;font-size:18px;color:#0E7A4C">€22.45</span></div>
+              <div style="height:14px;border-radius:999px;background:#EDF0EA;overflow:hidden"><div style="width:86%;height:100%;background:linear-gradient(90deg,#159A63,#22C078);border-radius:999px"></div></div>
+              <div style="font-size:11px;color:#0E7A4C;font-weight:600;margin-top:5px">Më e lira · 7/7</div>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px"><span class="lg" style="width:30px;height:30px;padding:3px"><img src="logos/interex.png" alt="Interex"></span><span style="font-weight:700;font-size:14px;flex:1">Interex</span><span style="font-family:Bricolage Grotesque;font-weight:800;font-size:18px">€23.30</span></div>
+              <div style="height:14px;border-radius:999px;background:#EDF0EA;overflow:hidden"><div style="width:90%;height:100%;background:#C3CCC3;border-radius:999px"></div></div>
+              <div style="font-size:11px;color:#8A928A;margin-top:5px">7/7</div>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px"><span class="lg" style="width:30px;height:30px;padding:3px"><img src="logos/etc.png" alt="ETC"></span><span style="font-weight:700;font-size:14px;flex:1">ETC</span><span style="font-family:Bricolage Grotesque;font-weight:800;font-size:18px">€24.10</span></div>
+              <div style="height:14px;border-radius:999px;background:#EDF0EA;overflow:hidden"><div style="width:93%;height:100%;background:#C3CCC3;border-radius:999px"></div></div>
+              <div style="font-size:11px;color:#8A928A;margin-top:5px">6/7 · mungon Detergjent 2L</div>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px"><span class="lg" style="width:30px;height:30px;padding:3px"><img src="logos/meridian.png" alt="Meridian Express"></span><span style="font-weight:700;font-size:14px;flex:1">Meridian</span><span style="font-family:Bricolage Grotesque;font-weight:800;font-size:18px">€25.05</span></div>
+              <div style="height:14px;border-radius:999px;background:#EDF0EA;overflow:hidden"><div style="width:100%;height:100%;background:#C3CCC3;border-radius:999px"></div></div>
+              <div style="font-size:11px;color:#8A928A;margin-top:5px">7/7</div>
+            </div>
+            <div style="margin-top:auto;background:#E6F4EC;border-radius:14px;padding:13px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;font-weight:600;color:#0E7A4C">Kurse me Viva Fresh</span><span style="font-family:Bricolage Grotesque;font-weight:800;font-size:19px;color:#0E7A4C">€2.60</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 1C: MINIMAL LIGHT -->
+    <div id="1c" style="display:flex;flex-direction:column;gap:16px;width:300px">
+      <div style="display:flex;align-items:center;gap:10px"><span class="badge">1C</span><div><div style="font-weight:700;font-size:16px">Minimal i qetë</div><div style="font-size:12.5px;color:#6B7770">Premium, header i bardhë</div></div></div>
+      <div class="phone">
+        <div class="scr" style="background:#fff">
+          <div style="padding:20px 18px 16px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px"><span style="font-size:12px;color:#9AA097;font-weight:600">Shporta javore · 7 produkte</span><span style="width:26px;height:26px;border-radius:8px;background:#159A63;color:#fff;font-family:Bricolage Grotesque;font-weight:800;font-size:14px;display:grid;place-items:center">K</span></div>
+            <div style="font-family:Bricolage Grotesque;font-weight:700;font-size:22px">Ku kushton më lirë?</div>
+          </div>
+          <div style="padding:0 16px;flex:1;display:flex;flex-direction:column">
+            <div style="background:#F3F8F5;border:1px solid #D7EBDF;border-radius:16px;padding:15px;display:flex;align-items:center;gap:12px">
+              <span class="lg" style="width:40px;height:40px;padding:4px;border-color:#D7EBDF"><img src="logos/viva.png" alt="Viva Fresh"></span>
+              <div style="flex:1"><div style="display:flex;align-items:center;gap:7px"><span style="font-weight:700;font-size:15px">Viva Fresh</span><span style="width:16px;height:16px;border-radius:999px;background:#159A63;color:#fff;display:grid;place-items:center;font-size:10px">✓</span></div><div style="font-size:11.5px;color:#0E7A4C;font-weight:600">Më e lira · 7/7</div></div>
+              <div style="font-family:Bricolage Grotesque;font-weight:800;font-size:20px;color:#0E7A4C">€22.45</div>
+            </div>
+            <div style="display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;gap:12px;padding:15px 6px;border-bottom:1px solid #F0F3EE"><span class="lg" style="width:34px;height:34px;padding:3px"><img src="logos/interex.png" alt="Interex"></span><div style="flex:1"><div style="font-weight:600;font-size:14.5px">Interex</div><div style="font-size:11.5px;color:#9AA097">+€0.85 më shtrenjtë</div></div><div style="font-family:Bricolage Grotesque;font-weight:700;font-size:17px;color:#3C4A42">€23.30</div></div>
+              <div style="display:flex;align-items:center;gap:12px;padding:15px 6px;border-bottom:1px solid #F0F3EE"><span class="lg" style="width:34px;height:34px;padding:3px"><img src="logos/etc.png" alt="ETC"></span><div style="flex:1"><div style="font-weight:600;font-size:14.5px">ETC</div><div style="font-size:11.5px;color:#9AA097">+€1.65 · 6/7</div></div><div style="font-family:Bricolage Grotesque;font-weight:700;font-size:17px;color:#3C4A42">€24.10</div></div>
+              <div style="display:flex;align-items:center;gap:12px;padding:15px 6px"><span class="lg" style="width:34px;height:34px;padding:3px"><img src="logos/meridian.png" alt="Meridian Express"></span><div style="flex:1"><div style="font-weight:600;font-size:14.5px">Meridian</div><div style="font-size:11.5px;color:#9AA097">+€2.60 më shtrenjtë</div></div><div style="font-family:Bricolage Grotesque;font-weight:700;font-size:17px;color:#3C4A42">€25.05</div></div>
+            </div>
+            <div style="margin-top:auto;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;background:#0E1512;color:#fff;border-radius:14px;padding:13px 16px"><div><div style="font-size:11px;color:#9DB0A6">Kurse sot</div><div style="font-family:Bricolage Grotesque;font-weight:800;font-size:18px">€2.60</div></div><span style="background:#159A63;color:#fff;font-size:12.5px;font-weight:700;padding:9px 15px;border-radius:999px">Zgjidh Viva Fresh</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+</body>
+</html>

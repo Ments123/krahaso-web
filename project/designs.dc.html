@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#0E1512;color:#F4F5F1;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;margin:0;line-height:1.02;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  .prevwrap{position:relative;height:300px;overflow:hidden;background:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+  .prevframe{position:absolute;top:0;left:0;width:1280px;height:1035px;border:0;transform:scale(.322);transform-origin:top left;pointer-events:none}
+  .prevlink{position:absolute;inset:0;z-index:2}
+</style>
+</helmet>
+
+<div style="min-height:100vh">
+  <header style="max-width:1200px;margin:0 auto;padding:44px 24px 8px;display:flex;align-items:center;gap:12px">
+    <span style="width:36px;height:36px;border-radius:10px;background:#159A63;color:#fff;font-family:Bricolage Grotesque;font-weight:800;font-size:22px;display:grid;place-items:center">K</span>
+    <span style="font-family:Bricolage Grotesque;font-weight:700;font-size:22px">Krahaso</span>
+    <span style="margin-left:auto;font-size:13px;color:#7E8C84;font-weight:600">krahaso.app</span>
+  </header>
+
+  <section style="max-width:1200px;margin:0 auto;padding:34px 24px 20px">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(21,154,99,.15);color:#5FD79E;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:22px">Variacionet e dizajnit · 3</div>
+    <h1 style="font-size:clamp(34px,5.5vw,58px);font-weight:700;max-width:16ch">Zgjidh drejtimin e dizajnit për Krahaso</h1>
+    <p style="color:#AFBAB2;font-size:clamp(16px,2vw,19px);margin:20px 0 0;max-width:60ch">Tri faqe hyrëse, të njëjtat përmbajtje dhe të dhëna demonstruese, por me ekzekutim vizual dukshëm të ndryshëm. Kliko një variant për ta parë të plotë.</p>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:34px 24px 80px;display:grid;grid-template-columns:1fr;gap:24px" class="cards">
+    <sc-for list="{{ cards }}" as="c" hint-placeholder-count="3">
+      <article style="background:#151E18;border:1px solid rgba(255,255,255,.08);border-radius:22px;overflow:hidden;display:flex;flex-direction:column">
+        <div class="prevwrap">
+          <iframe class="prevframe" src="{{ c.href }}" title="{{ c.title }}" loading="lazy" scrolling="no"></iframe>
+          <a class="prevlink" href="{{ c.href }}" aria-label="{{ c.title }}"></a>
+        </div>
+        <div style="padding:24px;display:flex;flex-direction:column;flex:1">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <span style="font-family:Bricolage Grotesque;font-weight:800;font-size:14px;color:#5FD79E">{{ c.no }}</span>
+            <span style="font-size:12px;color:#7E8C84;font-weight:600">{{ c.route }}</span>
+          </div>
+          <h2 style="font-size:23px;font-weight:700;margin-bottom:8px">{{ c.title }}</h2>
+          <p style="color:#AFBAB2;font-size:14.5px;margin-bottom:16px;flex:1">{{ c.desc }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px">
+            <sc-for list="{{ c.tags }}" as="t" hint-placeholder-count="3">
+              <span style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:500;color:#C9D2CB">{{ t }}</span>
+            </sc-for>
+          </div>
+          <a href="{{ c.href }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#159A63;color:#fff;padding:13px;border-radius:12px;font-weight:600;font-size:15px" style-hover="background:#17A96C">Shiko variantin →</a>
+        </div>
+      </article>
+    </sc-for>
+  </section>
+
+  <footer style="border-top:1px solid rgba(255,255,255,.08)">
+    <div style="max-width:1200px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;color:#6E837A;font-size:13px">
+      <span>© 2026 Krahaso · krahaso.app</span>
+      <span>Çmimet dhe logot janë vetëm shembuj demonstrues.</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals(){
+    return {
+      cards: [
+        {
+          no:'01', route:'/variation-1', href:'variation-1.dc.html',
+          title:'Premium & Minimal',
+          desc:'E rafinuar dhe e qetë: hapësirë e bollshme, tipografi e fortë, kartela të pastra krahasimi dhe përdorim i kontrolluar i së gjelbrës.',
+          tags:['Off-white','Hapësirë','Premium']
+        },
+        {
+          no:'02', route:'/variation-2', href:'variation-2.dc.html',
+          title:'Bold Savings Brand',
+          desc:'Energjike dhe e paharrueshme: kontrast i fortë, tituj të mëdhenj, çmime madhështore dhe blloqe të gjelbra për mesazhin e kursimit.',
+          tags:['Kontrast','Çmime XL','Reklamë']
+        },
+        {
+          no:'03', route:'/variation-3', href:'variation-3.dc.html',
+          title:'Product-Led App Showcase',
+          desc:'E ndërtuar rreth ekraneve reale: telefoni kalon nëpër udhëtimin e përdoruesit ndërsa shfleton — nga lista te shpërblimi.',
+          tags:['App-first','Scroll','Udhëtimi']
+        }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

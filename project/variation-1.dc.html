@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#FAF8F4;color:#16221C;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;margin:0;line-height:1.02;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:#159A63;color:#fff}
+  @keyframes v1scan{0%{top:8%}100%{top:88%}}
+  @keyframes v1pulse{0%,100%{box-shadow:0 0 0 0 rgba(21,154,99,.28)}50%{box-shadow:0 0 0 8px rgba(21,154,99,0)}}
+  @keyframes v1float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes v1rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+
+<div style="max-width:100%;overflow-x:hidden">
+
+<!-- NAV -->
+<header style="position:sticky;top:0;z-index:50;background:rgba(250,248,244,.82);backdrop-filter:blur(14px);border-bottom:1px solid #ECE7DE">
+  <nav style="max-width:1200px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:28px">
+    <a href="#top" style="display:flex;align-items:center;gap:11px;margin-right:auto">
+      <span style="width:34px;height:34px;border-radius:9px;background:#159A63;color:#fff;font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;display:grid;place-items:center;box-shadow:0 4px 12px rgba(21,154,99,.32)">K</span>
+      <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:20px;letter-spacing:-0.02em">Krahaso</span>
+    </a>
+    <div style="display:none;gap:26px;align-items:center;font-size:15px;font-weight:500;color:#3C4A42" class="v1navlinks">
+      <a href="#si-funksionon" style-hover="color:#159A63">Si funksionon</a>
+      <a href="#krahaso" style-hover="color:#159A63">Krahaso</a>
+      <a href="#skano" style-hover="color:#159A63">Skano</a>
+      <a href="#fito" style-hover="color:#159A63">Fito</a>
+      <a href="#partneret" style-hover="color:#159A63">Për partnerët</a>
+      <a href="#pyetje" style-hover="color:#159A63">Pyetje</a>
+    </div>
+    <a href="#shkarko" style="display:none;background:#16221C;color:#fff;padding:11px 20px;border-radius:999px;font-weight:600;font-size:14px;white-space:nowrap" class="v1navcta" style-hover="background:#159A63">Shkarko aplikacionin</a>
+    <button onClick="{{ toggleMenu }}" aria-label="Menu" style="display:flex;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px" class="v1burger">
+      <span style="width:22px;height:2px;background:#16221C;display:block"></span>
+      <span style="width:22px;height:2px;background:#16221C;display:block"></span>
+      <span style="width:22px;height:2px;background:#16221C;display:block"></span>
+    </button>
+  </nav>
+  <sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:8px 24px 22px;display:flex;flex-direction:column;gap:4px;border-top:1px solid #ECE7DE;background:#FAF8F4">
+      <a href="#si-funksionon" onClick="{{ closeMenu }}" style="padding:10px 0;font-weight:500;border-bottom:1px solid #F0ECE3">Si funksionon</a>
+      <a href="#krahaso" onClick="{{ closeMenu }}" style="padding:10px 0;font-weight:500;border-bottom:1px solid #F0ECE3">Krahaso</a>
+      <a href="#skano" onClick="{{ closeMenu }}" style="padding:10px 0;font-weight:500;border-bottom:1px solid #F0ECE3">Skano</a>
+      <a href="#fito" onClick="{{ closeMenu }}" style="padding:10px 0;font-weight:500;border-bottom:1px solid #F0ECE3">Fito</a>
+      <a href="#partneret" onClick="{{ closeMenu }}" style="padding:10px 0;font-weight:500;border-bottom:1px solid #F0ECE3">Për partnerët</a>
+      <a href="#pyetje" onClick="{{ closeMenu }}" style="padding:10px 0;font-weight:500">Pyetje</a>
+      <a href="#shkarko" onClick="{{ closeMenu }}" style="margin-top:12px;background:#159A63;color:#fff;padding:13px;border-radius:999px;font-weight:600;text-align:center">Shkarko aplikacionin</a>
+    </div>
+  </sc-if>
+</header>
+
+<span id="top"></span>
+
+<!-- HERO -->
+<section style="max-width:1200px;margin:0 auto;padding:64px 24px 40px;display:grid;grid-template-columns:1fr;gap:48px;align-items:center" class="v1hero">
+  <div style="max-width:560px">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:#E9F6EF;color:#0B6E47;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:26px">
+      <span style="width:7px;height:7px;border-radius:999px;background:#159A63"></span>
+      Krahaso · Skano · Fito
+    </div>
+    <h1 style="font-size:clamp(40px,6vw,66px);font-weight:700">Krahaso shportën. Bli më lirë. <span style="color:#159A63">Fito shpërblime.</span></h1>
+    <p style="font-size:clamp(17px,2vw,20px);color:#4A574F;margin:24px 0 34px;max-width:480px">Krahaso çmimet në supermarketet e Kosovës, gjej shportën më të lirë dhe fito pikë nga blerjet e tua.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+      <a href="#shkarko" style="display:inline-flex;align-items:center;gap:10px;background:#16221C;color:#fff;padding:15px 26px;border-radius:999px;font-weight:600;font-size:16px" style-hover="background:#159A63">Shkarko aplikacionin</a>
+      <a href="#si-funksionon" style="display:inline-flex;align-items:center;gap:8px;padding:15px 22px;border-radius:999px;font-weight:600;font-size:16px;border:1px solid #D9D3C8;color:#16221C" style-hover="border-color:#159A63;color:#159A63">Shiko si funksionon →</a>
+    </div>
+    <p style="margin-top:22px;font-size:13.5px;color:#8A9089;font-weight:500">Së shpejti në App Store dhe Google Play</p>
+  </div>
+
+  <!-- PHONE -->
+  <div style="justify-self:center;position:relative">
+    <div style="position:absolute;inset:-30px -20px;background:radial-gradient(circle at 60% 30%,#E9F6EF,transparent 70%);border-radius:50%"></div>
+    <div style="position:relative;width:300px;background:#0E1512;border-radius:44px;padding:11px;box-shadow:0 40px 80px -30px rgba(14,21,18,.5),0 0 0 1px rgba(0,0,0,.04);animation:v1float 7s ease-in-out infinite">
+      <div style="background:#FAF8F4;border-radius:34px;overflow:hidden;height:600px;display:flex;flex-direction:column">
+        <div style="padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;background:#fff">
+          <div>
+            <div style="font-size:12px;color:#8A9089;font-weight:600">Shporta ime</div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:18px">Blerjet javore</div>
+          </div>
+          <span style="width:30px;height:30px;border-radius:9px;background:#159A63;color:#fff;font-family:'Bricolage Grotesque';font-weight:800;display:grid;place-items:center;font-size:16px">K</span>
+        </div>
+        <div style="padding:6px 14px;display:flex;gap:7px;overflow:hidden;background:#fff;border-bottom:1px solid #F0ECE3">
+          <sc-for list="{{ basketItems }}" as="it" hint-placeholder-count="4">
+            <div style="flex:0 0 auto;width:44px;text-align:center">
+              <div style="width:44px;height:44px;border-radius:12px;overflow:hidden;background:#F0ECE3"><img src="{{ it.img }}" alt="{{ it.name }}" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="padding:14px;flex:1;overflow:hidden">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#8A9089;text-transform:uppercase;margin-bottom:10px">Totali i shportës</div>
+          <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:14px;margin-bottom:8px;background:{{ r.cardBg }};border:1px solid {{ r.cardBorder }}">
+              <span style="width:9px;height:9px;border-radius:3px;background:{{ r.tone }};flex:0 0 auto"></span>
+              <div style="flex:1;min-width:0">
+                <div style="font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.sm }}</div>
+                <div style="font-size:11px;color:#8A9089">{{ r.availText }}</div>
+              </div>
+              <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;color:{{ r.priceColor }}">€{{ r.total }}</div>
+            </div>
+          </sc-for>
+          <div style="margin-top:12px;background:#159A63;color:#fff;border-radius:14px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between">
+            <div style="font-size:13px;font-weight:600">Kursen me Viva Fresh</div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:18px">€2.60</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO STRIP -->
+<section style="max-width:1200px;margin:0 auto;padding:18px 24px 48px">
+  <div style="text-align:center;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#9AA097;font-weight:600;margin-bottom:20px">Çmime nga supermarketet e Kosovës</div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center">
+    <sc-for list="{{ markets }}" as="m" hint-placeholder-count="4">
+      <div style="display:inline-flex;align-items:center;gap:9px;padding:10px 18px;background:#fff;border:1px solid #ECE7DE;border-radius:12px">
+        <span style="width:20px;height:20px;border-radius:6px;background:{{ m.tone }}"></span>
+        <span style="font-weight:700;font-size:15px;letter-spacing:-0.01em">{{ m.name }}</span>
+      </div>
+    </sc-for>
+  </div>
+  <p style="text-align:center;margin-top:16px;font-size:12px;color:#A6ABA2">Logot përdoren vetëm për ilustrimin e funksionimit të platformës.</p>
+</section>
+
+<!-- BASKET COMPARISON -->
+<section id="krahaso" style="background:#fff;border-top:1px solid #ECE7DE;border-bottom:1px solid #ECE7DE">
+  <div style="max-width:1200px;margin:0 auto;padding:80px 24px">
+    <div style="display:grid;grid-template-columns:1fr;gap:40px;align-items:start" class="v1two">
+      <div style="max-width:440px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#159A63;margin-bottom:14px">Krahasimi i shportës</div>
+        <h2 style="font-size:clamp(30px,4vw,44px);font-weight:700">E njëjta shportë,<br>çmime të ndryshme</h2>
+        <p style="color:#4A574F;font-size:17px;margin:20px 0 26px">Krijo listën tënde dhe Krahaso llogarit totalin e plotë në secilin supermarket — që ta dish ku kushton më lirë para se të nisesh.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ basketItems }}" as="it" hint-placeholder-count="7">
+            <span style="display:inline-flex;align-items:center;gap:8px;background:#F6F3EC;border:1px solid #ECE7DE;border-radius:999px;padding:6px 12px 6px 6px;font-size:13.5px;font-weight:500">
+              <span style="width:24px;height:24px;border-radius:999px;overflow:hidden;background:#ECE7DE"><img src="{{ it.img }}" alt="" style="width:100%;height:100%;object-fit:cover" loading="lazy"></span>
+              {{ it.name }}
+            </span>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background:#FAF8F4;border:1px solid #ECE7DE;border-radius:22px;padding:22px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+          <div style="font-weight:700;font-size:16px">Totali i shportës · 7 produkte</div>
+          <div style="font-size:13px;color:#8A9089">Renditur nga më i liri</div>
+        </div>
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:16px;margin-bottom:10px;background:{{ r.cardBg }};border:1.5px solid {{ r.cardBorder }};position:relative;{{ r.pulse }}">
+            <span style="width:44px;height:44px;border-radius:11px;background:#fff;border:1px solid #ECE7DE;display:grid;place-items:center;flex:0 0 auto"><span style="width:18px;height:18px;border-radius:5px;background:{{ r.tone }}"></span></span>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:8px"><span style="font-weight:700;font-size:16px">{{ r.sm }}</span><sc-if value="{{ r.cheapest }}" hint-placeholder-val="{{ false }}"><span style="background:#159A63;color:#fff;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.03em">MË E LIRA</span></sc-if></div>
+              <div style="font-size:13px;color:#6B7770;margin-top:2px">{{ r.availText }}</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:22px;color:{{ r.priceColor }}">€{{ r.total }}</div>
+            </div>
+          </div>
+        </sc-for>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px dashed #D9D3C8">
+          <div style="font-size:15px;font-weight:600;color:#0B6E47">Kurse €2.60 me shportën më të lirë.</div>
+        </div>
+        <p style="margin:14px 0 0;font-size:11.5px;color:#A6ABA2">Çmimet janë vetëm shembuj demonstrues.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="si-funksionon" style="max-width:1200px;margin:0 auto;padding:84px 24px 40px">
+  <div style="text-align:center;max-width:620px;margin:0 auto 48px">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#159A63;margin-bottom:14px">Si funksionon</div>
+    <h2 style="font-size:clamp(30px,4vw,46px);font-weight:700">Tri hapa. Kaq e thjeshtë.</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr;gap:20px" class="v1three">
+    <div style="background:#fff;border:1px solid #ECE7DE;border-radius:22px;padding:30px;overflow:hidden">
+      <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;color:#159A63;margin-bottom:18px">01 — Krahaso</div>
+      <h3 style="font-size:23px;font-weight:700;margin-bottom:10px">Krijo shportën dhe shiko ku kushton më lirë.</h3>
+      <p style="color:#4A574F;font-size:15px;margin-bottom:22px">Shto produktet që të duhen dhe krahaso totalin në disa supermarkete njëherësh.</p>
+      <div style="height:150px;border-radius:14px;overflow:hidden;background:#F0ECE3"><img src="https://images.unsplash.com/photo-1543168256-418811576931?w=700&q=75&auto=format&fit=crop" alt="Shportë me produkte ushqimore" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
+    </div>
+    <div style="background:#fff;border:1px solid #ECE7DE;border-radius:22px;padding:30px;overflow:hidden">
+      <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;color:#159A63;margin-bottom:18px">02 — Skano</div>
+      <h3 style="font-size:23px;font-weight:700;margin-bottom:10px">Skano barkodin ose fotografo faturën pas blerjes.</h3>
+      <p style="color:#4A574F;font-size:15px;margin-bottom:22px">Krahaso menjëherë një produkt, ose foto faturën për të mbledhur pikë.</p>
+      <div style="height:150px;border-radius:14px;background:#0E1512;position:relative;overflow:hidden;display:grid;place-items:center">
+        <div style="width:130px;height:80px;border:2px solid rgba(255,255,255,.35);border-radius:10px;position:relative;display:grid;place-items:center">
+          <div style="display:flex;gap:3px;align-items:flex-end;height:44px">
+            <span style="width:3px;height:100%;background:#fff"></span><span style="width:2px;height:70%;background:#fff"></span><span style="width:4px;height:100%;background:#fff"></span><span style="width:2px;height:55%;background:#fff"></span><span style="width:3px;height:85%;background:#fff"></span><span style="width:2px;height:100%;background:#fff"></span><span style="width:4px;height:65%;background:#fff"></span><span style="width:2px;height:90%;background:#fff"></span>
+          </div>
+          <div style="position:absolute;left:0;right:0;top:8%;height:2px;background:#22D37E;box-shadow:0 0 12px #22D37E;animation:v1scan 2.2s ease-in-out infinite alternate"></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid #ECE7DE;border-radius:22px;padding:30px;overflow:hidden">
+      <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;color:#159A63;margin-bottom:18px">03 — Fito</div>
+      <h3 style="font-size:23px;font-weight:700;margin-bottom:10px">Mblidh pikë dhe përfito shpërblime e oferta.</h3>
+      <p style="color:#4A574F;font-size:15px;margin-bottom:22px">Çdo blerje e verifikuar të afron më shumë te shpërblimi tjetër.</p>
+      <div style="height:150px;border-radius:14px;background:#E9F6EF;border:1px solid #D3EBDD;padding:18px;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:12px;color:#0B6E47;font-weight:600">Pikët e tua</div>
+        <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:32px;color:#0B6E47">1,240</div>
+        <div style="height:8px;background:#fff;border-radius:999px;margin-top:10px;overflow:hidden"><div style="width:72%;height:100%;background:#159A63;border-radius:999px"></div></div>
+        <div style="font-size:11.5px;color:#0B6E47;margin-top:7px">Edhe 260 pikë deri te shpërblimi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT COMPARISON -->
+<section id="skano" style="max-width:1200px;margin:0 auto;padding:60px 24px">
+  <div style="display:grid;grid-template-columns:1fr;gap:40px;align-items:center" class="v1two">
+    <div style="max-width:430px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#159A63;margin-bottom:14px">Krahasimi i produktit</div>
+      <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:700">Deri te çmimi më i mirë për çdo produkt</h2>
+      <p style="color:#4A574F;font-size:17px;margin:20px 0 0">Shih çmimin, ofertën dhe çmimin për litër a kilogram — që të zgjedhësh me mend.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #ECE7DE;border-radius:22px;padding:22px;box-shadow:0 30px 60px -40px rgba(14,21,18,.3)">
+      <div style="display:flex;gap:16px;align-items:center;padding-bottom:18px;border-bottom:1px solid #F0ECE3">
+        <div style="width:76px;height:76px;border-radius:16px;overflow:hidden;background:#F0ECE3;flex:0 0 auto"><img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=70&auto=format&fit=crop" alt="Qumësht 1L" style="width:100%;height:100%;object-fit:cover"></div>
+        <div>
+          <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:22px">Qumësht 1L</div>
+          <div style="color:#6B7770;font-size:14px">Vita · 1 litër · qumësht i freskët</div>
+          <div style="display:inline-block;margin-top:6px;background:#E9F6EF;color:#0B6E47;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px">Në dispozicion në 4 supermarkete</div>
+        </div>
+      </div>
+      <sc-for list="{{ productRows }}" as="p" hint-placeholder-count="4">
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid #F5F1EA">
+          <span style="width:12px;height:12px;border-radius:4px;background:{{ p.tone }}"></span>
+          <span style="font-weight:600;font-size:15px;flex:1">{{ p.sm }}</span>
+          <span style="font-size:12.5px;color:#9AA097">{{ p.perL }}</span>
+          <sc-if value="{{ p.promo }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#B0463C;text-decoration:line-through">€{{ p.was }}</span></sc-if>
+          <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:18px;color:{{ p.priceColor }};min-width:58px;text-align:right">€{{ p.price }}</span>
+        </div>
+      </sc-for>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px">
+        <div style="font-size:13.5px;color:#0B6E47;font-weight:600">Çmimi më i ulët: Viva Fresh · €1.15</div>
+        <button style="background:#16221C;color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:600;font-size:13.5px;cursor:pointer" style-hover="background:#159A63">Shto në shportë</button>
+      </div>
+      <p style="margin:12px 0 0;font-size:11.5px;color:#A6ABA2">Çmimet janë vetëm shembuj demonstrues.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BARCODE -->
+<section style="background:#0E1512;color:#fff">
+  <div style="max-width:1200px;margin:0 auto;padding:80px 24px;display:grid;grid-template-columns:1fr;gap:48px;align-items:center" class="v1two">
+    <div style="max-width:440px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5FD79E;margin-bottom:14px">Skanimi i barkodit</div>
+      <h2 style="font-size:clamp(30px,4vw,46px);font-weight:700">Skano barkodin. Krahaso menjëherë.</h2>
+      <p style="color:#B4BEB8;font-size:17px;margin:20px 0 28px">Drejto kamerën te barkodi dhe shih menjëherë produktin e saktë, çmimet dhe ku është më lirë.</p>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:26px;height:26px;border-radius:999px;background:#159A63;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700">1</span><span style="color:#DCE3DE">Produkti i saktë dhe pesha</span></div>
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:26px;height:26px;border-radius:999px;background:#159A63;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700">2</span><span style="color:#DCE3DE">Çmimet në supermarkete</span></div>
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:26px;height:26px;border-radius:999px;background:#159A63;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700">3</span><span style="color:#DCE3DE">Çmimi më i ulët · shto në shportë</span></div>
+      </div>
+    </div>
+    <div style="justify-self:center;width:290px;background:#000;border-radius:42px;padding:10px;box-shadow:0 40px 80px -30px rgba(0,0,0,.7)">
+      <div style="background:#161C19;border-radius:32px;overflow:hidden;height:560px;display:flex;flex-direction:column">
+        <div style="flex:1;position:relative;background:#0A0F0C;display:grid;place-items:center">
+          <div style="position:absolute;inset:26px;border:2px solid rgba(255,255,255,.18);border-radius:20px"></div>
+          <div style="width:180px;height:110px;position:relative;display:grid;place-items:center">
+            <div style="display:flex;gap:4px;align-items:flex-end;height:70px">
+              <span style="width:4px;height:100%;background:#fff"></span><span style="width:3px;height:60%;background:#fff"></span><span style="width:5px;height:100%;background:#fff"></span><span style="width:3px;height:78%;background:#fff"></span><span style="width:4px;height:100%;background:#fff"></span><span style="width:2px;height:50%;background:#fff"></span><span style="width:5px;height:88%;background:#fff"></span><span style="width:3px;height:100%;background:#fff"></span><span style="width:4px;height:66%;background:#fff"></span><span style="width:2px;height:100%;background:#fff"></span>
+            </div>
+            <div style="position:absolute;left:-10px;right:-10px;top:6%;height:2.5px;background:#22D37E;box-shadow:0 0 16px #22D37E;animation:v1scan 2s ease-in-out infinite alternate"></div>
+          </div>
+          <div style="position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:12px;color:rgba(255,255,255,.6)">Duke skanuar barkodin…</div>
+        </div>
+        <div style="background:#fff;color:#16221C;padding:16px">
+          <div style="display:flex;gap:11px;align-items:center;margin-bottom:12px">
+            <div style="width:42px;height:42px;border-radius:11px;overflow:hidden;background:#F0ECE3"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&q=70&auto=format&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+            <div><div style="font-weight:700;font-size:15px">Kafe 500g</div><div style="font-size:12px;color:#8A9089">Bloko · 500g</div></div>
+            <div style="margin-left:auto;font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;color:#159A63">€4.20</div>
+          </div>
+          <div style="font-size:12px;color:#6B7770;margin-bottom:8px">Më i liri te Viva Fresh · €4.20 / €5.10 diku tjetër</div>
+          <button style="width:100%;background:#159A63;color:#fff;border:0;border-radius:12px;padding:12px;font-weight:600;font-size:14px;cursor:pointer">Shto në shportë</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECEIPT -->
+<section id="fito" style="max-width:1200px;margin:0 auto;padding:84px 24px;display:grid;grid-template-columns:1fr;gap:48px;align-items:center" class="v1two">
+  <div style="justify-self:center;position:relative;width:280px">
+    <div style="background:#fff;border-radius:10px;box-shadow:0 30px 60px -30px rgba(14,21,18,.35);padding:22px 20px;font-family:'Hanken Grotesk';position:relative;overflow:hidden">
+      <div style="text-align:center;border-bottom:1.5px dashed #D9D3C8;padding-bottom:12px;margin-bottom:12px">
+        <div style="display:inline-flex;align-items:center;gap:7px"><span style="width:16px;height:16px;border-radius:5px;background:#3E9B4F"></span><span style="font-weight:800;font-size:16px;font-family:Bricolage Grotesque">Viva Fresh</span></div>
+        <div style="font-size:11px;color:#9AA097;margin-top:4px">Prishtinë · 06.07.2026 · 18:24</div>
+      </div>
+      <div style="font-size:12.5px;color:#3C4A42;display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;justify-content:space-between"><span>Qumësht 1L</span><span>€1.15</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Bukë</span><span>€0.55</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Vezë, 10 copë</span><span>€1.90</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Kafe 500g</span><span>€4.20</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Banane 1kg</span><span>€1.30</span></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;border-top:1.5px dashed #D9D3C8;margin-top:12px;padding-top:10px;font-weight:800;font-family:Bricolage Grotesque"><span>TOTALI</span><span>€9.10</span></div>
+      <div style="position:absolute;left:0;right:0;top:0;height:3px;background:#22D37E;box-shadow:0 0 18px #22D37E;animation:v1scan 2.6s ease-in-out infinite alternate"></div>
+    </div>
+    <div style="position:absolute;-webkit-backdrop-filter:blur(2px);right:-14px;bottom:-14px;background:#159A63;color:#fff;border-radius:16px;padding:12px 16px;box-shadow:0 12px 30px -8px rgba(21,154,99,.5);animation:v1pulse 2.4s ease-in-out infinite">
+      <div style="font-size:11px;font-weight:600;opacity:.85">Fatura u verifikua</div>
+      <div style="font-family:Bricolage Grotesque;font-weight:800;font-size:20px">+85 pikë</div>
+    </div>
+  </div>
+  <div style="max-width:440px">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#159A63;margin-bottom:14px">Skanimi i faturës</div>
+    <h2 style="font-size:clamp(30px,4vw,46px);font-weight:700">Skano faturën dhe fito pikë.</h2>
+    <p style="color:#4A574F;font-size:17px;margin:20px 0 26px">Pas blerjes, fotografo faturën. Krahaso e njeh supermarketin, verifikon produktet dhe të jep pikë.</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:12px;font-size:15px"><span style="width:24px;height:24px;border-radius:999px;background:#E9F6EF;color:#0B6E47;display:grid;place-items:center;font-size:12px;font-weight:700">1</span>Fotografo faturën</div>
+      <div style="display:flex;align-items:center;gap:12px;font-size:15px"><span style="width:24px;height:24px;border-radius:999px;background:#E9F6EF;color:#0B6E47;display:grid;place-items:center;font-size:12px;font-weight:700">2</span>Krahaso njeh supermarketin</div>
+      <div style="display:flex;align-items:center;gap:12px;font-size:15px"><span style="width:24px;height:24px;border-radius:999px;background:#E9F6EF;color:#0B6E47;display:grid;place-items:center;font-size:12px;font-weight:700">3</span>Produktet shfaqen dhe verifikohen</div>
+      <div style="display:flex;align-items:center;gap:12px;font-size:15px"><span style="width:24px;height:24px;border-radius:999px;background:#159A63;color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700">4</span>Pikët shtohen automatikisht</div>
+    </div>
+  </div>
+</section>
+
+<!-- REWARDS -->
+<section style="background:#fff;border-top:1px solid #ECE7DE;border-bottom:1px solid #ECE7DE">
+  <div style="max-width:1200px;margin:0 auto;padding:80px 24px;display:grid;grid-template-columns:1fr;gap:48px;align-items:center" class="v1two">
+    <div style="max-width:430px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#159A63;margin-bottom:14px">Shpërblimet</div>
+      <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:700">Pikët e tua kthehen në kursime reale</h2>
+      <p style="color:#4A574F;font-size:17px;margin:20px 0 0">Një program besnikërie modern — pa lojëra, pa kripto. Vetëm pikë nga blerjet dhe shpërblime që i përdor.</p>
+    </div>
+    <div style="background:#FAF8F4;border:1px solid #ECE7DE;border-radius:22px;padding:24px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:8px">
+        <div><div style="font-size:13px;color:#8A9089;font-weight:600">Pikët aktuale</div><div style="font-family:Bricolage Grotesque;font-weight:800;font-size:42px;color:#0B6E47">1,240</div></div>
+        <div style="background:#E9F6EF;color:#0B6E47;font-weight:700;font-size:13px;padding:6px 12px;border-radius:999px">+85 së fundmi</div>
+      </div>
+      <div style="height:10px;background:#ECE7DE;border-radius:999px;overflow:hidden;margin:12px 0 6px"><div style="width:72%;height:100%;background:linear-gradient(90deg,#159A63,#22C078);border-radius:999px"></div></div>
+      <div style="font-size:12.5px;color:#6B7770;margin-bottom:18px">Edhe 260 pikë deri te shpërblimi tjetër</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:#fff;border:1px solid #ECE7DE;border-radius:14px;padding:14px"><div style="font-size:12px;color:#8A9089;font-weight:600">Kupon zbritjeje</div><div style="font-weight:700;font-size:16px;margin-top:2px">-€5 në blerjen tjetër</div></div>
+        <div style="background:#fff;border:1px solid #ECE7DE;border-radius:14px;padding:14px"><div style="font-size:12px;color:#8A9089;font-weight:600">Produkt falas</div><div style="font-weight:700;font-size:16px;margin-top:2px">Kafe 500g</div></div>
+        <div style="grid-column:span 2;background:#0E1512;color:#fff;border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:space-between"><div><div style="font-size:12px;color:#9DB0A6;font-weight:600">Ofertë partneri</div><div style="font-weight:700;font-size:16px">-15% te furra e lagjes</div></div><span style="background:#159A63;color:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px">Aktivizo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section style="max-width:1200px;margin:0 auto;padding:84px 24px">
+  <div style="max-width:560px;margin-bottom:44px">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#159A63;margin-bottom:14px">Pse Krahaso</div>
+    <h2 style="font-size:clamp(30px,4vw,46px);font-weight:700">Vendime më të zgjuara para se të blesh</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr;gap:14px" class="v1grid4">
+    <sc-for list="{{ benefits }}" as="b" hint-placeholder-count="8">
+      <div style="background:#fff;border:1px solid #ECE7DE;border-radius:18px;padding:22px" style-hover="border-color:#159A63">
+        <div style="width:40px;height:40px;border-radius:11px;background:#E9F6EF;display:grid;place-items:center;margin-bottom:14px"><span style="width:16px;height:16px;border-radius:5px;background:#159A63"></span></div>
+        <div style="font-weight:600;font-size:16px;line-height:1.3">{{ b }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partneret" style="max-width:1200px;margin:0 auto;padding:40px 24px 84px">
+  <div style="background:#0E1512;color:#fff;border-radius:28px;padding:clamp(32px,5vw,64px);display:grid;grid-template-columns:1fr;gap:40px;align-items:center" class="v1two">
+    <div style="max-width:460px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5FD79E;margin-bottom:14px">Për partnerët</div>
+      <h2 style="font-size:clamp(28px,3.6vw,42px);font-weight:700">Bëhu pjesë e Krahaso.</h2>
+      <p style="color:#B4BEB8;font-size:17px;margin:18px 0 28px">Prezanto produktet, çmimet dhe ofertat e tua para klientëve që janë gati për të blerë.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="#kontakt" style="background:#159A63;color:#fff;padding:14px 24px;border-radius:999px;font-weight:600" style-hover="background:#17A96C">Bëhu partner</a>
+        <a href="#kontakt" style="border:1px solid rgba(255,255,255,.25);color:#fff;padding:14px 24px;border-radius:999px;font-weight:600" style-hover="border-color:#fff">Na kontakto</a>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <sc-for list="{{ partnerBenefits }}" as="pb" hint-placeholder-count="6">
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:16px;font-size:14.5px;font-weight:500;color:#E4EAE6">{{ pb }}</div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="pyetje" style="max-width:820px;margin:0 auto;padding:20px 24px 84px">
+  <div style="text-align:center;margin-bottom:40px">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#159A63;margin-bottom:14px">Pyetje</div>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:700">Pyetjet më të shpeshta</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="10">
+      <div style="background:#fff;border:1px solid #ECE7DE;border-radius:16px;overflow:hidden">
+        <button onClick="{{ f.on }}" style="width:100%;display:flex;align-items:center;gap:16px;padding:18px 22px;background:none;border:0;cursor:pointer;text-align:left">
+          <span style="font-weight:600;font-size:16.5px;flex:1;color:#16221C">{{ f.q }}</span>
+          <span style="font-family:Bricolage Grotesque;font-weight:700;font-size:22px;color:#159A63;line-height:1">{{ f.sign }}</span>
+        </button>
+        <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 22px 20px;color:#4A574F;font-size:15px;max-width:640px">{{ f.a }}</div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="shkarko" style="max-width:1200px;margin:0 auto;padding:20px 24px 90px">
+  <div style="background:#159A63;border-radius:28px;padding:clamp(36px,5vw,70px);color:#fff;display:grid;grid-template-columns:1fr;gap:44px;align-items:center;overflow:hidden;position:relative" class="v1two">
+    <div style="max-width:500px;position:relative;z-index:1">
+      <h2 style="font-size:clamp(30px,4.4vw,52px);font-weight:700;color:#fff">Mos paguaj më shumë për të njëjtën shportë.</h2>
+      <p style="font-size:18px;color:#DFF4E9;margin:20px 0 30px">Krahaso para se të blesh, skano pas blerjes dhe fito shpërblime.</p>
+      <a href="#" onClick="{{ soon }}" style="display:inline-flex;align-items:center;gap:10px;background:#fff;color:#0B6E47;padding:16px 30px;border-radius:999px;font-weight:700;font-size:17px" style-hover="background:#F0ECE3">Shkarko Krahaso</a>
+      <p style="margin-top:18px;font-size:14px;color:#CFEBDD">Së shpejti në App Store dhe Google Play</p>
+    </div>
+    <div style="justify-self:center;position:relative;z-index:1">
+      <div style="width:230px;background:#0E1512;border-radius:38px;padding:9px;box-shadow:0 30px 70px -20px rgba(0,0,0,.5)">
+        <div style="background:#FAF8F4;border-radius:30px;overflow:hidden;height:430px">
+          <div style="height:150px;overflow:hidden"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=75&auto=format&fit=crop" alt="Produkte ushqimore" style="width:100%;height:100%;object-fit:cover"></div>
+          <div style="padding:16px">
+            <div style="font-family:Bricolage Grotesque;font-weight:800;font-size:20px">Shporta jote</div>
+            <div style="font-size:12px;color:#8A9089;margin-bottom:12px">Më e lira · Viva Fresh</div>
+            <div style="background:#E9F6EF;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;font-size:13px;color:#0B6E47">Kurse sot</span><span style="font-family:Bricolage Grotesque;font-weight:800;font-size:20px;color:#0B6E47">€2.60</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="kontakt" style="background:#0E1512;color:#fff">
+  <div style="max-width:1200px;margin:0 auto;padding:60px 24px 40px">
+    <div style="display:grid;grid-template-columns:1fr;gap:36px" class="v1foot">
+      <div style="max-width:280px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px"><span style="width:34px;height:34px;border-radius:9px;background:#159A63;color:#fff;font-family:Bricolage Grotesque;font-weight:800;font-size:20px;display:grid;place-items:center">K</span><span style="font-family:Bricolage Grotesque;font-weight:700;font-size:20px">Krahaso</span></div>
+        <p style="color:#8DA097;font-size:14px">Krahaso çmimet, bli më lirë dhe fito shpërblime nga blerjet e tua në Kosovë.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px" class="v1footlinks">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#5FD79E;margin-bottom:14px;letter-spacing:.04em">Krahaso</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:#B4BEB8">
+            <a href="#top" style-hover="color:#fff">Rreth Krahaso</a>
+            <a href="#si-funksionon" style-hover="color:#fff">Si funksionon</a>
+            <a href="#partneret" style-hover="color:#fff">Për partnerët</a>
+            <a href="#kontakt" style-hover="color:#fff">Na kontakto</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#5FD79E;margin-bottom:14px;letter-spacing:.04em">Ligjore</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:#B4BEB8">
+            <a href="#" onClick="{{ soon }}" style-hover="color:#fff">Politika e privatësisë</a>
+            <a href="#" onClick="{{ soon }}" style-hover="color:#fff">Kushtet e përdorimit</a>
+            <a href="#" onClick="{{ soon }}" style-hover="color:#fff">Politika e pikëve</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#5FD79E;margin-bottom:14px;letter-spacing:.04em">Na ndiq</div>
+        <div style="display:flex;gap:10px">
+          <a href="#" onClick="{{ soon }}" style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.06);display:grid;place-items:center;font-size:13px;font-weight:600" style-hover="background:#159A63">IG</a>
+          <a href="#" onClick="{{ soon }}" style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.06);display:grid;place-items:center;font-size:13px;font-weight:600" style-hover="background:#159A63">FB</a>
+          <a href="#" onClick="{{ soon }}" style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.06);display:grid;place-items:center;font-size:13px;font-weight:600" style-hover="background:#159A63">In</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:24px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;color:#6E837A;font-size:13px">
+      <span>© 2026 Krahaso · krahaso.app</span>
+      <a href="designs.dc.html" style="color:#8DA097" style-hover="color:#fff">← Shiko variacionet e dizajnit</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<style>
+  @media(min-width:900px){
+    .v1navlinks{display:flex !important}
+    .v1navcta{display:inline-flex !important}
+    .v1burger{display:none !important}
+    .v1hero{grid-template-columns:1.05fr .95fr !important;padding-top:90px !important}
+    .v1two{grid-template-columns:1fr 1fr !important}
+    .v1three{grid-template-columns:repeat(3,1fr) !important}
+    .v1foot{grid-template-columns:1.4fr 1.6fr 1fr !important}
+  }
+  @media(min-width:640px){
+    .v1grid4{grid-template-columns:1fr 1fr !important}
+  }
+  @media(min-width:1000px){
+    .v1grid4{grid-template-columns:repeat(4,1fr) !important}
+  }
+</style>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { faq: 0, menu: false };
+
+  soon(e){ if(e&&e.preventDefault) e.preventDefault(); }
+
+  renderVals(){
+    const tones = { viva:'#3E9B4F', interex:'#D23B3B', etc:'#2F6BD1', meridian:'#E0871E' };
+    const U = 'https://images.unsplash.com/';
+    const img = {
+      milk: U+'photo-1550583724-b2692b85b150?w=400&q=70&auto=format&fit=crop',
+      bread: U+'photo-1509440159596-0249088772ff?w=400&q=70&auto=format&fit=crop',
+      eggs: U+'photo-1582722872445-44dc5f7e3c8f?w=400&q=70&auto=format&fit=crop',
+      oil: U+'photo-1474979266404-7eaacbcd87c5?w=400&q=70&auto=format&fit=crop',
+      coffee: U+'photo-1447933601403-0c6688de566e?w=400&q=70&auto=format&fit=crop',
+      banana: U+'photo-1571771894821-ce9b6c11b08e?w=400&q=70&auto=format&fit=crop',
+      detergent: U+'photo-1585421514738-01798e348b17?w=400&q=70&auto=format&fit=crop',
+      groceries: U+'photo-1542838132-92c53300491e?w=800&q=75&auto=format&fit=crop',
+      bag: U+'photo-1543168256-418811576931?w=700&q=75&auto=format&fit=crop'
+    };
+    const basketItems = [
+      { name:'Qumësht 1L', img:img.milk },
+      { name:'Bukë', img:img.bread },
+      { name:'Vezë, 10 copë', img:img.eggs },
+      { name:'Vaj 1L', img:img.oil },
+      { name:'Kafe 500g', img:img.coffee },
+      { name:'Banane 1kg', img:img.banana },
+      { name:'Detergjent 2L', img:img.detergent }
+    ];
+    const raw = [
+      { sm:'Viva Fresh', tone:tones.viva, total:'22.45', availText:'7 nga 7 produkte', cheapest:true },
+      { sm:'Interex', tone:tones.interex, total:'23.30', availText:'7 nga 7 produkte' },
+      { sm:'ETC', tone:tones.etc, total:'24.10', availText:'6 nga 7 · mungon Detergjent 2L' },
+      { sm:'Meridian Express', tone:tones.meridian, total:'25.05', availText:'7 nga 7 produkte' }
+    ];
+    const rows = raw.map(r => ({
+      ...r,
+      cardBg: r.cheapest ? '#E9F6EF' : '#fff',
+      cardBorder: r.cheapest ? '#159A63' : '#ECE7DE',
+      priceColor: r.cheapest ? '#0B6E47' : '#16221C',
+      pulse: r.cheapest ? 'animation:v1pulse 2.6s ease-in-out infinite' : ''
+    }));
+    const productRows = [
+      { sm:'Viva Fresh', tone:tones.viva, price:'1.15', perL:'€1.15/L', lowest:true },
+      { sm:'Interex', tone:tones.interex, price:'1.22', perL:'€1.22/L' },
+      { sm:'ETC', tone:tones.etc, price:'1.29', perL:'€1.29/L', promo:true, was:'1.45' },
+      { sm:'Meridian Express', tone:tones.meridian, price:'1.35', perL:'€1.35/L' }
+    ].map(p => ({ ...p, priceColor: p.lowest ? '#0B6E47' : '#16221C' }));
+    const benefits = [
+      'Krahaso shportën e plotë','Kurse në blerjet javore','Gjej ofertat më të mira',
+      'Krahaso çmimin për kg ose litër','Ruaj listat e blerjeve','Fito pikë nga blerjet',
+      'Shiko çmimet në disa supermarkete','Merr vendime më të zgjuara para se të blesh'
+    ];
+    const partnerBenefits = [
+      'Promovo ofertat aktuale','Rrit dukshmërinë e produkteve','Arri blerësit lokalë',
+      'Zhvillo fushata shpërblimesh','Nxirr në pah produktet e reja','Përmirëso saktësinë e çmimeve'
+    ];
+    const faqData = [
+      { q:'Çfarë është Krahaso?', a:'Krahaso është aplikacion që krahason çmimet e produkteve ushqimore në supermarketet e Kosovës dhe të shpërblen për blerjet.' },
+      { q:'Si krahasohen çmimet?', a:'Ti krijon një shportë me produktet që të duhen dhe Krahaso tregon totalin e saj në secilin supermarket.' },
+      { q:'A mund ta krahasoj të gjithë shportën?', a:'Po. Krahaso e llogarit çmimin e plotë të shportës në disa supermarkete njëherësh.' },
+      { q:'Si funksionon skanimi i barkodit?', a:'Skano barkodin e produktit dhe shih menjëherë çmimet e tij në supermarkete të ndryshme.' },
+      { q:'Si funksionon skanimi i faturës?', a:'Fotografo faturën pas blerjes; Krahaso e njeh supermarketin dhe produktet dhe të jep pikë.' },
+      { q:'Si fitoj pikë?', a:'Fiton pikë nga blerjet e verifikuara përmes faturave dhe i shkëmben për shpërblime e oferta.' },
+      { q:'A ndryshojnë çmimet sipas supermarketit ose degës?', a:'Po, çmimet mund të ndryshojnë nga supermarketi te supermarketi dhe nganjëherë nga dega.' },
+      { q:'A janë çmimet gjithmonë të përditësuara?', a:'Punojmë vazhdimisht për saktësinë, por çmimet mund të ndryshojnë; verifikoji gjithmonë në supermarket.' },
+      { q:'A është aplikacioni falas?', a:'Po, Krahaso është falas për t\u2019u shkarkuar dhe përdorur.' },
+      { q:'Si mund të bëhet një supermarket partner?', a:'Na kontakto përmes seksionit “Për partnerët” dhe ekipi ynë të ndihmon të fillosh.' }
+    ];
+    const faqs = faqData.map((f,i) => ({
+      ...f,
+      open: this.state.faq === i,
+      sign: this.state.faq === i ? '\u2212' : '+',
+      on: () => this.setState(s => ({ faq: s.faq === i ? -1 : i }))
+    }));
+    const markets = [
+      { name:'Viva Fresh', tone:tones.viva },
+      { name:'ETC', tone:tones.etc },
+      { name:'Interex', tone:tones.interex },
+      { name:'Meridian Express', tone:tones.meridian }
+    ];
+    return {
+      img, basketItems, rows, productRows, benefits, partnerBenefits, faqs, markets,
+      menu: this.state.menu,
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      soon: this.soon
+    };
+  }
+}
+</script>
+</body>
+</html>
