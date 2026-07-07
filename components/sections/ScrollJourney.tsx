@@ -68,12 +68,13 @@ export function ScrollJourney() {
         </Reveal>
       </div>
 
-      <div className="mx-auto grid max-w-[1180px] grid-cols-[172px_1fr] items-start gap-3 px-4 pb-[60px] sm:grid-cols-[192px_1fr] sm:gap-4 md:grid-cols-[.9fr_1.1fr] md:gap-5 md:px-6">
-        {/* phone — pinned beside the steps; centred in the viewport on mobile so it
-            doesn't stick to the top and leave a gap; scaled down so both columns fit */}
-        <div className="sticky top-[calc(50vh_-_178px)] z-[1] self-start justify-self-center sm:top-[calc(50vh_-_199px)] md:top-20">
-          <div className="h-[356px] w-[172px] sm:h-[397px] sm:w-[192px] md:h-auto md:w-auto">
-            <div className="origin-top-left scale-[0.573] sm:scale-[0.64] md:scale-100">
+      <div className="mx-auto grid max-w-[1180px] grid-cols-[192px_1fr] items-start gap-2.5 px-4 pb-[60px] sm:grid-cols-[240px_1fr] sm:gap-5 md:grid-cols-[1.15fr_1fr] md:gap-6 md:px-6">
+        {/* phone — pinned centred in the viewport (all sizes) so it stays in the
+            middle of the section while the steps scroll past; enlarged to be the
+            focal point, and the reserved box keeps the scaled size in layout flow */}
+        <div className="sticky top-[calc(50vh_-_199px)] z-[1] self-start justify-self-center sm:top-[calc(50vh_-_248px)] md:top-[calc(50vh_-_341px)]">
+          <div className="h-[397px] w-[192px] sm:h-[496px] sm:w-[240px] md:h-[682px] md:w-[330px]">
+            <div className="origin-top-left scale-[0.64] sm:scale-[0.8] md:scale-[1.1]">
               <div
                 className="w-[300px] rounded-[44px] bg-black p-2.5"
                 style={{ boxShadow: "0 44px 100px -30px rgba(0,0,0,.75)" }}
@@ -240,13 +241,13 @@ export function ScrollJourney() {
               className="v3step flex min-h-[46vh] flex-col justify-center py-3 md:min-h-[60vh] md:py-4"
               data-on={on(i)}
             >
-              <div className="mb-1 font-display text-[11px] font-extrabold text-brand-soft md:mb-2.5 md:text-[15px]">
+              <div className="mb-1 font-display text-[10.5px] font-extrabold text-brand-soft md:mb-2.5 md:text-[15px]">
                 {s.n}
               </div>
-              <h3 className="mb-1.5 font-display font-bold text-[16px] sm:text-[20px] md:text-[34px] md:mb-2 lg:text-[40px]">
+              <h3 className="mb-1.5 font-display font-bold text-[15px] leading-tight [overflow-wrap:anywhere] sm:text-[21px] md:mb-2 md:text-[32px] md:leading-none lg:text-[40px]">
                 {s.title}
               </h3>
-              <p className="max-w-[30ch] text-[12.5px] leading-snug text-[#B4BEB8] sm:text-[14px] md:text-[17px] md:leading-normal">
+              <p className="max-w-[26ch] text-[12px] leading-snug text-[#B4BEB8] sm:text-[15px] md:text-[17px] md:leading-normal">
                 {s.copy}
               </p>
             </div>
