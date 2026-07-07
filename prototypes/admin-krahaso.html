@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="sq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Krahaso Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#159A63; --green-deep:#0E7A4C; --green-soft:#5FD79E; --tint:#E6F4EC;
+    --ink:#141C17; --dark:#0E1512; --bg:#F4F6F4; --card:#fff; --line:#E4E8E1;
+    --muted:#6B756D; --muted2:#8A928A; --danger:#C6483C; --amber:#E0871E; --blue:#2F6BD1;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  h1,h2,h3,h4{font-family:'Bricolage Grotesque',sans-serif;margin:0;letter-spacing:-.02em;line-height:1.1}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  ::selection{background:var(--green);color:#fff}
+  .k{display:grid;place-items:center;background:var(--green);color:#fff;font-family:'Bricolage Grotesque';font-weight:800;border-radius:11px}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:11px;padding:11px 18px;font-weight:600;font-size:14px;cursor:pointer;transition:.18s}
+  .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green-deep)}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+  .btn-sm{padding:7px 12px;font-size:13px;border-radius:9px}
+  .chip{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:13px;padding:5px 11px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+  .dot{width:9px;height:9px;border-radius:999px;flex:0 0 auto}
+  .pill{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
+  .pill-ok{background:var(--tint);color:var(--green-deep)}
+  .pill-warn{background:#FCEFDD;color:var(--amber)}
+  .pill-off{background:#F0F1EE;color:var(--muted)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px}
+  input,select{font-family:inherit;font-size:14px;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fff;outline:none;width:100%}
+  input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(21,154,99,.12)}
+  label{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
+  table{width:100%;border-collapse:collapse}
+  th{text-align:left;font-size:12px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.04em;padding:12px 14px;border-bottom:1px solid var(--line)}
+  td{padding:13px 14px;border-bottom:1px solid #F0F3EE;font-size:14px}
+  tr:last-child td{border-bottom:0}
+  .num{font-family:'Bricolage Grotesque';font-weight:800}
+
+  /* ---------- LOGIN ---------- */
+  .login{position:fixed;inset:0;display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden}
+  .login__brand{position:relative;background:linear-gradient(200deg,#123524,#0A0F0C 70%);color:#fff;padding:56px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+  .login__glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(21,154,99,.35),transparent 68%);bottom:-140px;left:-100px;animation:glow 13s ease-in-out infinite}
+  @keyframes glow{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-24px) scale(1.14)}}
+  .login__form{background:#fff;display:grid;place-items:center;padding:40px}
+  .login__inner{width:100%;max-width:360px}
+  @media(max-width:820px){.login{grid-template-columns:1fr}.login__brand{display:none}}
+
+  /* ---------- APP SHELL ---------- */
+  .app{display:grid;grid-template-columns:248px 1fr;height:100%}
+  .sidebar{background:var(--dark);color:#B4BEB8;display:flex;flex-direction:column;padding:20px 14px;gap:6px}
+  .sidebar .brand{display:flex;align-items:center;gap:10px;padding:6px 8px 14px}
+  .navitem{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-weight:600;font-size:14.5px;color:#9DB0A6;cursor:pointer;transition:.16s}
+  .navitem svg{width:19px;height:19px;flex:0 0 auto}
+  .navitem:hover{background:rgba(255,255,255,.05);color:#fff}
+  .navitem.active{background:var(--green);color:#fff}
+  .navitem .badge{margin-left:auto;background:#fff;color:var(--green-deep);font-size:11px;font-weight:800;padding:1px 7px;border-radius:999px}
+  .navitem.active .badge{background:rgba(255,255,255,.25);color:#fff}
+  .sidebar .sep{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5A6B62;padding:14px 12px 4px}
+  .sidebar .user{margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px 8px;border-top:1px solid rgba(255,255,255,.08)}
+  .avatar{width:34px;height:34px;border-radius:10px;background:#22402F;color:var(--green-soft);display:grid;place-items:center;font-weight:700;flex:0 0 auto}
+
+  .main{display:flex;flex-direction:column;min-width:0;height:100%;overflow:hidden}
+  .topbar{display:flex;align-items:center;gap:16px;padding:16px 28px;background:rgba(244,246,244,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+  .topbar h1{font-size:22px}
+  .search{position:relative;margin-left:auto;width:min(320px,40vw)}
+  .search input{padding-left:38px}
+  .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted2)}
+  .iconbtn{width:40px;height:40px;border-radius:11px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--ink);position:relative}
+  .iconbtn .dotn{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:999px;background:var(--danger);border:2px solid #fff}
+  .content{padding:26px 28px 60px;overflow:auto}
+  .screen[hidden]{display:none}
+
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+  @media(max-width:1100px){.grid4{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+
+  .stat{padding:18px}
+  .stat .lab{font-size:13px;color:var(--muted);font-weight:600}
+  .stat .val{font-family:'Bricolage Grotesque';font-weight:800;font-size:32px;margin:6px 0 4px}
+  .stat .delta{font-size:12.5px;font-weight:700}
+  .up{color:var(--green-deep)}.down{color:var(--danger)}
+  .stat .ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;float:right}
+
+  .panelhead{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+  .panelhead h3{font-size:16px}
+  .panelbody{padding:6px 4px}
+
+  .chart{display:flex;align-items:flex-end;gap:14px;height:180px;padding:18px 18px 8px}
+  .bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
+  .bar span{width:100%;max-width:34px;background:linear-gradient(180deg,var(--green-soft),var(--green));border-radius:8px 8px 3px 3px;transition:height .8s cubic-bezier(.25,.8,.3,1)}
+  .bar small{font-size:11px;color:var(--muted2);font-weight:600}
+
+  .act{display:flex;gap:12px;padding:12px 18px;border-bottom:1px solid #F0F3EE;align-items:center}
+  .act:last-child{border-bottom:0}
+  .act .ai{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .act .t{font-size:13.5px;font-weight:600}.act .s{font-size:12px;color:var(--muted2)}
+  .act time{margin-left:auto;font-size:12px;color:var(--muted2);white-space:nowrap}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+  .prodimg{width:38px;height:38px;border-radius:9px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .lowest{color:var(--green-deep);font-weight:800}
+
+  .receipt{padding:16px;display:flex;flex-direction:column;gap:12px}
+  .rline{display:flex;justify-content:space-between;font-size:13px;color:#3C4A42}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dark);color:#fff;padding:12px 20px;border-radius:12px;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:.3s;z-index:50;display:flex;align-items:center;gap:10px}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .switch{width:42px;height:24px;border-radius:999px;background:#D4DAD3;position:relative;cursor:pointer;transition:.2s;flex:0 0 auto}
+  .switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:999px;background:#fff;transition:.2s}
+  .switch.on{background:var(--green)}.switch.on::after{left:21px}
+  .empty{padding:40px;text-align:center;color:var(--muted2);font-size:14px}
+  .price-in{max-width:104px}
+</style>
+</head>
+<body>
+
+<!-- ==================== LOGIN ==================== -->
+<div class="login" id="login">
+  <div class="login__brand">
+    <div class="login__glow"></div>
+    <div style="position:relative;display:flex;align-items:center;gap:12px">
+      <span class="k" style="width:40px;height:40px;font-size:24px">K</span>
+      <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:24px">Krahaso</span>
+      <span style="margin-left:6px;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--green-soft);border:1px solid rgba(95,215,158,.4);padding:3px 8px;border-radius:999px">ADMIN</span>
+    </div>
+    <div style="position:relative">
+      <h1 style="font-size:40px;font-weight:700;max-width:12ch">Menaxho platformën Krahaso.</h1>
+      <p style="color:#9DB0A6;font-size:16px;max-width:34ch;margin-top:14px">Çmimet, ofertat, faturat dhe shpërblimet — të gjitha në një panel.</p>
+    </div>
+    <div style="position:relative;font-size:12.5px;color:#6E837A">© 2026 Krahaso · admin.krahaso.app</div>
+  </div>
+
+  <div class="login__form">
+    <form class="login__inner" id="loginForm">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px" class="mob-brand">
+        <span class="k" style="width:36px;height:36px;font-size:22px">K</span>
+        <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:20px">Krahaso Admin</span>
+      </div>
+      <h2 style="font-size:26px;font-weight:700">Hyr në panel</h2>
+      <p style="color:var(--muted);font-size:14px;margin:8px 0 24px">Fut kredencialet e tua për të vazhduar.</p>
+      <div style="margin-bottom:16px">
+        <label for="email">Email</label>
+        <input id="email" type="email" value="admin@krahaso.app" autocomplete="username">
+      </div>
+      <div style="margin-bottom:10px">
+        <label for="pass">Fjalëkalimi</label>
+        <input id="pass" type="password" value="••••••••" autocomplete="current-password">
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;font-size:13px">
+        <label style="display:flex;align-items:center;gap:7px;margin:0;color:var(--ink);font-weight:500"><input type="checkbox" checked style="width:auto"> Më mban mend</label>
+        <a href="#" style="color:var(--green);font-weight:600">Harrove fjalëkalimin?</a>
+      </div>
+      <button class="btn btn-green" type="submit" style="width:100%;justify-content:center;padding:13px">Hyr</button>
+      <p style="text-align:center;font-size:12.5px;color:var(--muted2);margin-top:18px">Qasje vetëm për ekipin e Krahaso.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== APP ==================== -->
+<div class="app" id="app" hidden>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="k" style="width:34px;height:34px;font-size:20px">K</span>
+      <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:19px;color:#fff">Krahaso</span>
+    </div>
+    <div class="navitem active" data-view="dashboard" data-title="Paneli">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+      Paneli
+    </div>
+    <div class="navitem" data-view="produktet" data-title="Produktet">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-5 9 5v9l-9 5-9-5z"/><path d="M3 9l9 5 9-5M12 14v9"/></svg>
+      Produktet <span class="badge">248</span>
+    </div>
+    <div class="navitem" data-view="cmimet" data-title="Çmimet">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      Çmimet
+    </div>
+    <div class="navitem" data-view="ofertat" data-title="Ofertat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 12.4L12 21l-8.6-8.6A5 5 0 0112 5.6a5 5 0 018.6 6.8z"/></svg>
+      Ofertat
+    </div>
+    <div class="navitem" data-view="faturat" data-title="Faturat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"/><path d="M9 7h6M9 11h6"/></svg>
+      Faturat <span class="badge">12</span>
+    </div>
+    <div class="sep">Konfigurimi</div>
+    <div class="navitem" data-view="supermarketet" data-title="Supermarketet">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9M4 9h16v11H4zM9 20v-6h6v6"/></svg>
+      Supermarketet
+    </div>
+    <div class="navitem" data-view="shperblimet" data-title="Pikët & Shpërblimet">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6 6.6.5-5 4.3 1.6 6.4L12 16l-6.1 3.2L7.5 12.8l-5-4.3L9 8z"/></svg>
+      Shpërblimet
+    </div>
+    <div class="navitem" data-view="cilesimet" data-title="Cilësimet">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-.1-1.3l2-1.6-2-3.4-2.4 1a7 7 0 00-2.3-1.3L13.8 2h-3.6l-.4 2.4A7 7 0 007.5 5.7l-2.4-1-2 3.4 2 1.6A7 7 0 005 12c0 .4 0 .9.1 1.3l-2 1.6 2 3.4 2.4-1a7 7 0 002.3 1.3l.4 2.4h3.6l.4-2.4a7 7 0 002.3-1.3l2.4 1 2-3.4-2-1.6c.1-.4.1-.9.1-1.3z"/></svg>
+      Cilësimet
+    </div>
+    <div class="user">
+      <span class="avatar">AZ</span>
+      <div style="min-width:0"><div style="font-size:13.5px;font-weight:700;color:#fff">Arta Zeqiri</div><div style="font-size:12px;color:#7E8C84">Administratore</div></div>
+      <button class="iconbtn" id="logout" title="Dil" style="margin-left:auto;width:34px;height:34px;background:transparent;border-color:rgba(255,255,255,.12);color:#9DB0A6">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 17l5-5-5-5M21 12H9M12 3H5v18h7"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <h1 id="pageTitle">Paneli</h1>
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input id="globalSearch" placeholder="Kërko produkte, oferta, supermarkete…">
+      </div>
+      <button class="iconbtn" title="Njoftime"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg><span class="dotn"></span></button>
+      <button class="btn btn-green"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg> Shto</button>
+    </header>
+
+    <div class="content">
+
+      <!-- ===== DASHBOARD ===== -->
+      <section class="screen" data-screen="dashboard">
+        <div class="grid4" style="margin-bottom:16px">
+          <div class="card stat"><span class="ic" style="background:var(--tint);color:var(--green-deep)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-5 9 5v9l-9 5-9-5z"/></svg></span><div class="lab">Produkte të gjurmuara</div><div class="val">248</div><div class="delta up">▲ 12 këtë javë</div></div>
+          <div class="card stat"><span class="ic" style="background:#E7F0FB;color:var(--blue)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 6l-9.5 9.5-5-5L1 18"/></svg></span><div class="lab">Përditësime çmimesh (sot)</div><div class="val">1,342</div><div class="delta up">▲ 8%</div></div>
+          <div class="card stat"><span class="ic" style="background:#FCEFDD;color:var(--amber)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"/></svg></span><div class="lab">Fatura në pritje</div><div class="val">12</div><div class="delta down">Kërkon veprim</div></div>
+          <div class="card stat"><span class="ic" style="background:var(--tint);color:var(--green-deep)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 12.4L12 21l-8.6-8.6A5 5 0 0112 5.6a5 5 0 018.6 6.8z"/></svg></span><div class="lab">Oferta aktive</div><div class="val">37</div><div class="delta up">▲ 5 të reja</div></div>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <div class="panelhead"><h3>Përditësime çmimesh — java</h3><span class="pill pill-ok" style="margin-left:auto">+8% vs java e kaluar</span></div>
+            <div class="chart">
+              <div class="bar"><span style="height:52%"></span><small>Hën</small></div>
+              <div class="bar"><span style="height:64%"></span><small>Mar</small></div>
+              <div class="bar"><span style="height:48%"></span><small>Mër</small></div>
+              <div class="bar"><span style="height:78%"></span><small>Enj</small></div>
+              <div class="bar"><span style="height:90%"></span><small>Pre</small></div>
+              <div class="bar"><span style="height:70%"></span><small>Sht</small></div>
+              <div class="bar"><span style="height:38%"></span><small>Die</small></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="panelhead"><h3>Aktiviteti i fundit</h3></div>
+            <div>
+              <div class="act"><span class="ai" style="background:var(--tint);color:var(--green-deep)">✓</span><div><div class="t">Fatura #4821 u verifikua</div><div class="s">Viva Fresh · +85 pikë</div></div><time>2 min</time></div>
+              <div class="act"><span class="ai" style="background:#E7F0FB;color:var(--blue)">€</span><div><div class="t">Çmimi i përditësuar · Qumësht 1L</div><div class="s">Interex €1.22 → €1.19</div></div><time>18 min</time></div>
+              <div class="act"><span class="ai" style="background:#FCEFDD;color:var(--amber)">%</span><div><div class="t">Ofertë e re · Kafe 500g −15%</div><div class="s">ETC · skadon më 14.07</div></div><time>1 orë</time></div>
+              <div class="act"><span class="ai" style="background:var(--tint);color:var(--green-deep)">+</span><div><div class="t">Produkt i ri u shtua</div><div class="s">Detergjent 2L · Persil</div></div><time>3 orë</time></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== PRODUKTET ===== -->
+      <section class="screen" data-screen="produktet" hidden>
+        <div class="toolbar">
+          <input id="prodFilter" placeholder="Filtro produktet…" style="max-width:280px">
+          <select style="max-width:180px"><option>Të gjitha kategoritë</option><option>Bulmet</option><option>Bukë</option><option>Vezë</option><option>Vajra</option><option>Kafe</option><option>Fruta</option><option>Pastrim</option></select>
+          <button class="btn btn-green" style="margin-left:auto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg> Shto produkt</button>
+        </div>
+        <div class="card">
+          <table id="prodTable">
+            <thead><tr><th>Produkti</th><th>Kategoria</th><th>Madhësia</th><th>Çmimi më i mirë</th><th>Supermarkete</th><th>Statusi</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><div style="display:flex;align-items:center;gap:12px"><span class="prodimg">🥛</span><div><div style="font-weight:600">Qumësht 1L</div><div style="font-size:12px;color:var(--muted2)">Vita</div></div></div></td><td>Bulmet</td><td>1 litër</td><td><span class="lowest">€1.15</span></td><td>4/4</td><td><span class="pill pill-ok">Aktiv</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+              <tr><td><div style="display:flex;align-items:center;gap:12px"><span class="prodimg">🍞</span><div><div style="font-weight:600">Bukë</div><div style="font-size:12px;color:var(--muted2)">Furra Eliza</div></div></div></td><td>Bukë</td><td>500g</td><td><span class="lowest">€0.55</span></td><td>4/4</td><td><span class="pill pill-ok">Aktiv</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+              <tr><td><div style="display:flex;align-items:center;gap:12px"><span class="prodimg">🥚</span><div><div style="font-weight:600">Vezë, 10 copë</div><div style="font-size:12px;color:var(--muted2)">Kokrra</div></div></div></td><td>Vezë</td><td>10 copë</td><td><span class="lowest">€1.90</span></td><td>4/4</td><td><span class="pill pill-ok">Aktiv</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+              <tr><td><div style="display:flex;align-items:center;gap:12px"><span class="prodimg">🫒</span><div><div style="font-weight:600">Vaj 1L</div><div style="font-size:12px;color:var(--muted2)">Budget</div></div></div></td><td>Vajra</td><td>1 litër</td><td><span class="lowest">€3.29</span></td><td>3/4</td><td><span class="pill pill-warn">Mungon 1</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+              <tr><td><div style="display:flex;align-items:center;gap:12px"><span class="prodimg">☕</span><div><div style="font-weight:600">Kafe 500g</div><div style="font-size:12px;color:var(--muted2)">Prince</div></div></div></td><td>Kafe</td><td>500g</td><td><span class="lowest">€4.20</span></td><td>4/4</td><td><span class="pill pill-ok">Aktiv</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+              <tr><td><div style="display:flex;align-items:center;gap:12px"><span class="prodimg">🍌</span><div><div style="font-weight:600">Banane 1kg</div><div style="font-size:12px;color:var(--muted2)">—</div></div></div></td><td>Fruta</td><td>1 kg</td><td><span class="lowest">€1.30</span></td><td>4/4</td><td><span class="pill pill-ok">Aktiv</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+              <tr><td><div style="display:flex;align-items:center;gap:12px"><span class="prodimg">🧴</span><div><div style="font-weight:600">Detergjent 2L</div><div style="font-size:12px;color:var(--muted2)">Persil</div></div></div></td><td>Pastrim</td><td>2 litra</td><td><span class="lowest">€7.90</span></td><td>3/4</td><td><span class="pill pill-warn">Mungon 1</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+            </tbody>
+          </table>
+          <div class="empty" id="prodEmpty" hidden>Asnjë produkt nuk përputhet me kërkimin.</div>
+        </div>
+      </section>
+
+      <!-- ===== ÇMIMET ===== -->
+      <section class="screen" data-screen="cmimet" hidden>
+        <div class="toolbar">
+          <label style="margin:0">Produkti:</label>
+          <select style="max-width:240px"><option>Qumësht 1L · Vita</option><option>Bukë · Furra Eliza</option><option>Kafe 500g · Prince</option></select>
+          <span class="pill pill-ok" style="margin-left:6px">Përditësuar 18 min më parë</span>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <div class="panelhead"><h3>Çmimet sipas supermarketit</h3></div>
+            <div style="padding:6px 4px">
+              <table>
+                <thead><tr><th>Supermarketi</th><th>Çmimi</th><th>Promo</th><th>Dispozicion</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="chip"><span class="dot" style="background:#3E9B4F"></span>Viva Fresh</span></td><td><input class="price-in" value="1.15"></td><td><input class="price-in" placeholder="—"></td><td><span class="switch on" data-switch></span></td></tr>
+                  <tr><td><span class="chip"><span class="dot" style="background:#D23B3B"></span>Interex</span></td><td><input class="price-in" value="1.19"></td><td><input class="price-in" placeholder="—"></td><td><span class="switch on" data-switch></span></td></tr>
+                  <tr><td><span class="chip"><span class="dot" style="background:#2F6BD1"></span>ETC</span></td><td><input class="price-in" value="1.29"></td><td><input class="price-in" value="1.45"></td><td><span class="switch on" data-switch></span></td></tr>
+                  <tr><td><span class="chip"><span class="dot" style="background:#E0871E"></span>Meridian Express</span></td><td><input class="price-in" value="1.35"></td><td><input class="price-in" placeholder="—"></td><td><span class="switch on" data-switch></span></td></tr>
+                </tbody>
+              </table>
+              <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 14px 8px"><button class="btn btn-ghost">Anulo</button><button class="btn btn-green" data-toast="Çmimet u ruajtën">Ruaj ndryshimet</button></div>
+            </div>
+          </div>
+          <div class="card" style="align-self:start">
+            <div class="panelhead"><h3>Përmbledhje</h3></div>
+            <div style="padding:18px">
+              <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F0F3EE"><span style="color:var(--muted)">Çmimi më i ulët</span><span class="num" style="color:var(--green-deep)">€1.15</span></div>
+              <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F0F3EE"><span style="color:var(--muted)">Më i larti</span><span class="num">€1.35</span></div>
+              <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F0F3EE"><span style="color:var(--muted)">Diferenca</span><span class="num">€0.20</span></div>
+              <div style="display:flex;justify-content:space-between;padding:10px 0"><span style="color:var(--muted)">Çmimi/litër</span><span class="num">€1.15</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== OFERTAT ===== -->
+      <section class="screen" data-screen="ofertat" hidden>
+        <div class="toolbar">
+          <select style="max-width:180px"><option>Të gjitha</option><option>Aktive</option><option>Të skaduara</option></select>
+          <button class="btn btn-green" style="margin-left:auto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg> Krijo ofertë</button>
+        </div>
+        <div class="grid3">
+          <div class="card" style="padding:18px"><div style="display:flex;align-items:start;justify-content:space-between"><span class="chip"><span class="dot" style="background:#2F6BD1"></span>ETC</span><span class="switch on" data-switch></span></div><h3 style="margin:14px 0 4px;font-size:20px">Kafe 500g <span style="color:var(--green-deep)">−15%</span></h3><div style="font-size:13px;color:var(--muted)">€4.99 → €4.20 · skadon 14.07.2026</div><div style="margin-top:14px"><span class="pill pill-ok">Aktive</span></div></div>
+          <div class="card" style="padding:18px"><div style="display:flex;align-items:start;justify-content:space-between"><span class="chip"><span class="dot" style="background:#3E9B4F"></span>Viva Fresh</span><span class="switch on" data-switch></span></div><h3 style="margin:14px 0 4px;font-size:20px">Pelenat <span style="color:var(--green-deep)">−20%</span></h3><div style="font-size:13px;color:var(--muted)">€12.90 → €10.32 · skadon 20.07.2026</div><div style="margin-top:14px"><span class="pill pill-ok">Aktive</span></div></div>
+          <div class="card" style="padding:18px"><div style="display:flex;align-items:start;justify-content:space-between"><span class="chip"><span class="dot" style="background:#D23B3B"></span>Interex</span><span class="switch" data-switch></span></div><h3 style="margin:14px 0 4px;font-size:20px">Detergjent 2L <span style="color:var(--green-deep)">−10%</span></h3><div style="font-size:13px;color:var(--muted)">€8.00 → €7.20 · skaduar 01.07.2026</div><div style="margin-top:14px"><span class="pill pill-off">Joaktive</span></div></div>
+          <div class="card" style="padding:18px"><div style="display:flex;align-items:start;justify-content:space-between"><span class="chip"><span class="dot" style="background:#E0871E"></span>Meridian</span><span class="switch on" data-switch></span></div><h3 style="margin:14px 0 4px;font-size:20px">Vaj 1L <span style="color:var(--green-deep)">−12%</span></h3><div style="font-size:13px;color:var(--muted)">€3.49 → €3.07 · skadon 18.07.2026</div><div style="margin-top:14px"><span class="pill pill-ok">Aktive</span></div></div>
+        </div>
+      </section>
+
+      <!-- ===== FATURAT ===== -->
+      <section class="screen" data-screen="faturat" hidden>
+        <div class="toolbar"><h3 style="font-size:15px;margin:0">Radha e verifikimit</h3><span class="pill pill-warn">12 në pritje</span></div>
+        <div class="grid3" id="receiptGrid">
+          <div class="card receipt"><div style="display:flex;justify-content:space-between;align-items:center"><span class="chip"><span class="dot" style="background:#3E9B4F"></span>Viva Fresh</span><span style="font-size:12px;color:var(--muted2)">#4822</span></div><div class="rline"><span>Qumësht 1L, Bukë, Vezë…</span></div><div class="rline"><span>4 produkte</span><span class="num">€4.90</span></div><div class="rline" style="color:var(--green-deep);font-weight:700"><span>Pikë për t'u dhënë</span><span>+85</span></div><div style="display:flex;gap:8px;margin-top:6px"><button class="btn btn-green btn-sm" style="flex:1;justify-content:center" data-approve>Aprovo</button><button class="btn btn-ghost btn-sm" data-reject>Refuzo</button></div></div>
+          <div class="card receipt"><div style="display:flex;justify-content:space-between;align-items:center"><span class="chip"><span class="dot" style="background:#D23B3B"></span>Interex</span><span style="font-size:12px;color:var(--muted2)">#4823</span></div><div class="rline"><span>Kafe 500g, Banane 1kg…</span></div><div class="rline"><span>3 produkte</span><span class="num">€7.10</span></div><div class="rline" style="color:var(--green-deep);font-weight:700"><span>Pikë për t'u dhënë</span><span>+120</span></div><div style="display:flex;gap:8px;margin-top:6px"><button class="btn btn-green btn-sm" style="flex:1;justify-content:center" data-approve>Aprovo</button><button class="btn btn-ghost btn-sm" data-reject>Refuzo</button></div></div>
+          <div class="card receipt"><div style="display:flex;justify-content:space-between;align-items:center"><span class="chip"><span class="dot" style="background:#2F6BD1"></span>ETC</span><span style="font-size:12px;color:var(--muted2)">#4824</span></div><div class="rline"><span>Detergjent 2L, Vaj 1L…</span></div><div class="rline"><span>5 produkte</span><span class="num">€21.40</span></div><div class="rline" style="color:var(--green-deep);font-weight:700"><span>Pikë për t'u dhënë</span><span>+210</span></div><div style="display:flex;gap:8px;margin-top:6px"><button class="btn btn-green btn-sm" style="flex:1;justify-content:center" data-approve>Aprovo</button><button class="btn btn-ghost btn-sm" data-reject>Refuzo</button></div></div>
+        </div>
+      </section>
+
+      <!-- ===== SUPERMARKETET ===== -->
+      <section class="screen" data-screen="supermarketet" hidden>
+        <div class="toolbar"><button class="btn btn-green" style="margin-left:auto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg> Shto supermarket</button></div>
+        <div class="card">
+          <table>
+            <thead><tr><th>Supermarketi</th><th>Degë</th><th>Produkte</th><th>Oferta aktive</th><th>Statusi</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><span class="chip"><span class="dot" style="background:#3E9B4F"></span>Viva Fresh</span></td><td>14</td><td>248</td><td>6</td><td><span class="pill pill-ok">Aktiv</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+              <tr><td><span class="chip"><span class="dot" style="background:#D23B3B"></span>Interex</span></td><td>9</td><td>231</td><td>4</td><td><span class="pill pill-ok">Aktiv</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+              <tr><td><span class="chip"><span class="dot" style="background:#2F6BD1"></span>ETC</span></td><td>7</td><td>219</td><td>5</td><td><span class="pill pill-ok">Aktiv</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+              <tr><td><span class="chip"><span class="dot" style="background:#E0871E"></span>Meridian Express</span></td><td>5</td><td>198</td><td>3</td><td><span class="pill pill-ok">Aktiv</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+              <tr><td><span class="chip"><span class="dot" style="background:#7A4FBF"></span>Maxi</span></td><td>3</td><td>142</td><td>1</td><td><span class="pill pill-off">Në pritje</span></td><td><button class="btn btn-ghost btn-sm">Ndrysho</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== SHPËRBLIMET ===== -->
+      <section class="screen" data-screen="shperblimet" hidden>
+        <div class="grid4" style="margin-bottom:16px">
+          <div class="card stat"><div class="lab">Pikë të dhëna (muaj)</div><div class="val">184,320</div><div class="delta up">▲ 14%</div></div>
+          <div class="card stat"><div class="lab">Shpërblime të shkëmbyera</div><div class="val">1,908</div><div class="delta up">▲ 6%</div></div>
+          <div class="card stat"><div class="lab">Kupona aktivë</div><div class="val">24</div><div class="delta">—</div></div>
+          <div class="card stat"><div class="lab">Vlera mesatare/kupon</div><div class="val">€4.20</div><div class="delta">—</div></div>
+        </div>
+        <div class="card">
+          <div class="panelhead"><h3>Katalogu i shpërblimeve</h3><button class="btn btn-green btn-sm" style="margin-left:auto">Shto shpërblim</button></div>
+          <table>
+            <thead><tr><th>Shpërblimi</th><th>Lloji</th><th>Kosto (pikë)</th><th>Të shkëmbyera</th><th>Statusi</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:600">Kupon −€5</td><td>Zbritje</td><td>500</td><td>842</td><td><span class="pill pill-ok">Aktiv</span></td></tr>
+              <tr><td style="font-weight:600">Kafe 500g falas</td><td>Produkt</td><td>750</td><td>318</td><td><span class="pill pill-ok">Aktiv</span></td></tr>
+              <tr><td style="font-weight:600">−15% furra e lagjes</td><td>Partner</td><td>300</td><td>512</td><td><span class="pill pill-ok">Aktiv</span></td></tr>
+              <tr><td style="font-weight:600">Kupon −€10</td><td>Zbritje</td><td>1000</td><td>236</td><td><span class="pill pill-off">Draft</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== CILËSIMET ===== -->
+      <section class="screen" data-screen="cilesimet" hidden>
+        <div class="card" style="max-width:640px">
+          <div class="panelhead"><h3>Cilësimet e platformës</h3></div>
+          <div style="padding:20px;display:flex;flex-direction:column;gap:18px">
+            <div><label>Emri i platformës</label><input value="Krahaso"></div>
+            <div><label>Email kontakti</label><input value="pershendetje@krahaso.app"></div>
+            <div style="display:flex;gap:16px"><div style="flex:1"><label>Monedha</label><select><option>EUR (€)</option></select></div><div style="flex:1"><label>Gjuha</label><select><option>Shqip</option><option>English</option></select></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line)"><div><div style="font-weight:600;font-size:14px">Verifikim automatik i faturave</div><div style="font-size:12.5px;color:var(--muted2)">Aprovo faturat nën €10 automatikisht</div></div><span class="switch" data-switch></span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line)"><div><div style="font-weight:600;font-size:14px">Njoftime për ulje çmimesh</div><div style="font-size:12.5px;color:var(--muted2)">Dërgo push kur çmimi bie mbi 10%</div></div><span class="switch on" data-switch></span></div>
+            <div style="display:flex;justify-content:flex-end;gap:10px"><button class="btn btn-ghost">Anulo</button><button class="btn btn-green" data-toast="Cilësimet u ruajtën">Ruaj</button></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--green-soft)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg">U ruajt</span></div>
+
+<script>
+  var $ = function(s,r){return (r||document).querySelector(s)};
+  var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+  // ---- Login ----
+  $('#loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    $('#login').hidden = true;
+    $('#app').hidden = false;
+  });
+  $('#logout').addEventListener('click', function(){
+    $('#app').hidden = true;
+    $('#login').hidden = false;
+  });
+
+  // ---- Sidebar navigation ----
+  $$('.navitem').forEach(function(item){
+    item.addEventListener('click', function(){
+      $$('.navitem').forEach(function(n){n.classList.remove('active')});
+      item.classList.add('active');
+      var view = item.getAttribute('data-view');
+      $('#pageTitle').textContent = item.getAttribute('data-title');
+      $$('.screen').forEach(function(s){ s.hidden = s.getAttribute('data-screen') !== view; });
+      $('.content').scrollTop = 0;
+    });
+  });
+
+  // ---- Product search filter ----
+  var pf = $('#prodFilter');
+  if(pf) pf.addEventListener('input', function(){
+    var q = this.value.trim().toLowerCase(), any=false;
+    $$('#prodTable tbody tr').forEach(function(tr){
+      var match = tr.textContent.toLowerCase().indexOf(q) > -1;
+      tr.style.display = match ? '' : 'none';
+      if(match) any=true;
+    });
+    $('#prodEmpty').hidden = any;
+  });
+
+  // ---- Toggles (switches) ----
+  document.addEventListener('click', function(e){
+    var sw = e.target.closest('[data-switch]');
+    if(sw) sw.classList.toggle('on');
+  });
+
+  // ---- Toast buttons ----
+  var toast = $('#toast');
+  function showToast(msg){ $('#toastMsg').textContent = msg; toast.classList.add('show'); setTimeout(function(){toast.classList.remove('show')},2000); }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-toast]');
+    if(b) showToast(b.getAttribute('data-toast'));
+  });
+
+  // ---- Receipt approve / reject ----
+  document.addEventListener('click', function(e){
+    var ap = e.target.closest('[data-approve]'), rj = e.target.closest('[data-reject]');
+    var btn = ap || rj;
+    if(!btn) return;
+    var card = btn.closest('.receipt');
+    card.style.transition='.3s'; card.style.opacity='0'; card.style.transform='scale(.96)';
+    setTimeout(function(){
+      card.remove();
+      if(!$('#receiptGrid').children.length){ $('#receiptGrid').innerHTML = '<div class="empty" style="grid-column:1/-1">Të gjitha faturat u shqyrtuan. 🎉</div>'; }
+    },300);
+    showToast(ap ? 'Fatura u aprovua · pikët u dhanë' : 'Fatura u refuzua');
+  });
+</script>
+</body>
+</html>
