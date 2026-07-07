@@ -17,7 +17,8 @@ interface ContainImgProps {
  * served as-is (the deploy environment may not proxy them).
  */
 export function ContainImg({ src, alt, sizes = "96px", pad, priority, className }: ContainImgProps) {
-  const remote = src.startsWith("http");
+  // Remote photos and local SVGs bypass the optimizer (Next rejects SVGs by default).
+  const remote = src.startsWith("http") || src.endsWith(".svg");
   const style: CSSProperties = { objectFit: "contain" };
   if (pad !== undefined) style.padding = typeof pad === "number" ? `${pad}px` : pad;
   return (

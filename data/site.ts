@@ -47,16 +47,14 @@ export interface Faq {
   a: string;
 }
 
-/** Local packshots + two remote grocery photos (bread & banane). */
+/** Local packshots. Bread & banane are self-contained SVGs; hero photo is remote. */
 export const IMG = {
   milk: "/products/milk.png",
-  bread:
-    "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=70&auto=format&fit=crop",
+  bread: "/products/bread.svg",
   eggs: "/products/eggs.png",
   oil: "/products/oil.png",
   coffee: "/products/coffee.png",
-  banana:
-    "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&q=70&auto=format&fit=crop",
+  banana: "/products/banana.svg",
   detergent: "/products/detergent.png",
   heroGroceries:
     "https://images.unsplash.com/photo-1542838132-92c53300491e?w=700&q=75&auto=format&fit=crop",
