@@ -68,11 +68,11 @@ export function ScrollJourney() {
         </Reveal>
       </div>
 
-      <div className="mx-auto grid max-w-[1180px] grid-cols-[138px_1fr] items-start gap-4 px-4 pb-[60px] sm:grid-cols-[165px_1fr] md:grid-cols-[.9fr_1.1fr] md:gap-5 md:px-6">
+      <div className="mx-auto grid max-w-[1180px] grid-cols-[172px_1fr] items-start gap-3 px-4 pb-[60px] sm:grid-cols-[192px_1fr] sm:gap-4 md:grid-cols-[.9fr_1.1fr] md:gap-5 md:px-6">
         {/* phone — pinned beside the steps; scaled down on mobile so both fit side by side */}
         <div className="sticky top-16 z-[1] self-start justify-self-center md:top-20">
-          <div className="h-[286px] w-[138px] sm:h-[341px] sm:w-[165px] md:h-auto md:w-auto">
-            <div className="origin-top-left scale-[0.46] sm:scale-[0.55] md:scale-100">
+          <div className="h-[356px] w-[172px] sm:h-[397px] sm:w-[192px] md:h-auto md:w-auto">
+            <div className="origin-top-left scale-[0.573] sm:scale-[0.64] md:scale-100">
               <div
                 className="w-[300px] rounded-[44px] bg-black p-2.5"
                 style={{ boxShadow: "0 44px 100px -30px rgba(0,0,0,.75)" }}
@@ -239,13 +239,15 @@ export function ScrollJourney() {
               className="v3step flex min-h-[46vh] flex-col justify-center py-3 md:min-h-[60vh] md:py-4"
               data-on={on(i)}
             >
-              <div className="mb-1.5 font-display text-[13px] font-extrabold text-brand-soft md:mb-2.5 md:text-[15px]">
+              <div className="mb-1 font-display text-[11px] font-extrabold text-brand-soft md:mb-2.5 md:text-[15px]">
                 {s.n}
               </div>
-              <h3 className="mb-2 font-display font-bold text-[20px] sm:text-[26px] md:text-[34px] lg:text-[40px]">
+              <h3 className="mb-1.5 font-display font-bold text-[16px] sm:text-[20px] md:text-[34px] md:mb-2 lg:text-[40px]">
                 {s.title}
               </h3>
-              <p className="max-w-[32ch] text-[15px] text-[#B4BEB8] md:text-[17px]">{s.copy}</p>
+              <p className="max-w-[30ch] text-[12.5px] leading-snug text-[#B4BEB8] sm:text-[14px] md:text-[17px] md:leading-normal">
+                {s.copy}
+              </p>
             </div>
           ))}
         </div>

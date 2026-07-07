@@ -235,7 +235,7 @@ export const JOURNEY_STEPS: JourneyStep[] = [
   { n: "05", title: "Merr pikët", copy: "Automatikisht, menjëherë." },
   {
     n: "06",
-    title: "Zhbllokou shpërblimin",
+    title: "Zbulo shpërblimin",
     copy: "Kupona, produkte falas, oferta.",
   },
 ];
