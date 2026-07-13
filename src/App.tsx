@@ -75,9 +75,9 @@ function App() {
           </div>
 
           <div className="flex items-center gap-3 text-[#2d3a2a] sm:gap-6">
-            <a href="#per-shitoret" className="hidden items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70 sm:flex">
+            <a href="#partneret" className="hidden items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70 sm:flex">
               <UserPlus className="h-4 w-4" />
-              Për shitoret
+              Partnerët
             </a>
             <a href="https://admin.krahaso.app" className="hidden items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70 sm:flex">
               <LogIn className="h-4 w-4" />
@@ -126,8 +126,8 @@ function App() {
               className={`mt-8 flex flex-col gap-5 transition-all duration-500 ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
               style={{ transitionDelay: menuOpen ? '400ms' : '0ms' }}
             >
-              <a href="#per-shitoret" className="flex items-center gap-2 text-sm font-medium text-[#2d3a2a] sm:hidden">
-                <UserPlus className="h-4 w-4" /> Për shitoret
+              <a href="#partneret" className="flex items-center gap-2 text-sm font-medium text-[#2d3a2a] sm:hidden">
+                <UserPlus className="h-4 w-4" /> Partnerët
               </a>
               <a href="https://admin.krahaso.app" className="flex items-center gap-2 text-sm font-medium text-[#2d3a2a] sm:hidden">
                 <LogIn className="h-4 w-4" /> Admin
@@ -297,10 +297,10 @@ function App() {
         </div>
       </section>
 
-      <section id="per-shitoret" className="relative overflow-hidden bg-[#e8ece5] px-5 py-20 sm:px-10 sm:py-24 lg:px-16" aria-labelledby="stores-title">
+      <section id="partneret" className="relative overflow-hidden bg-[#e8ece5] px-5 py-20 sm:px-10 sm:py-24 lg:px-16" aria-labelledby="stores-title">
         <span className="absolute -right-10 top-1/2 -translate-y-1/2 select-none text-[23rem] font-medium leading-none tracking-[-0.1em] text-white/45 sm:text-[34rem]" aria-hidden="true">K</span>
         <div className="reveal relative z-10 mx-auto flex max-w-[1400px] flex-col justify-between gap-10 lg:flex-row lg:items-end">
-          <div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#85AB8B]">Për shitoret</p><h2 id="stores-title" className="mt-5 max-w-3xl text-[clamp(3.25rem,7vw,7.5rem)] font-normal leading-[0.88] tracking-[-0.055em]">Bëhu pjesë e zgjedhjes.</h2></div>
+          <div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#85AB8B]">Për partnerët</p><h2 id="stores-title" className="mt-5 max-w-3xl text-[clamp(3.25rem,7vw,7.5rem)] font-normal leading-[0.88] tracking-[-0.055em]">Bëhu pjesë e zgjedhjes.</h2></div>
           <a href="https://admin.krahaso.app" className="inline-flex w-fit items-center gap-2 rounded-full bg-[#1f2a1d] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#2a3827]"><LogIn className="h-4 w-4" /> Hyr në admin</a>
         </div>
       </section>
