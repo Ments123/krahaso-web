@@ -69,6 +69,17 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.match(css, /hero-wash/);
   assert.match(css, /brand-panel/);
   assert.match(css, /reveal/);
+
+  const productReferences = app.match(/\/products\//g) ?? [];
+  assert.equal(productReferences.length, 1);
+  assert.doesNotMatch(app, /bread\.svg|banana\.svg|✓|🥖|🍌/u);
+  assert.match(app, /comparison-signal/);
+  assert.match(app, /receipt-plane/);
+  assert.match(app, /reward-orbit/);
+  assert.match(app, /closing-k/);
+  assert.match(css, /product-cutout/);
+  assert.match(css, /brand-drift/);
+  assert.match(css, /closing-k/);
 });
 
 test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {
