@@ -100,3 +100,11 @@ test("the final page composes every approved scene and labels illustrative conte
   assert.match(closing, /Për shitoret/);
   assert.match(chrome, /SiteFooter/);
 });
+
+test("the repository handoff documents the redesigned production workflow", async () => {
+  const readme = await read("README.md");
+  assert.match(readme, /npm run verify:design/);
+  assert.match(readme, /components\/revamp/);
+  assert.match(readme, /Krahaso → Skano → Fito/);
+  assert.match(readme, /prefers-reduced-motion/);
+});
