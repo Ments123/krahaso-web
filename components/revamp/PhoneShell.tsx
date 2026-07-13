@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 export function PhoneShell({ children, label, tone = "light", className = "" }: { children: ReactNode; label: string; tone?: "light" | "dark"; className?: string }) {
   return (
-    <div role="img" aria-label={label} className={`phone-shadow relative mx-auto w-[min(82vw,328px)] rounded-[48px] border border-white/15 bg-[#090d0b] p-[9px] ${className}`}>
+    <div role="group" aria-label={label} className={`phone-shadow relative mx-auto w-[min(82vw,328px)] rounded-[48px] border border-white/15 bg-[#090d0b] p-[9px] ${className}`}>
       <div className={`relative min-h-[618px] overflow-hidden rounded-[39px] ${tone === "dark" ? "bg-[#101914] text-white" : "bg-[#F2F4F1] text-ink"}`}>
         <div className="relative z-30 flex h-8 items-center justify-between px-6 pt-1 text-[11px] font-bold">
           <span>9:41</span>
