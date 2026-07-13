@@ -28,6 +28,8 @@ test("the phone story exposes compare, scan and reward states accessibly", async
     read("components/revamp/RewardScreen.tsx"),
   ]);
   assert.match(shell, /aria-label/);
+  assert.match(shell, /role="group"/);
+  assert.doesNotMatch(shell, /role="img"/);
   assert.match(compare, /Totali/);
   assert.match(compare, /Për produkt/);
   assert.match(scan, /Barkodi/);
@@ -73,4 +75,28 @@ test("the product journey is interactive on desktop and linear on mobile", async
   assert.match(journey, /JOURNEY_CHAPTERS/);
   assert.match(css, /journey-mobile/);
   assert.match(css, /max-width: 767px/);
+});
+
+test("the final page composes every approved scene and labels illustrative content", async () => {
+  const [page, closing, chrome] = await Promise.all([
+    read("app/page.tsx"),
+    read("components/revamp/ClosingSections.tsx"),
+    read("components/revamp/SiteChrome.tsx"),
+  ]);
+  for (const section of [
+    "SiteHeader",
+    "HeroStage",
+    "PriceProblem",
+    "ProductJourney",
+    "TrustSection",
+    "RetailerSection",
+    "DownloadFinale",
+    "SiteFooter",
+  ]) {
+    assert.match(page, new RegExp(`<${section}`));
+  }
+  assert.match(closing, /Logot janë vetëm ilustruese/);
+  assert.match(closing, /Çmimet janë vetëm shembuj demonstrues/);
+  assert.match(closing, /Për shitoret/);
+  assert.match(chrome, /SiteFooter/);
 });
