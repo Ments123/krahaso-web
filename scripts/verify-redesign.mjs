@@ -74,12 +74,23 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.equal(productReferences.length, 1);
   assert.doesNotMatch(app, /bread\.svg|banana\.svg|✓|🥖|🍌/u);
   assert.match(app, /comparison-signal/);
-  assert.match(app, /receipt-plane/);
+  assert.match(app, /price-plane/);
   assert.match(app, /reward-orbit/);
   assert.match(app, /closing-k/);
   assert.match(css, /product-cutout/);
   assert.match(css, /brand-drift/);
   assert.match(css, /closing-k/);
+
+  assert.match(app, /Harro fletushkat/);
+  assert.match(app, /Skano barkodin/);
+  assert.match(app, /Barkodi u njoh/);
+  assert.match(app, /Skano faturën/);
+  assert.match(app, /\/products\/coffee-cutout\.svg/);
+  assert.doesNotMatch(app, /\/products\/coffee\.png/);
+  assert.doesNotMatch(app, /Një aplikacion\. Një ritëm\./);
+  assert.doesNotMatch(app, /3 shitore/);
+  assert.doesNotMatch(css, /mix-blend-mode:\s*multiply/);
+  assert.doesNotMatch(app, /receipt-plane/);
 });
 
 test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {
