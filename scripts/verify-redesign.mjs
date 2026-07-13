@@ -35,3 +35,30 @@ test("the phone story exposes compare, scan and reward states accessibly", async
   assert.match(reward, /pikë/i);
   assert.match(reward, /shpërblim/i);
 });
+
+test("legacy sections retain their data contracts while the new page takes over", async () => {
+  const data = await read("data/site.ts");
+  for (const legacyExport of [
+    "BASKET_ITEMS",
+    "BENEFITS",
+    "FAQS",
+    "MARQUEE_LOGOS",
+    "JOURNEY_STEPS",
+  ]) {
+    assert.match(data, new RegExp(`export const ${legacyExport}`));
+  }
+  assert.match(data, /availText/);
+});
+
+test("the opening explains Krahaso immediately without invented proof", async () => {
+  const [hero, problem, chrome] = await Promise.all([
+    read("components/revamp/HeroStage.tsx"),
+    read("components/revamp/PriceProblem.tsx"),
+    read("components/revamp/SiteChrome.tsx"),
+  ]);
+  assert.match(hero, /Krahaso.*Skano.*Fito/s);
+  assert.match(hero, /Shkarko/);
+  assert.match(problem, /e njëjta shportë/i);
+  assert.match(chrome, /admin\.krahaso\.app/);
+  assert.doesNotMatch(hero + problem, /milion|rating|shkarkime|partner zyrtar/i);
+});
