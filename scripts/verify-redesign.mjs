@@ -4,107 +4,81 @@ import { readFile } from "node:fs/promises";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
-test("production shell carries the approved public-site contracts", async () => {
-  const [layout, css, tailwind] = await Promise.all([
-    read("app/layout.tsx"),
-    read("app/globals.css"),
-    read("tailwind.config.ts"),
+test("the active runtime is the approved Vite and Neue Haas foundation", async () => {
+  const [pkgRaw, html, css, vite, main, nodeConfig] = await Promise.all([
+    read("package.json"),
+    read("index.html"),
+    read("src/index.css"),
+    read("vite.config.ts"),
+    read("src/main.tsx"),
+    read("tsconfig.node.json"),
   ]);
-  assert.match(layout, /https:\/\/krahaso\.app/);
-  assert.match(layout, /<html lang="sq"/);
-  assert.match(layout, /Krahaso.*çmimet/i);
+  const pkg = JSON.parse(pkgRaw);
+
+  assert.equal(pkg.scripts.dev, "vite");
+  assert.equal(pkg.scripts.build, "tsc -b && vite build");
+  assert.ok(pkg.devDependencies.vite);
+  assert.ok(pkg.devDependencies["@vitejs/plugin-react"]);
+  assert.equal(pkg.dependencies.next, undefined);
+  assert.equal(pkg.dependencies["framer-motion"], undefined);
+
+  assert.match(html, /id="root"/);
+  assert.match(html, /fonts\.googleapis\.com/);
+  assert.match(html, /Neue\+Haas\+Grotesk\+Text\+Pro/);
+  assert.match(html, /Neue\+Haas\+Grotesk\+Display\+Pro\+55\+Roman/);
+  assert.match(css, /Neue Haas Grotesk Display Pro 55 Roman/);
   assert.match(css, /prefers-reduced-motion/);
-  assert.match(css, /--ease-apple/);
-  for (const token of ["canvas", "surface", "ink", "forest", "stone", "compare", "reward"]) {
-    assert.match(tailwind, new RegExp(`${token}:`));
-  }
+  assert.match(vite, /react\(\)/);
+  assert.match(main, /createRoot/);
+  assert.match(main, /<App/);
+  assert.doesNotMatch(nodeConfig, /allowImportingTsExtensions/);
 });
 
-test("the phone story exposes compare, scan and reward states accessibly", async () => {
-  const [shell, compare, scan, reward] = await Promise.all([
-    read("components/revamp/PhoneShell.tsx"),
-    read("components/revamp/CompareScreen.tsx"),
-    read("components/revamp/ScanScreen.tsx"),
-    read("components/revamp/RewardScreen.tsx"),
+test("the supplied boomerang renderer captures and replays video frames", async () => {
+  const source = await read("src/BoomerangVideoBg.tsx");
+
+  assert.match(source, /requestVideoFrameCallback/);
+  assert.match(source, /MAX_WIDTH = 960/);
+  assert.match(source, /getContext\('2d'\)/);
+  assert.match(source, /1000 \/ 30/);
+  assert.match(source, /direction = -1/);
+  assert.match(source, /muted/);
+  assert.match(source, /playsInline/);
+  assert.match(source, /crossOrigin="anonymous"/);
+});
+
+test("the Krahaso page is a minimal cinematic brand experience", async () => {
+  const [app, css] = await Promise.all([
+    read("src/App.tsx"),
+    read("src/index.css"),
   ]);
-  assert.match(shell, /aria-label/);
-  assert.match(shell, /role="group"/);
-  assert.doesNotMatch(shell, /role="img"/);
-  assert.match(compare, /Totali/);
-  assert.match(compare, /Për produkt/);
-  assert.match(scan, /Barkodi/);
-  assert.match(scan, /Fatura/);
-  assert.match(reward, /pikë/i);
-  assert.match(reward, /shpërblim/i);
+
+  assert.match(app, /https:\/\/d8j0ntlcm91z4\.cloudfront\.net\/user_38xzZboKViGWJOttwIXH07lWA1P\/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6\.mp4/);
+  assert.match(app, /LogIn, UserPlus, Play, Sparkles, Menu, X/);
+  assert.match(app, /Krahaso[\s\S]*Skano[\s\S]*Fito/);
+  assert.match(app, /https:\/\/admin\.krahaso\.app/);
+  assert.match(app, /Së shpejti/);
+  assert.match(app, /aria-expanded/);
+  assert.match(app, /id="manifesti"/);
+  assert.match(app, /id="krahaso"/);
+  assert.match(app, /id="skano"/);
+  assert.match(app, /id="fito"/);
+  assert.match(app, /id="aplikacioni"/);
+  assert.match(app, /id="shkarko"/);
+  assert.doesNotMatch(app, /FAQ|partner zyrtar|milion|rating|shkarkime/i);
+  assert.match(css, /hero-wash/);
+  assert.match(css, /brand-panel/);
+  assert.match(css, /reveal/);
 });
 
-test("legacy sections retain their data contracts while the new page takes over", async () => {
-  const data = await read("data/site.ts");
-  for (const legacyExport of [
-    "BASKET_ITEMS",
-    "BENEFITS",
-    "FAQS",
-    "MARQUEE_LOGOS",
-    "JOURNEY_STEPS",
-  ]) {
-    assert.match(data, new RegExp(`export const ${legacyExport}`));
-  }
-  assert.match(data, /availText/);
-});
-
-test("the opening explains Krahaso immediately without invented proof", async () => {
-  const [hero, problem, chrome] = await Promise.all([
-    read("components/revamp/HeroStage.tsx"),
-    read("components/revamp/PriceProblem.tsx"),
-    read("components/revamp/SiteChrome.tsx"),
-  ]);
-  assert.match(hero, /Krahaso.*Skano.*Fito/s);
-  assert.match(hero, /Shkarko/);
-  assert.match(problem, /e njëjta shportë/i);
-  assert.match(chrome, /admin\.krahaso\.app/);
-  assert.doesNotMatch(hero + problem, /milion|rating|shkarkime|partner zyrtar/i);
-});
-
-test("the product journey is interactive on desktop and linear on mobile", async () => {
-  const [journey, css] = await Promise.all([
-    read("components/revamp/ProductJourney.tsx"),
-    read("app/globals.css"),
-  ]);
-  assert.match(journey, /IntersectionObserver/);
-  assert.match(journey, /aria-pressed/);
-  assert.match(journey, /JOURNEY_CHAPTERS/);
-  assert.match(css, /journey-mobile/);
-  assert.match(css, /max-width: 767px/);
-});
-
-test("the final page composes every approved scene and labels illustrative content", async () => {
-  const [page, closing, chrome] = await Promise.all([
-    read("app/page.tsx"),
-    read("components/revamp/ClosingSections.tsx"),
-    read("components/revamp/SiteChrome.tsx"),
-  ]);
-  for (const section of [
-    "SiteHeader",
-    "HeroStage",
-    "PriceProblem",
-    "ProductJourney",
-    "TrustSection",
-    "RetailerSection",
-    "DownloadFinale",
-    "SiteFooter",
-  ]) {
-    assert.match(page, new RegExp(`<${section}`));
-  }
-  assert.match(closing, /Logot janë vetëm ilustruese/);
-  assert.match(closing, /Çmimet janë vetëm shembuj demonstrues/);
-  assert.match(closing, /Për shitoret/);
-  assert.match(chrome, /SiteFooter/);
-});
-
-test("the repository handoff documents the redesigned production workflow", async () => {
+test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {
   const readme = await read("README.md");
-  assert.match(readme, /npm run verify:design/);
-  assert.match(readme, /components\/revamp/);
-  assert.match(readme, /Krahaso → Skano → Fito/);
-  assert.match(readme, /prefers-reduced-motion/);
+  assert.match(readme, /Vite/);
+  assert.match(readme, /npm run dev/);
+  assert.match(readme, /npm run build/);
+  assert.match(readme, /BoomerangVideoBg/);
+  assert.match(readme, /Neue Haas/);
+  await assert.rejects(read("app/page.tsx"), { code: "ENOENT" });
+  await assert.rejects(read("next.config.mjs"), { code: "ENOENT" });
+  await assert.rejects(read("components/revamp/HeroStage.tsx"), { code: "ENOENT" });
 });
