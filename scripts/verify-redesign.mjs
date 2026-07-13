@@ -48,9 +48,10 @@ test("the supplied boomerang renderer captures and replays video frames", async 
 });
 
 test("the Krahaso page is a minimal cinematic brand experience", async () => {
-  const [app, css] = await Promise.all([
+  const [app, css, cutout] = await Promise.all([
     read("src/App.tsx"),
     read("src/index.css"),
+    read("public/products/coffee-cutout.svg"),
   ]);
 
   assert.match(app, /https:\/\/d8j0ntlcm91z4\.cloudfront\.net\/user_38xzZboKViGWJOttwIXH07lWA1P\/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6\.mp4/);
@@ -91,6 +92,9 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.doesNotMatch(app, /3 shitore/);
   assert.doesNotMatch(css, /mix-blend-mode:\s*multiply/);
   assert.doesNotMatch(app, /receipt-plane/);
+  assert.match(cutout, /data:image\/png;base64,/);
+  assert.match(cutout, /clipPath/);
+  assert.doesNotMatch(cutout, /href="coffee\.png"/);
 });
 
 test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {
