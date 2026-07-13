@@ -19,3 +19,19 @@ test("production shell carries the approved public-site contracts", async () => 
     assert.match(tailwind, new RegExp(`${token}:`));
   }
 });
+
+test("the phone story exposes compare, scan and reward states accessibly", async () => {
+  const [shell, compare, scan, reward] = await Promise.all([
+    read("components/revamp/PhoneShell.tsx"),
+    read("components/revamp/CompareScreen.tsx"),
+    read("components/revamp/ScanScreen.tsx"),
+    read("components/revamp/RewardScreen.tsx"),
+  ]);
+  assert.match(shell, /aria-label/);
+  assert.match(compare, /Totali/);
+  assert.match(compare, /Për produkt/);
+  assert.match(scan, /Barkodi/);
+  assert.match(scan, /Fatura/);
+  assert.match(reward, /pikë/i);
+  assert.match(reward, /shpërblim/i);
+});
