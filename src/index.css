@@ -91,9 +91,7 @@ a {
 }
 
 .product-cutout {
-  isolation: isolate;
-  mix-blend-mode: multiply;
-  filter: contrast(1.03) drop-shadow(0 32px 28px rgba(31, 42, 29, 0.2));
+  filter: drop-shadow(0 32px 28px rgba(31, 42, 29, 0.2));
   animation: brand-drift 7s ease-in-out infinite;
 }
 
@@ -111,18 +109,19 @@ a {
   animation-direction: reverse;
 }
 
-.receipt-plane {
+.price-plane {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(218, 229, 216, 0.84)),
+    radial-gradient(circle at 84% 16%, rgba(133, 171, 139, 0.38), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(218, 229, 216, 0.88)),
     #dbe4d8;
   box-shadow: 0 34px 80px -48px rgba(0, 0, 0, 0.9);
   opacity: 0.72;
   animation: brand-drift 9s ease-in-out infinite;
 }
 
-.receipt-plane::before {
+.price-plane::before {
   content: 'K';
   position: absolute;
   left: 22px;
@@ -138,21 +137,26 @@ a {
   font-weight: 600;
 }
 
-.receipt-plane::after {
-  content: '';
+.price-plane::after {
+  content: 'ÇMIMI I PRODUKTIT\A €3.19';
   position: absolute;
-  inset: 80px 22px 22px;
-  border-radius: 8px;
-  background:
-    linear-gradient(#336443, #336443) 0 0 / 58% 5px no-repeat,
-    linear-gradient(rgba(51, 100, 67, 0.28), rgba(51, 100, 67, 0.28)) 0 25px / 100% 2px no-repeat,
-    repeating-linear-gradient(180deg, rgba(51, 100, 67, 0.16) 0 2px, transparent 2px 19px);
+  inset: 92px 22px auto;
+  white-space: pre-line;
+  color: #336443;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 3.2;
+  letter-spacing: 0.12em;
 }
 
-.receipt-plane-right {
+.price-plane-right {
   animation-delay: -4.5s;
   animation-direction: reverse;
   opacity: 0.5;
+}
+
+.price-plane-right::after {
+  content: 'KRAHASO ÇMIMET\A €3.42';
 }
 
 .scan-radar {
@@ -270,11 +274,11 @@ a {
     backdrop-filter: blur(12px);
   }
 
-  .receipt-plane {
+  .price-plane {
     opacity: 0.55;
   }
 
-  .receipt-plane-right {
+  .price-plane-right {
     opacity: 0.38;
   }
 }
