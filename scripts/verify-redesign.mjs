@@ -102,6 +102,10 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.doesNotMatch(app, /\/products\/coffee\.png/);
   assert.doesNotMatch(app, /Një aplikacion\. Një ritëm\./);
   assert.doesNotMatch(app, /3 shitore/);
+  assert.match(app, /Partnerët/);
+  assert.match(app, /Për partnerët/);
+  assert.match(app, /id="partneret"/);
+  assert.doesNotMatch(app, /shitore/i);
   assert.doesNotMatch(css, /mix-blend-mode:\s*multiply/);
   assert.doesNotMatch(app, /receipt-plane/);
   assert.match(cutout, /data:image\/png;base64,/);
