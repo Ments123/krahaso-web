@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
+const readBytes = (path) =>
+  readFile(new URL(`../${path}`, import.meta.url)).catch(() => Buffer.alloc(0));
 
 test("the active runtime is the approved Vite and Neue Haas foundation", async () => {
   const [pkgRaw, html, css, vite, main, nodeConfig] = await Promise.all([
@@ -26,6 +28,11 @@ test("the active runtime is the approved Vite and Neue Haas foundation", async (
   assert.match(html, /fonts\.googleapis\.com/);
   assert.match(html, /Neue\+Haas\+Grotesk\+Text\+Pro/);
   assert.match(html, /Neue\+Haas\+Grotesk\+Display\+Pro\+55\+Roman/);
+  assert.match(html, /rel="canonical" href="https:\/\/krahaso\.app\/"/);
+  assert.match(html, /property="og:image" content="https:\/\/krahaso\.app\/krahaso-social\.webp"/);
+  assert.match(html, /name="twitter:card" content="summary_large_image"/);
+  assert.match(html, /href="\/favicon\.png"/);
+  assert.match(html, /skano barkodet/i);
   assert.match(css, /Neue Haas Grotesk Display Pro 55 Roman/);
   assert.match(css, /prefers-reduced-motion/);
   assert.match(vite, /react\(\)/);
@@ -58,7 +65,7 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.match(app, /LogIn, UserPlus, Play, Sparkles, Menu, X/);
   assert.match(app, /Krahaso[\s\S]*Skano[\s\S]*Fito/);
   assert.match(app, /https:\/\/admin\.krahaso\.app/);
-  assert.match(app, /Së shpejti/);
+  assert.match(app, /Vjen së shpejti/);
   assert.match(app, /aria-expanded/);
   assert.match(app, /id="manifesti"/);
   assert.match(app, /id="krahaso"/);
@@ -86,6 +93,11 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.match(app, /Skano barkodin/);
   assert.match(app, /Barkodi u njoh/);
   assert.match(app, /Skano faturën/);
+  assert.match(app, /\/app\/krahaso-home\.webp/);
+  assert.match(app, /Pamje reale e ballinës së aplikacionit Krahaso/);
+  assert.match(app, /Vjen së shpejti/);
+  assert.doesNotMatch(app, /Një kërkim larg/);
+  assert.doesNotMatch(app, /showSoon|setSoon/);
   assert.match(app, /\/products\/coffee-cutout\.svg/);
   assert.doesNotMatch(app, /\/products\/coffee\.png/);
   assert.doesNotMatch(app, /Një aplikacion\. Një ritëm\./);
@@ -95,6 +107,20 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.match(cutout, /data:image\/png;base64,/);
   assert.match(cutout, /clipPath/);
   assert.doesNotMatch(cutout, /href="coffee\.png"/);
+});
+
+test("the final launch assets are optimized and self-contained", async () => {
+  const [appScreenshot, socialImage, favicon] = await Promise.all([
+    readBytes("public/app/krahaso-home.webp"),
+    readBytes("public/krahaso-social.webp"),
+    readBytes("public/favicon.png"),
+  ]);
+
+  assert.equal(appScreenshot.subarray(0, 4).toString("ascii"), "RIFF");
+  assert.equal(appScreenshot.subarray(8, 12).toString("ascii"), "WEBP");
+  assert.equal(socialImage.subarray(0, 4).toString("ascii"), "RIFF");
+  assert.equal(socialImage.subarray(8, 12).toString("ascii"), "WEBP");
+  assert.equal(favicon.subarray(1, 4).toString("ascii"), "PNG");
 });
 
 test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {

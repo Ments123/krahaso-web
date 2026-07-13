@@ -140,3 +140,30 @@ Update `codex/krahaso-apple-revisualisation` and keep PR #1 open, draft, and unm
 
 Confirm remote file parity, `main` remains untouched, the branch is not behind `main`, the PR is mergeable and unmerged, and Vercel reports `success`.
 
+---
+
+### Task 5: Complete the approved pre-publish pass
+
+**Files:**
+- Modify: `scripts/verify-redesign.mjs`
+- Modify: `src/App.tsx`
+- Modify: `index.html`
+- Create: `public/app/krahaso-home.webp`
+- Create: `public/favicon.png`
+- Create: `public/krahaso-social.webp`
+
+- [ ] **Step 1: Lock the real-screen and publishing contract**
+
+Require the real app screenshot, honest launch state, barcode-first metadata, favicon, canonical URL, and social metadata. Confirm the test fails before implementation.
+
+- [ ] **Step 2: Import the real screen and remove the fabricated UI**
+
+Encode the supplied capture as WebP and render it edge-to-edge inside the existing phone frame. Remove the fake Dynamic Island, fabricated cards, tiles, and in-phone CTA.
+
+- [ ] **Step 3: Finish the publishing surface**
+
+Use **Vjen së shpejti** until store links exist, add the missing favicon and social metadata, and create a landscape share card from the approved brand surface.
+
+- [ ] **Step 4: Verify locally and remotely**
+
+Run the design contract, production build, mobile visual QA, remote parity checks, and Vercel deployment check while keeping PR #1 draft and unmerged.

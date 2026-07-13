@@ -94,3 +94,11 @@ Keep **Krahaso. Skano. Fito.** The closing remains image-free and brand-led.
 - TypeScript production build must pass.
 - Mobile visual review must confirm that the copy wraps cleanly and the product has no visible rectangular background.
 
+## Approved Pre-Publish Addendum
+
+- Replace the fabricated phone interface with the supplied real Krahaso home-screen capture.
+- Preserve the screenshot pixels, optimize the file as WebP, and place it edge-to-edge inside the existing device frame without a fake Dynamic Island or fabricated in-phone controls.
+- Keep the approved hero composition unchanged.
+- Replace misleading download interactions with an immediate **Vjen së shpejti** launch state until real store links are available.
+- Update the page description around barcode comparison and receipt-based rewards.
+- Add the missing favicon, canonical URL, Open Graph metadata, Twitter card metadata, and a landscape social-share image.

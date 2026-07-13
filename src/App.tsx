@@ -26,7 +26,6 @@ function BrandMark({ inverse = false }: { inverse?: boolean }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [soon, setSoon] = useState(false);
   const drawerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -47,11 +46,6 @@ function App() {
       window.removeEventListener('keydown', closeOnEscape);
     };
   }, [menuOpen]);
-
-  const showSoon = () => {
-    setSoon(true);
-    setMenuOpen(false);
-  };
 
   return (
     <main className="bg-[#f2f3ed] text-[#1f2a1d]">
@@ -75,9 +69,9 @@ function App() {
                 {link.label}
               </a>
             ))}
-            <button onClick={showSoon} className="ml-2 rounded-full bg-[#1f2a1d] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2a3827]">
-              {soon ? 'Së shpejti' : 'Shkarko'}
-            </button>
+            <a href="#aplikacioni" className="ml-2 rounded-full bg-[#1f2a1d] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2a3827]">
+              Vjen së shpejti
+            </a>
           </div>
 
           <div className="flex items-center gap-3 text-[#2d3a2a] sm:gap-6">
@@ -138,9 +132,9 @@ function App() {
               <a href="https://admin.krahaso.app" className="flex items-center gap-2 text-sm font-medium text-[#2d3a2a] sm:hidden">
                 <LogIn className="h-4 w-4" /> Admin
               </a>
-              <button onClick={showSoon} className="mt-2 rounded-full bg-[#1f2a1d] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#2a3827]">
-                {soon ? 'Së shpejti' : 'Shkarko aplikacionin'}
-              </button>
+              <a href="#aplikacioni" onClick={() => setMenuOpen(false)} className="mt-2 rounded-full bg-[#1f2a1d] px-5 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-[#2a3827]">
+                Vjen së shpejti
+              </a>
             </div>
           </div>
         </aside>
@@ -167,9 +161,9 @@ function App() {
             Shporta jote, çmimet e tua, një zgjedhje më e mirë.
           </p>
           <div className="flex flex-wrap items-center gap-4">
-            <button onClick={showSoon} className="rounded-full bg-[#3d5638] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#2d4228] sm:bg-white sm:px-6 sm:py-3 sm:text-[#1f2a1d] sm:hover:bg-white/90">
-              {soon ? 'Së shpejti' : 'Shkarko'}
-            </button>
+            <a href="#aplikacioni" className="rounded-full bg-[#3d5638] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#2d4228] sm:bg-white sm:px-6 sm:py-3 sm:text-[#1f2a1d] sm:hover:bg-white/90">
+              Vjen së shpejti
+            </a>
             <a href="#manifesti" className="text-sm font-semibold text-[#3d5638] transition-opacity hover:opacity-70 sm:font-medium sm:text-white">Zbulo më shumë.</a>
           </div>
         </div>
@@ -286,27 +280,18 @@ function App() {
         <div className="reveal mx-auto max-w-[1400px] text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#85AB8B]">Aplikacioni që po prisje.</p>
           <h2 id="app-title" className="mx-auto mt-6 max-w-6xl text-[clamp(3.25rem,8vw,8rem)] font-normal leading-[0.86] tracking-[-0.055em] text-[#1f2a1d]">Harro fletushkat.<br /><span className="text-[#85AB8B]">Çmimet tani janë në xhepin tënd.</span></h2>
-          <div className="relative mx-auto mt-12 h-[670px] max-w-5xl sm:mt-16 sm:h-[720px]">
+          <div className="relative mx-auto mt-12 h-[600px] max-w-5xl sm:mt-16 sm:h-[720px]">
             <span className="absolute left-0 top-[22%] hidden text-7xl tracking-[-0.05em] text-[#d9dfd5] lg:block">Krahaso</span>
             <span className="absolute right-0 top-[48%] hidden text-7xl tracking-[-0.05em] text-[#d9dfd5] lg:block">Skano</span>
             <span className="absolute bottom-[8%] left-[10%] hidden text-7xl tracking-[-0.05em] text-[#d9dfd5] lg:block">Fito</span>
-            <div className="phone-stage relative z-10 mx-auto h-[660px] w-[286px] rounded-[50px] bg-[#121812] p-[9px] shadow-[0_70px_130px_-55px_rgba(31,42,29,.7)] sm:h-[700px] sm:w-[340px] sm:rounded-[54px] sm:p-[10px]">
-              <div className="relative h-full overflow-hidden rounded-[42px] bg-[#f2f3ed] px-5 pb-6 pt-14 text-left sm:rounded-[45px] sm:pt-16">
-                <span className="absolute left-1/2 top-3 h-7 w-24 -translate-x-1/2 rounded-full bg-[#121812]" />
-                <div className="flex items-center gap-2"><BrandMark /><span className="text-lg font-semibold tracking-[-0.04em]">Krahaso</span></div>
-                <p className="mt-10 text-sm text-[#4b5b47] sm:mt-14">Supermarketet e Kosovës</p>
-                <h3 className="mt-2 text-4xl font-normal tracking-[-0.055em] text-[#336443] sm:text-5xl">Një kërkim larg.</h3>
-                <div className="mt-7 rounded-[26px] bg-[#336443] p-5 text-white sm:mt-10 sm:rounded-[28px] sm:p-6">
-                  <p className="text-xs uppercase tracking-[0.14em] text-white/60">Krahasimi i produktit</p>
-                  <p className="mt-3 text-2xl font-normal tracking-[-0.04em] sm:mt-4 sm:text-3xl">Çmimet në një vend</p>
-                  <div className="mt-7 flex items-end justify-between gap-4 sm:mt-10"><span className="text-sm text-white/65">Rezultati</span><strong className="text-lg font-normal text-[#b8cdb9] sm:text-xl">Zgjidh më lirë</strong></div>
-                </div>
-                <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-4">
-                  <div className="rounded-[20px] bg-white p-4 sm:rounded-[22px]"><span className="text-xs text-[#4b5b47]">Skano</span><strong className="mt-4 block text-base font-normal text-[#1f2a1d] sm:mt-6 sm:text-lg">Barkodin</strong></div>
-                  <div className="rounded-[20px] bg-[#dfe9dc] p-4 sm:rounded-[22px]"><span className="text-xs text-[#4b5b47]">Fito</span><strong className="mt-4 block text-base font-normal text-[#1f2a1d] sm:mt-6 sm:text-lg">Shpërblime</strong></div>
-                </div>
-                <button onClick={showSoon} className="absolute bottom-5 left-5 right-5 rounded-full bg-[#1f2a1d] px-5 py-3.5 text-center text-sm font-semibold text-white transition-colors hover:bg-[#2a3827] sm:bottom-6 sm:py-4">{soon ? 'Së shpejti' : 'Shkarko'}</button>
-              </div>
+            <div className="phone-stage relative z-10 mx-auto h-[590px] w-[286px] overflow-hidden rounded-[50px] bg-[#121812] p-[9px] shadow-[0_70px_130px_-55px_rgba(31,42,29,.7)] sm:h-[700px] sm:w-[340px] sm:rounded-[54px] sm:p-[10px]">
+              <img
+                src="/app/krahaso-home.webp"
+                alt="Pamje reale e ballinës së aplikacionit Krahaso"
+                className="block h-full w-full rounded-[42px] object-cover object-top sm:rounded-[45px]"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
         </div>
@@ -328,7 +313,7 @@ function App() {
         <div className="reveal relative z-10 mx-auto w-full max-w-[1400px] text-center">
           <div className="mx-auto flex w-fit items-center gap-3"><BrandMark inverse /><span className="text-xl font-semibold tracking-[-0.04em]">Krahaso</span></div>
           <h2 id="download-title" className="mx-auto mt-8 max-w-6xl text-[clamp(4rem,10vw,10rem)] font-normal leading-[0.8] tracking-[-0.065em]">Krahaso.<br /><span className="text-[#85AB8B]">Skano. Fito.</span></h2>
-          <button onClick={showSoon} className="mt-10 rounded-full bg-white px-8 py-4 text-sm font-semibold text-[#1f2a1d] transition-colors hover:bg-white/85 sm:mt-12">{soon ? 'Së shpejti' : 'Shkarko aplikacionin'}</button>
+          <span className="mt-10 inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-[#1f2a1d] sm:mt-12">Vjen së shpejti</span>
         </div>
       </section>
 
