@@ -286,11 +286,11 @@ function App() {
         <div className="reveal mx-auto max-w-[1400px] text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#85AB8B]">Aplikacioni që po prisje.</p>
           <h2 id="app-title" className="mx-auto mt-6 max-w-6xl text-[clamp(3.25rem,8vw,8rem)] font-normal leading-[0.86] tracking-[-0.055em] text-[#1f2a1d]">Harro fletushkat.<br /><span className="text-[#85AB8B]">Çmimet tani janë në xhepin tënd.</span></h2>
-          <div className="relative mx-auto mt-12 h-[610px] max-w-5xl sm:mt-16 sm:h-[720px]">
+          <div className="relative mx-auto mt-12 h-[670px] max-w-5xl sm:mt-16 sm:h-[720px]">
             <span className="absolute left-0 top-[22%] hidden text-7xl tracking-[-0.05em] text-[#d9dfd5] lg:block">Krahaso</span>
             <span className="absolute right-0 top-[48%] hidden text-7xl tracking-[-0.05em] text-[#d9dfd5] lg:block">Skano</span>
             <span className="absolute bottom-[8%] left-[10%] hidden text-7xl tracking-[-0.05em] text-[#d9dfd5] lg:block">Fito</span>
-            <div className="phone-stage relative z-10 mx-auto h-[600px] w-[286px] rounded-[50px] bg-[#121812] p-[9px] shadow-[0_70px_130px_-55px_rgba(31,42,29,.7)] sm:h-[700px] sm:w-[340px] sm:rounded-[54px] sm:p-[10px]">
+            <div className="phone-stage relative z-10 mx-auto h-[660px] w-[286px] rounded-[50px] bg-[#121812] p-[9px] shadow-[0_70px_130px_-55px_rgba(31,42,29,.7)] sm:h-[700px] sm:w-[340px] sm:rounded-[54px] sm:p-[10px]">
               <div className="relative h-full overflow-hidden rounded-[42px] bg-[#f2f3ed] px-5 pb-6 pt-14 text-left sm:rounded-[45px] sm:pt-16">
                 <span className="absolute left-1/2 top-3 h-7 w-24 -translate-x-1/2 rounded-full bg-[#121812]" />
                 <div className="flex items-center gap-2"><BrandMark /><span className="text-lg font-semibold tracking-[-0.04em]">Krahaso</span></div>
