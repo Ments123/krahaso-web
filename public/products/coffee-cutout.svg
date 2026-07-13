@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="title description">
+  <title id="title">Pako Prince Caffe</title>
+  <desc id="description">Pako kafeje e prerë pa sfondin e bardhë të fotografisë burimore.</desc>
+  <defs>
+    <clipPath id="coffee-bag-cutout" clipPathUnits="userSpaceOnUse">
+      <path d="M208 72 391 58 397 82 387 444 378 457 184 451 171 443 173 269 179 220 186 187 195 143 204 83Z" />
+    </clipPath>
+  </defs>
+  <image href="coffee.png" x="0" y="0" width="500" height="500" preserveAspectRatio="xMidYMid meet" clip-path="url(#coffee-bag-cutout)" />
+</svg>
