@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { LogIn, UserPlus, Play, Sparkles, Menu, X } from 'lucide-react';
 import BoomerangVideoBg from './BoomerangVideoBg';
 
@@ -27,11 +27,24 @@ function BrandMark({ inverse = false }: { inverse?: boolean }) {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [soon, setSoon] = useState(false);
+  const drawerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
+    if (menuOpen) {
+      drawerRef.current?.removeAttribute('inert');
+    } else {
+      drawerRef.current?.setAttribute('inert', '');
+    }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+
+    if (menuOpen) window.addEventListener('keydown', closeOnEscape);
+
     return () => {
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', closeOnEscape);
     };
   }, [menuOpen]);
 
@@ -91,8 +104,10 @@ function App() {
           aria-hidden="true"
         />
         <aside
+          ref={drawerRef}
           className={`fixed bottom-0 right-0 top-0 z-20 w-[85%] max-w-sm bg-white/95 shadow-2xl backdrop-blur-xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}
           aria-label="Menyja mobile"
+          aria-hidden={!menuOpen}
         >
           <div className="flex h-full flex-col px-8 pb-8 pt-24">
             <div className="flex flex-col gap-1">
