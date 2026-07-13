@@ -62,3 +62,15 @@ test("the opening explains Krahaso immediately without invented proof", async ()
   assert.match(chrome, /admin\.krahaso\.app/);
   assert.doesNotMatch(hero + problem, /milion|rating|shkarkime|partner zyrtar/i);
 });
+
+test("the product journey is interactive on desktop and linear on mobile", async () => {
+  const [journey, css] = await Promise.all([
+    read("components/revamp/ProductJourney.tsx"),
+    read("app/globals.css"),
+  ]);
+  assert.match(journey, /IntersectionObserver/);
+  assert.match(journey, /aria-pressed/);
+  assert.match(journey, /JOURNEY_CHAPTERS/);
+  assert.match(css, /journey-mobile/);
+  assert.match(css, /max-width: 767px/);
+});
