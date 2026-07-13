@@ -48,6 +48,8 @@ button { font: inherit; }
   .logotile { display: grid; place-items: center; overflow: hidden; border: 1px solid #e5e9e4; background: white; }
   .glass { background: rgba(255,255,255,.78); border: 1px solid rgba(255,255,255,.74); backdrop-filter: blur(22px) saturate(140%); }
   .phone-shadow { box-shadow: 0 50px 120px -45px rgba(3, 16, 10, .62), 0 18px 45px -25px rgba(3, 16, 10, .45); }
+  .journey-desktop { display: grid; }
+  .journey-mobile { display: none; }
 }
 
 @keyframes soft-float { 0%,100% { transform: translate3d(0,0,0) rotate(var(--tilt, 0deg)); } 50% { transform: translate3d(0,-12px,0) rotate(var(--tilt, 0deg)); } }
@@ -58,6 +60,8 @@ button { font: inherit; }
 @media (max-width: 767px) {
   .display-title { font-size: clamp(2.65rem, 14vw, 4.4rem); }
   .section-title { font-size: clamp(2.2rem, 11vw, 3.6rem); }
+  .journey-desktop { display: none; }
+  .journey-mobile { display: block; }
 }
 
 @media (prefers-reduced-motion: reduce) {
