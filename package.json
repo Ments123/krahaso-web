@@ -2,12 +2,12 @@
   "name": "krahaso",
   "version": "1.0.0",
   "private": true,
-  "description": "Krahaso — grocery price-comparison and rewards app landing page for Kosovo.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verify:design": "node --test scripts/verify-redesign.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.454.0",
