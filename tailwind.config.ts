@@ -1,33 +1,21 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
-const config: Config = {
-  content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./data/**/*.{ts,tsx}",
-  ],
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        // Krahaso brand
-        ink: "#141C17", // near-black text
-        ground: "#F5F7F4", // warm off-white background
-        dark: "#0E1512", // dark sections
-        brand: {
-          DEFAULT: "#159A63", // Krahaso green (accent only)
-          deep: "#0E7A4C",
-          soft: "#5FD79E",
-          tint: "#E6F4EC",
-        },
-        line: "#E4E8E1",
+        forest: '#1f2a1d',
+        moss: '#2d3a2a',
+        bodygreen: '#4b5b47',
+        headline: '#336443',
+        sage: '#85AB8B',
       },
       fontFamily: {
-        display: ["var(--font-display)", "sans-serif"],
-        sans: ["var(--font-body)", "system-ui", "sans-serif"],
+        display: ['Neue Haas Grotesk Display Pro 55 Roman', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
     },
   },
   plugins: [],
-};
-
-export default config;
+} satisfies Config;

@@ -1,0 +1,144 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+
+const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
+const readBytes = (path) =>
+  readFile(new URL(`../${path}`, import.meta.url)).catch(() => Buffer.alloc(0));
+
+test("the active runtime is the approved Vite and Neue Haas foundation", async () => {
+  const [pkgRaw, html, css, vite, main, nodeConfig] = await Promise.all([
+    read("package.json"),
+    read("index.html"),
+    read("src/index.css"),
+    read("vite.config.ts"),
+    read("src/main.tsx"),
+    read("tsconfig.node.json"),
+  ]);
+  const pkg = JSON.parse(pkgRaw);
+
+  assert.equal(pkg.scripts.dev, "vite");
+  assert.equal(pkg.scripts.build, "tsc -b && vite build");
+  assert.ok(pkg.devDependencies.vite);
+  assert.ok(pkg.devDependencies["@vitejs/plugin-react"]);
+  assert.equal(pkg.dependencies.next, undefined);
+  assert.equal(pkg.dependencies["framer-motion"], undefined);
+
+  assert.match(html, /id="root"/);
+  assert.match(html, /fonts\.googleapis\.com/);
+  assert.match(html, /Neue\+Haas\+Grotesk\+Text\+Pro/);
+  assert.match(html, /Neue\+Haas\+Grotesk\+Display\+Pro\+55\+Roman/);
+  assert.match(html, /rel="canonical" href="https:\/\/krahaso\.app\/"/);
+  assert.match(html, /property="og:image" content="https:\/\/krahaso\.app\/krahaso-social\.webp"/);
+  assert.match(html, /name="twitter:card" content="summary_large_image"/);
+  assert.match(html, /href="\/favicon\.png"/);
+  assert.match(html, /skano barkodet/i);
+  assert.match(css, /Neue Haas Grotesk Display Pro 55 Roman/);
+  assert.match(css, /prefers-reduced-motion/);
+  assert.match(vite, /react\(\)/);
+  assert.match(main, /createRoot/);
+  assert.match(main, /<App/);
+  assert.doesNotMatch(nodeConfig, /allowImportingTsExtensions/);
+});
+
+test("the supplied boomerang renderer captures and replays video frames", async () => {
+  const source = await read("src/BoomerangVideoBg.tsx");
+
+  assert.match(source, /requestVideoFrameCallback/);
+  assert.match(source, /MAX_WIDTH = 960/);
+  assert.match(source, /getContext\('2d'\)/);
+  assert.match(source, /1000 \/ 30/);
+  assert.match(source, /direction = -1/);
+  assert.match(source, /muted/);
+  assert.match(source, /playsInline/);
+  assert.match(source, /crossOrigin="anonymous"/);
+});
+
+test("the Krahaso page is a minimal cinematic brand experience", async () => {
+  const [app, css, cutout] = await Promise.all([
+    read("src/App.tsx"),
+    read("src/index.css"),
+    read("public/products/coffee-cutout.svg"),
+  ]);
+
+  assert.match(app, /https:\/\/d8j0ntlcm91z4\.cloudfront\.net\/user_38xzZboKViGWJOttwIXH07lWA1P\/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6\.mp4/);
+  assert.match(app, /LogIn, UserPlus, Play, Sparkles, Menu, X/);
+  assert.match(app, /Krahaso[\s\S]*Skano[\s\S]*Fito/);
+  assert.match(app, /https:\/\/admin\.krahaso\.app/);
+  assert.match(app, /Vjen së shpejti/);
+  assert.match(app, /aria-expanded/);
+  assert.match(app, /id="manifesti"/);
+  assert.match(app, /id="krahaso"/);
+  assert.match(app, /id="skano"/);
+  assert.match(app, /id="fito"/);
+  assert.match(app, /id="aplikacioni"/);
+  assert.match(app, /id="shkarko"/);
+  assert.doesNotMatch(app, /FAQ|partner zyrtar|milion|rating|shkarkime/i);
+  assert.match(css, /hero-wash/);
+  assert.match(css, /brand-panel/);
+  assert.match(css, /reveal/);
+
+  const productReferences = app.match(/\/products\//g) ?? [];
+  assert.equal(productReferences.length, 1);
+  assert.doesNotMatch(app, /bread\.svg|banana\.svg|✓|🥖|🍌/u);
+  assert.match(app, /comparison-signal/);
+  assert.match(app, /price-plane/);
+  assert.match(app, /reward-orbit/);
+  assert.match(app, /closing-k/);
+  assert.match(css, /product-cutout/);
+  assert.match(css, /brand-drift/);
+  assert.match(css, /closing-k/);
+
+  assert.match(app, /Harro fletushkat/);
+  assert.match(app, /Skano barkodin/);
+  assert.match(app, /Barkodi u njoh/);
+  assert.match(app, /Skano faturën/);
+  assert.match(app, /\/app\/krahaso-home\.webp/);
+  assert.match(app, /Pamje reale e ballinës së aplikacionit Krahaso/);
+  assert.match(app, /Vjen së shpejti/);
+  assert.doesNotMatch(app, /Një kërkim larg/);
+  assert.doesNotMatch(app, /showSoon|setSoon/);
+  assert.match(app, /\/products\/coffee-cutout\.svg/);
+  assert.doesNotMatch(app, /\/products\/coffee\.png/);
+  assert.doesNotMatch(app, /Një aplikacion\. Një ritëm\./);
+  assert.doesNotMatch(app, /3 shitore/);
+  assert.doesNotMatch(css, /mix-blend-mode:\s*multiply/);
+  assert.doesNotMatch(app, /receipt-plane/);
+  assert.match(cutout, /data:image\/png;base64,/);
+  assert.match(cutout, /clipPath/);
+  assert.doesNotMatch(cutout, /href="coffee\.png"/);
+});
+
+test("the final launch assets are optimized and self-contained", async () => {
+  const [appScreenshot, socialImage, favicon] = await Promise.all([
+    readBytes("public/app/krahaso-home.webp"),
+    readBytes("public/krahaso-social.webp"),
+    readBytes("public/favicon.png"),
+  ]);
+
+  assert.equal(appScreenshot.subarray(0, 4).toString("ascii"), "RIFF");
+  assert.equal(appScreenshot.subarray(8, 12).toString("ascii"), "WEBP");
+  assert.equal(socialImage.subarray(0, 4).toString("ascii"), "RIFF");
+  assert.equal(socialImage.subarray(8, 12).toString("ascii"), "WEBP");
+  assert.equal(favicon.subarray(1, 4).toString("ascii"), "PNG");
+});
+
+test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {
+  const [readme, vercelRaw] = await Promise.all([
+    read("README.md"),
+    read("vercel.json"),
+  ]);
+  const vercel = JSON.parse(vercelRaw);
+
+  assert.match(readme, /Vite/);
+  assert.match(readme, /npm run dev/);
+  assert.match(readme, /npm run build/);
+  assert.match(readme, /BoomerangVideoBg/);
+  assert.match(readme, /Neue Haas/);
+  assert.equal(vercel.framework, "vite");
+  assert.equal(vercel.buildCommand, "npm run build");
+  assert.equal(vercel.outputDirectory, "dist");
+  await assert.rejects(read("app/page.tsx"), { code: "ENOENT" });
+  await assert.rejects(read("next.config.mjs"), { code: "ENOENT" });
+  await assert.rejects(read("components/revamp/HeroStage.tsx"), { code: "ENOENT" });
+});
