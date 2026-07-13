@@ -72,12 +72,20 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
 });
 
 test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {
-  const readme = await read("README.md");
+  const [readme, vercelRaw] = await Promise.all([
+    read("README.md"),
+    read("vercel.json"),
+  ]);
+  const vercel = JSON.parse(vercelRaw);
+
   assert.match(readme, /Vite/);
   assert.match(readme, /npm run dev/);
   assert.match(readme, /npm run build/);
   assert.match(readme, /BoomerangVideoBg/);
   assert.match(readme, /Neue Haas/);
+  assert.equal(vercel.framework, "vite");
+  assert.equal(vercel.buildCommand, "npm run build");
+  assert.equal(vercel.outputDirectory, "dist");
   await assert.rejects(read("app/page.tsx"), { code: "ENOENT" });
   await assert.rejects(read("next.config.mjs"), { code: "ENOENT" });
   await assert.rejects(read("components/revamp/HeroStage.tsx"), { code: "ENOENT" });
