@@ -185,11 +185,11 @@ function App() {
         <div className="reveal relative z-10 mx-auto w-full max-w-[1400px]">
           <p className="mb-7 text-xs font-semibold uppercase tracking-[0.16em] text-[#85AB8B] sm:mb-9">Për blerjet e përditshme</p>
           <h2 id="manifest-title" className="max-w-6xl text-[clamp(3.2rem,8vw,8.8rem)] font-normal leading-[0.88] tracking-[-0.055em] text-[#1f2a1d]">
-            Më pak hamendësime.<br />
-            <span className="text-[#85AB8B]">Më shumë kontroll.</span>
+            Harro fletushkat.<br />
+            <span className="text-[#85AB8B]">Mirë se erdhe te Krahaso.</span>
           </h2>
           <div className="mt-12 flex flex-col gap-8 border-t border-[#1f2a1d]/10 pt-6 sm:mt-16 sm:flex-row sm:items-end sm:justify-between">
-            <p className="max-w-md text-base leading-7 text-[#4b5b47] sm:text-lg">Krahaso e kthen një vendim të zakonshëm në një zgjedhje të qartë.</p>
+            <p className="max-w-lg text-base leading-7 text-[#4b5b47] sm:text-lg">Po i sjellim çmimet e supermarketeve të Kosovës në një vend.</p>
             <p className="text-sm font-semibold tracking-[-0.02em] text-[#336443]">Krahaso · Skano · Fito</p>
           </div>
         </div>
@@ -212,7 +212,7 @@ function App() {
                   <span className="block text-[9px] font-semibold uppercase tracking-[0.15em] text-[#4b5b47]">Çmimi tjetër</span>
                   <strong className="mt-1 block text-2xl font-normal tracking-[-0.04em] text-[#1f2a1d] sm:text-3xl">€3.42</strong>
                 </div>
-                <img src="/products/coffee.png" alt="Pako kafeje" loading="lazy" decoding="async" className="product-cutout absolute left-1/2 top-1/2 z-10 h-[250px] w-[250px] -translate-x-1/2 -translate-y-1/2 object-contain sm:h-[360px] sm:w-[360px]" />
+                <img src="/products/coffee-cutout.svg" alt="Pako kafeje" loading="lazy" decoding="async" className="product-cutout absolute left-1/2 top-1/2 z-10 h-[250px] w-[250px] -translate-x-1/2 -translate-y-1/2 object-contain sm:h-[360px] sm:w-[360px]" />
                 <div className="comparison-signal comparison-signal-best absolute bottom-[15%] right-0 z-20 rounded-[24px] px-5 py-4 sm:right-[3%] sm:px-6 sm:py-5">
                   <span className="block text-[9px] font-semibold uppercase tracking-[0.15em] text-white/65">Çmimi më i mirë</span>
                   <strong className="mt-1 block text-3xl font-normal tracking-[-0.04em] text-white sm:text-4xl">€3.19</strong>
@@ -229,12 +229,12 @@ function App() {
             <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.18em] text-[#85AB8B] sm:text-xs"><span>02</span><span>Skano</span></div>
             <div className="mt-12 grid items-end gap-5 sm:mt-16 lg:mt-10 lg:grid-cols-[.92fr_1.08fr] lg:gap-12">
               <div className="max-w-2xl">
-                <h2 id="scan-title" className="text-[clamp(3.7rem,9vw,9rem)] font-normal leading-[0.84] tracking-[-0.06em]">Një skanim.<br /><span className="text-[#85AB8B]">Kaç.</span></h2>
-                <p className="mt-5 max-w-sm text-sm leading-6 text-white/60 sm:mt-8 sm:text-base sm:leading-7">Blerja bëhet pjesë e historisë tënde.</p>
+                <h2 id="scan-title" className="text-[clamp(3.25rem,8vw,8.5rem)] font-normal leading-[0.84] tracking-[-0.06em]">Skano barkodin.<br /><span className="text-[#85AB8B]">Shih ku kushton më lirë.</span></h2>
+                <p className="mt-5 max-w-md text-sm leading-6 text-white/60 sm:mt-8 sm:text-base sm:leading-7">Një skanim të çon te çmimet e produktit në supermarketet e listuara në Krahaso.</p>
               </div>
               <div className="scan-stage relative mx-auto flex h-[430px] w-full max-w-[620px] items-center justify-center sm:h-[540px]">
-                <div className="receipt-plane receipt-plane-left absolute left-[8%] top-[15%] h-[280px] w-[190px] -rotate-[12deg] rounded-[24px] sm:h-[370px] sm:w-[240px]" aria-hidden="true" />
-                <div className="receipt-plane receipt-plane-right absolute right-[6%] top-[10%] h-[300px] w-[200px] rotate-[13deg] rounded-[24px] sm:h-[390px] sm:w-[250px]" aria-hidden="true" />
+                <div className="price-plane price-plane-left absolute left-[8%] top-[15%] h-[280px] w-[190px] -rotate-[12deg] rounded-[24px] sm:h-[370px] sm:w-[240px]" aria-hidden="true" />
+                <div className="price-plane price-plane-right absolute right-[6%] top-[10%] h-[300px] w-[200px] rotate-[13deg] rounded-[24px] sm:h-[390px] sm:w-[250px]" aria-hidden="true" />
                 <div className="scan-radar absolute h-[330px] w-[330px] rounded-full border border-white/10 sm:h-[470px] sm:w-[470px]" aria-hidden="true" />
                 <div className="relative z-10 h-[390px] w-[218px] rotate-[4deg] rounded-[38px] border border-white/15 bg-[#101710] p-2 shadow-[0_50px_100px_-40px_rgba(0,0,0,.9)] sm:h-[500px] sm:w-[270px] sm:rounded-[44px]">
                   <div className="relative h-full overflow-hidden rounded-[30px] bg-[#dbe4d8] sm:rounded-[36px]">
@@ -244,10 +244,10 @@ function App() {
                       <span className="scan-line absolute left-4 right-4 top-8 h-[2px] bg-[#336443] shadow-[0_0_16px_#85AB8B]" />
                       <div className="absolute inset-x-0 bottom-16 flex justify-center sm:bottom-20"><div className="barcode h-16 w-32 rounded bg-white sm:h-20 sm:w-40" /></div>
                     </div>
-                    <p className="absolute inset-x-0 bottom-6 text-center text-[10px] font-semibold text-[#336443] sm:bottom-8 sm:text-xs">Mbaje faturën brenda kornizës</p>
+                    <p className="absolute inset-x-0 bottom-6 text-center text-[10px] font-semibold text-[#336443] sm:bottom-8 sm:text-xs">Vendose barkodin brenda kornizës</p>
                   </div>
                 </div>
-                <div className="absolute bottom-[8%] left-[2%] z-20 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/75 backdrop-blur-md sm:left-[8%] sm:text-xs">Fatura u njoh</div>
+                <div className="absolute bottom-[8%] left-[2%] z-20 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/75 backdrop-blur-md sm:left-[8%] sm:text-xs">Barkodi u njoh</div>
               </div>
             </div>
           </div>
@@ -259,8 +259,8 @@ function App() {
             <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.18em] text-[#336443] sm:text-xs"><span>03</span><span>Fito</span></div>
             <div className="mt-12 grid items-end gap-6 sm:mt-16 lg:mt-10 lg:grid-cols-[1fr_.9fr] lg:gap-12">
               <div className="max-w-3xl">
-                <h2 id="earn-title" className="text-[clamp(3.7rem,10vw,10rem)] font-normal leading-[0.82] tracking-[-0.065em] text-[#1f2a1d]">Çdo blerje.<br /><span className="text-white/75">Pak më shumë.</span></h2>
-                <p className="mt-5 max-w-sm text-sm leading-6 text-[#3d5638] sm:mt-8 sm:text-base sm:leading-7">Pikë të qarta. Shpërblime praktike.</p>
+                <h2 id="earn-title" className="text-[clamp(3.4rem,9vw,9rem)] font-normal leading-[0.82] tracking-[-0.065em] text-[#1f2a1d]">Skano faturën.<br /><span className="text-white/75">Fito shpërblime.</span></h2>
+                <p className="mt-5 max-w-md text-sm leading-6 text-[#3d5638] sm:mt-8 sm:text-base sm:leading-7">Ruaje faturën, mblidh pikë dhe përfito nga blerjet e tua.</p>
               </div>
               <div className="reward-orbit relative mx-auto flex h-[410px] w-full max-w-[560px] items-center justify-center sm:h-[510px]">
                 <div className="reward-ring reward-ring-large absolute h-[350px] w-[350px] rounded-full border border-white/30 sm:h-[470px] sm:w-[470px]" aria-hidden="true" />
@@ -275,7 +275,7 @@ function App() {
                   <div className="mt-8 h-1.5 overflow-hidden rounded-full bg-white/20 sm:mt-9"><span className="block h-full w-[72%] rounded-full bg-white" /></div>
                   <div className="mt-3 flex justify-between text-[10px] uppercase tracking-[0.12em] text-white/45"><span>Tani</span><span>2,000</span></div>
                 </div>
-                <div className="absolute bottom-[6%] right-0 z-20 rounded-full bg-[#1f2a1d] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-white sm:right-[3%] sm:text-xs">Vazhdo të fitosh</div>
+                <div className="absolute bottom-[6%] right-0 z-20 rounded-full bg-[#1f2a1d] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-white sm:right-[3%] sm:text-xs">Mblidh më shumë pikë</div>
               </div>
             </div>
           </div>
@@ -284,8 +284,8 @@ function App() {
 
       <section id="aplikacioni" className="relative overflow-hidden bg-white px-5 py-20 sm:px-10 sm:py-28 lg:px-16 lg:py-36" aria-labelledby="app-title">
         <div className="reveal mx-auto max-w-[1400px] text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#85AB8B]">Një aplikacion. Një ritëm.</p>
-          <h2 id="app-title" className="mx-auto mt-6 max-w-5xl text-[clamp(3.25rem,8vw,8rem)] font-normal leading-[0.86] tracking-[-0.055em] text-[#1f2a1d]">Gjithçka që duhet.<br /><span className="text-[#85AB8B]">Asgjë që s’duhet.</span></h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#85AB8B]">Aplikacioni që po prisje.</p>
+          <h2 id="app-title" className="mx-auto mt-6 max-w-6xl text-[clamp(3.25rem,8vw,8rem)] font-normal leading-[0.86] tracking-[-0.055em] text-[#1f2a1d]">Harro fletushkat.<br /><span className="text-[#85AB8B]">Çmimet tani janë në xhepin tënd.</span></h2>
           <div className="relative mx-auto mt-12 h-[610px] max-w-5xl sm:mt-16 sm:h-[720px]">
             <span className="absolute left-0 top-[22%] hidden text-7xl tracking-[-0.05em] text-[#d9dfd5] lg:block">Krahaso</span>
             <span className="absolute right-0 top-[48%] hidden text-7xl tracking-[-0.05em] text-[#d9dfd5] lg:block">Skano</span>
@@ -294,16 +294,16 @@ function App() {
               <div className="relative h-full overflow-hidden rounded-[42px] bg-[#f2f3ed] px-5 pb-6 pt-14 text-left sm:rounded-[45px] sm:pt-16">
                 <span className="absolute left-1/2 top-3 h-7 w-24 -translate-x-1/2 rounded-full bg-[#121812]" />
                 <div className="flex items-center gap-2"><BrandMark /><span className="text-lg font-semibold tracking-[-0.04em]">Krahaso</span></div>
-                <p className="mt-10 text-sm text-[#4b5b47] sm:mt-14">Shporta jote</p>
-                <h3 className="mt-2 text-4xl font-normal tracking-[-0.055em] text-[#336443] sm:text-5xl">Më e qartë.</h3>
+                <p className="mt-10 text-sm text-[#4b5b47] sm:mt-14">Supermarketet e Kosovës</p>
+                <h3 className="mt-2 text-4xl font-normal tracking-[-0.055em] text-[#336443] sm:text-5xl">Një kërkim larg.</h3>
                 <div className="mt-7 rounded-[26px] bg-[#336443] p-5 text-white sm:mt-10 sm:rounded-[28px] sm:p-6">
-                  <p className="text-xs uppercase tracking-[0.14em] text-white/60">Zgjedhja e ditës</p>
-                  <p className="mt-3 text-2xl font-normal tracking-[-0.04em] sm:mt-4 sm:text-3xl">Shporta ime</p>
-                  <div className="mt-7 flex items-end justify-between sm:mt-10"><span className="text-sm text-white/65">Krahasuar</span><strong className="text-4xl font-normal text-[#b8cdb9] sm:text-5xl">K</strong></div>
+                  <p className="text-xs uppercase tracking-[0.14em] text-white/60">Krahasimi i produktit</p>
+                  <p className="mt-3 text-2xl font-normal tracking-[-0.04em] sm:mt-4 sm:text-3xl">Çmimet në një vend</p>
+                  <div className="mt-7 flex items-end justify-between gap-4 sm:mt-10"><span className="text-sm text-white/65">Rezultati</span><strong className="text-lg font-normal text-[#b8cdb9] sm:text-xl">Zgjidh më lirë</strong></div>
                 </div>
                 <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-4">
-                  <div className="rounded-[20px] bg-white p-4 sm:rounded-[22px]"><span className="text-xs text-[#4b5b47]">Skano</span><strong className="mt-4 block text-lg font-normal text-[#1f2a1d] sm:mt-6 sm:text-xl">Faturën</strong></div>
-                  <div className="rounded-[20px] bg-[#dfe9dc] p-4 sm:rounded-[22px]"><span className="text-xs text-[#4b5b47]">Fito</span><strong className="mt-4 block text-lg font-normal text-[#1f2a1d] sm:mt-6 sm:text-xl">Pikë</strong></div>
+                  <div className="rounded-[20px] bg-white p-4 sm:rounded-[22px]"><span className="text-xs text-[#4b5b47]">Skano</span><strong className="mt-4 block text-base font-normal text-[#1f2a1d] sm:mt-6 sm:text-lg">Barkodin</strong></div>
+                  <div className="rounded-[20px] bg-[#dfe9dc] p-4 sm:rounded-[22px]"><span className="text-xs text-[#4b5b47]">Fito</span><strong className="mt-4 block text-base font-normal text-[#1f2a1d] sm:mt-6 sm:text-lg">Shpërblime</strong></div>
                 </div>
                 <button onClick={showSoon} className="absolute bottom-5 left-5 right-5 rounded-full bg-[#1f2a1d] px-5 py-3.5 text-center text-sm font-semibold text-white transition-colors hover:bg-[#2a3827] sm:bottom-6 sm:py-4">{soon ? 'Së shpejti' : 'Shkarko'}</button>
               </div>
