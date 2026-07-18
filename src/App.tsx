@@ -144,11 +144,11 @@ function App() {
             id="hero-title"
             className="max-w-6xl text-[2.65rem] font-normal leading-[0.92] tracking-[-0.045em] text-[#336443] sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.3rem]"
           >
-            Çmimet ndryshojnë.
-            <span className="block text-[#85AB8B]">Zgjedhja jote nuk duhet.</span>
+            Harro fletushkat.
+            <span className="block text-[#85AB8B]">Krahaso më zgjuar.</span>
           </h1>
           <p className="mt-6 max-w-lg px-2 text-sm leading-relaxed text-[#4b5b47] sm:mt-8 sm:text-base md:text-lg">
-            Një mënyrë më e qartë për të blerë më zgjuar, çdo ditë.
+            Skano barkodin, krahaso çmimet dhe zgjidh më lirë, direkt nga telefoni.
           </p>
         </div>
 
@@ -177,13 +177,13 @@ function App() {
       <section id="manifesti" className="relative overflow-hidden bg-[#f2f3ed] px-5 py-20 sm:px-10 sm:py-28 lg:flex lg:min-h-[82vh] lg:items-center lg:px-16" aria-labelledby="manifest-title">
         <span className="manifest-k absolute -right-12 top-1/2 -translate-y-1/2 select-none text-[78vw] font-medium leading-none tracking-[-0.1em] text-[#dfe5db] sm:-right-20 sm:text-[42vw]" aria-hidden="true">K</span>
         <div className="reveal relative z-10 mx-auto w-full max-w-[1400px]">
-          <p className="mb-7 text-xs font-semibold uppercase tracking-[0.16em] text-[#85AB8B] sm:mb-9">Për blerjet e përditshme</p>
+          <p className="mb-7 text-xs font-semibold uppercase tracking-[0.16em] text-[#85AB8B] sm:mb-9">Mënyra e re për të blerë</p>
           <h2 id="manifest-title" className="max-w-6xl text-[clamp(3.2rem,8vw,8.8rem)] font-normal leading-[0.88] tracking-[-0.055em] text-[#1f2a1d]">
-            Harro fletushkat.<br />
-            <span className="text-[#85AB8B]">Mirë se erdhe te Krahaso.</span>
+            Ti zgjedh produktin.<br />
+            <span className="text-[#85AB8B]">Krahaso të tregon ku.</span>
           </h2>
           <div className="mt-12 flex flex-col gap-8 border-t border-[#1f2a1d]/10 pt-6 sm:mt-16 sm:flex-row sm:items-end sm:justify-between">
-            <p className="max-w-lg text-base leading-7 text-[#4b5b47] sm:text-lg">Po i sjellim çmimet e supermarketeve të Kosovës në një vend.</p>
+            <p className="max-w-lg text-base leading-7 text-[#4b5b47] sm:text-lg">Çmimet e supermarketeve, të mbledhura në një vend që ti të zgjedhësh më lirë.</p>
             <p className="text-sm font-semibold tracking-[-0.02em] text-[#336443]">Krahaso · Skano · Fito</p>
           </div>
         </div>
