@@ -90,6 +90,12 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.match(css, /closing-k/);
 
   assert.match(app, /Harro fletushkat/);
+  assert.match(app, /Krahaso më zgjuar/);
+  assert.match(app, /Skano barkodin, krahaso çmimet dhe zgjidh më lirë, direkt nga telefoni/);
+  assert.match(app, /Ti zgjedh produktin/);
+  assert.match(app, /Krahaso të tregon ku/);
+  assert.match(app, /Çmimet e supermarketeve, të mbledhura në një vend që ti të zgjedhësh më lirë/);
+  assert.doesNotMatch(app, /Çmimet ndryshojnë|Zgjedhja jote nuk duhet|Mirë se erdhe te Krahaso/);
   assert.match(app, /Skano barkodin/);
   assert.match(app, /Barkodi u njoh/);
   assert.match(app, /Skano faturën/);
