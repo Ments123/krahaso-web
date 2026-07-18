@@ -6,7 +6,7 @@ Position Krahaso as the modern grocery-price app Kosovo shoppers have been waiti
 
 ## Scope
 
-- Keep the approved video hero and the existing visual system unchanged.
+- Keep the approved video hero layout and the existing visual system unchanged; refine only its campaign copy.
 - Replace the coffee image with a genuine transparent-background cutout. Preserve the pack and its printed white areas; remove the visible white canvas and remove the CSS blend workaround.
 - Make product-barcode scanning the main scanning story.
 - Mention receipt scanning only in the rewards scene.
@@ -25,12 +25,20 @@ The page should move through one simple story:
 
 ## Approved Copy Direction
 
+### Hero
+
+- Heading: **Harro fletushkat. Krahaso më zgjuar.**
+- Supporting line: **Skano barkodin, krahaso çmimet dhe zgjidh më lirë, direkt nga telefoni.**
+
+The two clauses retain the existing two-colour hero treatment. The video, layout, and navigation remain unchanged.
+
 ### Manifesto
 
-- Heading: **Harro fletushkat. Mirë se erdhe te Krahaso.**
-- Supporting line: **Po i sjellim çmimet e supermarketeve të Kosovës në një vend.**
+- Eyebrow: **Mënyra e re për të blerë**
+- Heading: **Ti zgjedh produktin. Krahaso të tregon ku.**
+- Supporting line: **Çmimet e supermarketeve, të mbledhura në një vend që ti të zgjedhësh më lirë.**
 
-This is an ambitious direction statement, not a claim that every supermarket is already integrated.
+This complements the hero instead of repeating its anti-leaflet line. It explains the app without claiming every supermarket is already integrated.
 
 ### Krahaso
 
@@ -90,6 +98,7 @@ Keep **Krahaso. Skano. Fito.** The closing remains image-free and brand-led.
 - Design tests assert exactly one product reference.
 - Design tests reject the old receipt-scanner copy in the Skano scene.
 - Design tests require the barcode-first phrases and the campaign phrase **Harro fletushkat**.
+- Design tests require **Krahaso më zgjuar** in the hero and **Ti zgjedh produktin** in the manifesto, and reject the superseded hero/manifesto wording.
 - Design tests require the transparent packshot filename and reject the old `mix-blend-mode` workaround.
 - TypeScript production build must pass.
 - Mobile visual review must confirm that the copy wraps cleanly and the product has no visible rectangular background.
