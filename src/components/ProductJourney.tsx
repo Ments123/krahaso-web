@@ -2,14 +2,14 @@ export function ProductJourney() {
   return (
     <section
       id="product-journey"
-      className="product-journey bg-[#f2f3ed] px-3 pb-3 sm:px-4 sm:pb-4"
+      className="product-journey bg-[#f5f7f3] px-3 pb-3 sm:px-4 sm:pb-4"
       aria-labelledby="journey-title"
     >
       <div className="mx-auto max-w-[1400px] px-3 pb-10 pt-6 sm:px-8 sm:pb-16 sm:pt-10 lg:flex lg:items-end lg:justify-between">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#85AB8B]">Si funksionon</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08A64A]">Si funksionon</p>
           <h2 id="journey-title" className="mt-4 max-w-4xl text-[clamp(2.8rem,7vw,6.8rem)] font-normal leading-[0.88] tracking-[-0.055em] text-[#1f2a1d]">
-            Tre hapa. <span className="editorial-accent text-[#85AB8B]">Një zgjedhje më e mirë.</span>
+            Tre hapa. <span className="editorial-accent text-[#08A64A]">Një zgjedhje më e mirë.</span>
           </h2>
         </div>
         <p className="mt-6 max-w-md text-sm leading-6 text-[#4b5b47] sm:text-base lg:mb-2 lg:mt-0">
@@ -18,7 +18,7 @@ export function ProductJourney() {
       </div>
 
       <div className="journey-rail space-y-3 sm:space-y-4">
-        <article id="krahaso" className="journey-step mobile-compact journey-step-compare relative overflow-hidden bg-[#dfe9dc]" aria-labelledby="compare-title">
+        <article id="krahaso" className="journey-step mobile-compact journey-step-compare relative overflow-hidden bg-[#dcebdc]" aria-labelledby="compare-title">
           <div className="journey-number" aria-hidden="true">01</div>
           <div className="journey-copy">
             <p className="journey-label">Krahaso</p>
