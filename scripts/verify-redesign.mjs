@@ -93,9 +93,8 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.match(css, /brand-drift/);
   assert.match(css, /closing-k/);
 
-  assert.match(app, /Harro fletushkat/);
-  assert.match(app, /Krahaso më zgjuar/);
-  assert.match(app, /Skano barkodin, krahaso çmimet dhe zgjidh më lirë, direkt nga telefoni/);
+  assert.match(app, /Kalo te[\s\S]*më e lira/);
+  assert.match(app, /Skano produktin dhe shiko menjëherë ku kushton më pak/);
   assert.match(pageSource, /Njihu me[\s\S]*Krahaso/);
   assert.match(pageSource, /Çmimet, produktet dhe ofertat e supermarketeve/);
   assert.doesNotMatch(app, /Çmimet ndryshojnë|Zgjedhja jote nuk duhet|Mirë se erdhe te Krahaso/);
@@ -213,10 +212,30 @@ test("the Mindloop-inspired direction is cinematic without losing Krahaso", asyn
 
 test("the mobile hero preserves the video colour below the text wash", async () => {
   const css = await read("src/index.css");
-  const mobileStyles = css.match(/@media \\(max-width: 639px\\) \\{[\\s\\S]*?(?=\\n@media|$)/)?.[0] ?? "";
+  const mobileStyles = css.match(/@media \(max-width: 639px\) \{[\s\S]*?(?=\n@media|$)/)?.[0] ?? "";
 
-  assert.match(mobileStyles, /\\.hero-wash\\s*\\{[\\s\\S]*rgba\\(239, 243, 232, 0\\.08\\) 58%[\\s\\S]*transparent 76%/);
-  assert.doesNotMatch(mobileStyles, /rgba\\(239, 243, 232, 0\\.62\\) 100%/);
+  assert.match(mobileStyles, /\.hero-wash\s*\{[\s\S]*rgba\(239, 243, 232, 0\.08\) 58%[\s\S]*transparent 76%/);
+  assert.doesNotMatch(mobileStyles, /rgba\(239, 243, 232, 0\.62\) 100%/);
+});
+
+test("the final implementation pack is mapped without altering the locked hero", async () => {
+  const [app, features, journey, proof] = await Promise.all([
+    read("src/App.tsx"),
+    read("src/components/FeatureGrid.tsx"),
+    read("src/components/ProductJourney.tsx"),
+    read("src/components/AppProof.tsx"),
+  ]);
+
+  assert.match(app, /Kalo te[\s\S]*më e lira/);
+  assert.match(app, /Skano produktin dhe shiko menjëherë ku kushton më pak/);
+  assert.doesNotMatch(app, /Harro fletushkat|Krahaso më zgjuar/);
+
+  assert.match(app, /Krahaso ka ndryshuar mënyrën si i gjen çmimet/);
+  assert.match(features, /Njihu me[\s\S]*Krahaso/);
+  assert.match(journey, /Tre hapa[\s\S]*Një zgjedhje më e mirë/);
+  assert.match(journey, /Skano barkodin[\s\S]*Shih çmimet menjëherë/);
+  assert.match(journey, /Skano faturën[\s\S]*Fito shpërblime/);
+  assert.match(proof, /Fletushkat ishin dje[\s\S]*Çmimet tani janë në xhepin tënd/);
 });
 
 test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {
