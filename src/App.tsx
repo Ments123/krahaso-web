@@ -3,6 +3,7 @@ import { LogIn, UserPlus, Play, Sparkles, Menu, X } from 'lucide-react';
 import BoomerangVideoBg from './BoomerangVideoBg';
 import { ProductJourney } from './components/ProductJourney';
 import { AppProof } from './components/AppProof';
+import { FeatureGrid } from './components/FeatureGrid';
 
 const BG_VIDEO =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6.mp4';
@@ -18,7 +19,7 @@ function BrandMark({ inverse = false }: { inverse?: boolean }) {
     <span
       aria-hidden="true"
       className={`grid h-9 w-9 place-items-center rounded-[11px] text-lg font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,.35)] ${
-        inverse ? 'bg-white text-[#336443]' : 'bg-[#336443] text-white'
+        inverse ? 'bg-white text-[#08A64A]' : 'bg-[#08A64A] text-white'
       }`}
     >
       K
@@ -50,12 +51,13 @@ function App() {
   }, [menuOpen]);
 
   return (
-    <main className="bg-[#f2f3ed] text-[#1f2a1d]">
-      <section className="relative min-h-screen w-full overflow-hidden sm:h-screen" aria-labelledby="hero-title">
+    <main className="premium-shell bg-[#f5f7f3] text-[#162419]">
+      <div className="hero-shell">
+      <section className="hero-card relative w-full overflow-hidden" aria-labelledby="hero-title">
         <BoomerangVideoBg src={BG_VIDEO} className="absolute inset-0 h-full w-full" />
         <div className="hero-wash absolute inset-0" />
 
-        <nav className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-10" aria-label="Navigimi kryesor">
+        <nav className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-4 py-4 sm:px-7 sm:py-7 md:px-10" aria-label="Navigimi kryesor">
           <a href="#fillimi" className="flex items-center gap-2.5 text-[#2d3a2a]" aria-label="Krahaso, në fillim">
             <BrandMark />
             <span className="text-lg font-semibold tracking-[-0.035em] sm:text-xl md:text-2xl">Krahaso</span>
@@ -141,20 +143,20 @@ function App() {
           </div>
         </aside>
 
-        <div id="fillimi" className="relative z-10 flex flex-col items-center px-4 pt-28 text-center sm:px-6 sm:pt-32 md:pt-36">
+        <div id="fillimi" className="hero-copy relative z-10 flex h-full flex-col items-start justify-start px-5 pt-28 text-left sm:px-10 sm:pt-36 md:px-14">
           <h1
             id="hero-title"
-            className="max-w-6xl text-[2.65rem] font-normal leading-[0.92] tracking-[-0.045em] text-[#336443] sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.3rem]"
+            className="max-w-4xl text-[3.15rem] font-medium leading-[0.88] tracking-[-0.055em] text-[#063d24] sm:text-6xl md:text-7xl lg:text-[5.6rem] xl:text-[6.4rem]"
           >
             Harro fletushkat.
-            <span className="block text-[#85AB8B]">Krahaso më zgjuar.</span>
+            <span className="editorial-accent block text-[#08A64A]">Krahaso më zgjuar.</span>
           </h1>
-          <p className="mt-6 max-w-lg px-2 text-sm leading-relaxed text-[#4b5b47] sm:mt-8 sm:text-base md:text-lg">
+          <p className="mt-5 max-w-md text-[15px] leading-6 text-[#274a35] sm:mt-7 sm:text-lg sm:leading-7">
             Skano barkodin, krahaso çmimet dhe zgjidh më lirë, direkt nga telefoni.
           </p>
         </div>
 
-        <div className="absolute bottom-6 left-4 right-4 z-10 max-w-sm sm:bottom-8 sm:left-6 sm:right-auto md:bottom-10 md:left-10">
+        <div className="hero-actions absolute bottom-5 left-5 right-5 z-10 max-w-sm sm:bottom-10 sm:left-10 sm:right-auto md:left-14">
           <div className="mb-3 flex items-center gap-2 text-[#3d5638] sm:text-white/95">
             <Sparkles className="h-4 w-4" />
             <span className="text-sm font-semibold sm:font-medium">Krahaso. Skano. Fito.</span>
@@ -163,7 +165,7 @@ function App() {
             Shporta jote, çmimet e tua, një zgjedhje më e mirë.
           </p>
           <div className="flex flex-wrap items-center gap-4">
-            <a href="#aplikacioni" className="rounded-full bg-[#3d5638] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#2d4228] sm:bg-white sm:px-6 sm:py-3 sm:text-[#1f2a1d] sm:hover:bg-white/90">
+            <a href="#aplikacioni" className="primary-pill rounded-full bg-[#08A64A] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#07883d] sm:px-7 sm:py-3.5">
               Vjen së shpejti
             </a>
             <a href="#manifesti" className="text-sm font-semibold text-[#3d5638] transition-opacity hover:opacity-70 sm:font-medium sm:text-white">Zbulo më shumë.</a>
@@ -175,21 +177,9 @@ function App() {
           <span className="font-medium">Shiko aplikacionin</span>
         </a>
       </section>
+      </div>
 
-      <section id="manifesti" className="mobile-compact relative overflow-hidden bg-[#f2f3ed] px-5 py-16 sm:px-10 sm:py-24 lg:px-16 lg:py-28" aria-labelledby="manifest-title">
-        <span className="manifest-k absolute -right-12 top-1/2 -translate-y-1/2 select-none text-[72vw] font-medium leading-none tracking-[-0.1em] text-[#dfe5db] sm:-right-20 sm:text-[38vw]" aria-hidden="true">K</span>
-        <div className="reveal relative z-10 mx-auto w-full max-w-[1400px]">
-          <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#85AB8B]">Mënyra e re për të blerë</p>
-          <h2 id="manifest-title" className="max-w-6xl text-[clamp(2.9rem,7.5vw,8rem)] font-normal leading-[0.88] tracking-[-0.055em] text-[#1f2a1d]">
-            Ti zgjedh produktin.<br />
-            <span className="editorial-accent text-[#85AB8B]">Krahaso të tregon ku.</span>
-          </h2>
-          <div className="mt-9 flex flex-col gap-5 border-t border-[#1f2a1d]/10 pt-5 sm:mt-14 sm:flex-row sm:items-end sm:justify-between">
-            <p className="max-w-lg text-sm leading-6 text-[#4b5b47] sm:text-lg sm:leading-7">Çmimet e supermarketeve, të mbledhura në një vend që ti të zgjedhësh më lirë.</p>
-            <p className="text-sm font-semibold tracking-[-0.02em] text-[#336443]">Krahaso · Skano · Fito</p>
-          </div>
-        </div>
-      </section>
+      <FeatureGrid />
 
       <ProductJourney />
       <AppProof />
