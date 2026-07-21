@@ -6,6 +6,7 @@
   --krahaso-green: #08a64a;
   --krahaso-deep: #063d24;
   --krahaso-paper: #f5f7f3;
+  --krahaso-night: #020b06;
   color: #162419;
   background: var(--krahaso-paper);
   font-synthesis: none;
@@ -73,6 +74,95 @@ a {
 
 .premium-shell {
   background: var(--krahaso-paper);
+}
+
+.liquid-glass {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35), 0 12px 35px rgba(2, 11, 6, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.62);
+}
+
+.cinematic-statement {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(7rem, 14vw, 14rem) clamp(1.25rem, 6vw, 6rem);
+  color: white;
+  background: var(--krahaso-night);
+}
+
+.cinematic-statement::after {
+  content: '';
+  position: absolute;
+  width: min(72vw, 60rem);
+  aspect-ratio: 1;
+  right: -24%;
+  bottom: -65%;
+  border-radius: 999px;
+  background: rgba(8, 166, 74, 0.16);
+  filter: blur(90px);
+}
+
+.cinematic-statement-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 88rem;
+  margin: 0 auto;
+}
+
+.cinematic-statement h2 {
+  max-width: 76rem;
+  margin: 1.25rem 0 0;
+  font-size: clamp(3rem, 7.5vw, 7.75rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 0.92;
+}
+
+.cinematic-statement h2 span {
+  color: #47e081;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.statement-copy {
+  max-width: 42rem;
+  margin: 2.5rem 0 0 auto;
+  color: rgba(255,255,255,.58);
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  line-height: 1.55;
+}
+
+.solution-wrap {
+  background: var(--krahaso-paper);
+}
+
+.solution-label {
+  max-width: 88rem;
+  margin: 0 auto;
+  padding: 5rem clamp(1rem, 4vw, 3.5rem) 0;
+  color: #4b7058;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.solution-wrap .feature-section {
+  padding-top: 1.5rem;
 }
 
 .hero-shell {
