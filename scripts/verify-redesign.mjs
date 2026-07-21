@@ -211,6 +211,14 @@ test("the Mindloop-inspired direction is cinematic without losing Krahaso", asyn
   assert.doesNotMatch(app, /7,000|subscriber|ChatGPT|Perplexity|Google AI/i);
 });
 
+test("the mobile hero preserves the video colour below the text wash", async () => {
+  const css = await read("src/index.css");
+  const mobileStyles = css.match(/@media \\(max-width: 639px\\) \\{[\\s\\S]*?(?=\\n@media|$)/)?.[0] ?? "";
+
+  assert.match(mobileStyles, /\\.hero-wash\\s*\\{[\\s\\S]*rgba\\(239, 243, 232, 0\\.08\\) 58%[\\s\\S]*transparent 76%/);
+  assert.doesNotMatch(mobileStyles, /rgba\\(239, 243, 232, 0\\.62\\) 100%/);
+});
+
 test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {
   const [readme, vercelRaw] = await Promise.all([
     read("README.md"),
