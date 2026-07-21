@@ -198,6 +198,457 @@ a {
   background: repeating-linear-gradient(90deg, #1f2a1d 0 2px, transparent 2px 5px, #1f2a1d 5px 8px, transparent 8px 11px);
 }
 
+.editorial-accent {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+}
+
+.product-journey {
+  position: relative;
+}
+
+.journey-step {
+  display: grid;
+  min-height: min(780px, 88vh);
+  grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1.18fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 7rem);
+  padding: clamp(2rem, 5vw, 5rem);
+  border-radius: clamp(30px, 4vw, 64px);
+  isolation: isolate;
+}
+
+.journey-number {
+  position: absolute;
+  left: clamp(1.5rem, 4vw, 4rem);
+  top: clamp(1.5rem, 3vw, 3rem);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  opacity: 0.55;
+}
+
+.journey-copy {
+  position: relative;
+  z-index: 3;
+  max-width: 44rem;
+}
+
+.journey-label {
+  margin-bottom: 1.25rem;
+  color: #85ab8b;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.journey-copy h3 {
+  margin: 0;
+  color: inherit;
+  font-size: clamp(3.5rem, 7.8vw, 8.2rem);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 0.84;
+}
+
+.journey-copy h3 span {
+  color: #85ab8b;
+}
+
+.journey-copy > p:last-child {
+  max-width: 29rem;
+  margin-top: 1.75rem;
+  color: #4b5b47;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.journey-step-scan .journey-copy > p:last-child {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.journey-visual {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  min-height: 520px;
+}
+
+.journey-step-compare .comparison-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(34vw, 440px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border: 1px solid rgba(51, 100, 67, 0.12);
+  border-radius: 999px;
+}
+
+.journey-step-compare .comparison-orbit-inner {
+  width: min(25vw, 320px);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.journey-step-compare .product-cutout {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(31vw, 380px);
+  height: min(31vw, 380px);
+  translate: -50% -50%;
+  object-fit: contain;
+}
+
+.journey-step-compare .comparison-signal {
+  position: absolute;
+  z-index: 4;
+  padding: 1rem 1.2rem;
+  border-radius: 1.35rem;
+}
+
+.journey-step-compare .comparison-signal span {
+  display: block;
+  color: #4b5b47;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.journey-step-compare .comparison-signal strong {
+  display: block;
+  margin-top: 0.25rem;
+  color: #1f2a1d;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.journey-step-compare .comparison-signal-other {
+  left: 0;
+  top: 15%;
+}
+
+.journey-step-compare .comparison-signal-best {
+  right: 0;
+  bottom: 14%;
+}
+
+.journey-step-compare .comparison-signal-best span {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.journey-step-compare .comparison-signal-best strong {
+  color: white;
+}
+
+.journey-step-compare small {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: rgba(75, 91, 71, 0.62);
+  font-size: 0.6rem;
+}
+
+.journey-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 75% 50%, rgba(133, 171, 139, 0.16), transparent 34%);
+}
+
+.scan-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scan-stage .price-plane {
+  position: absolute;
+  top: 17%;
+  width: min(18vw, 230px);
+  height: min(29vw, 360px);
+  border-radius: 1.5rem;
+}
+
+.scan-stage .price-plane-left {
+  left: 3%;
+  rotate: -11deg;
+}
+
+.scan-stage .price-plane-right {
+  right: 2%;
+  rotate: 12deg;
+}
+
+.scan-stage .scan-radar {
+  position: absolute;
+  width: min(35vw, 460px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+.scanner-phone {
+  position: relative;
+  z-index: 3;
+  width: 250px;
+  height: 470px;
+  rotate: 3deg;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 42px;
+  background: #101710;
+  box-shadow: 0 50px 100px -40px rgba(0, 0, 0, 0.9);
+}
+
+.scanner-screen {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 34px;
+  background: #dbe4d8;
+}
+
+.scanner-frame {
+  position: absolute;
+  inset: 4.5rem 1.5rem 4.25rem;
+  overflow: hidden;
+  border: 1px solid rgba(51, 100, 67, 0.3);
+  border-radius: 1.5rem;
+  background: #cbd8c7;
+}
+
+.scanner-corner {
+  position: absolute;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.scanner-corner-top {
+  left: -1px;
+  top: -1px;
+  border-left: 3px solid #336443;
+  border-top: 3px solid #336443;
+  border-radius: 1.5rem 0 0;
+}
+
+.scanner-corner-bottom {
+  right: -1px;
+  bottom: -1px;
+  border-right: 3px solid #336443;
+  border-bottom: 3px solid #336443;
+  border-radius: 0 0 1.5rem;
+}
+
+.scanner-frame .scan-line {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  top: 2rem;
+  height: 2px;
+  background: #336443;
+  box-shadow: 0 0 16px #85ab8b;
+}
+
+.scanner-frame .barcode {
+  position: absolute;
+  left: 50%;
+  bottom: 3.5rem;
+  width: 8.5rem;
+  height: 4rem;
+  translate: -50% 0;
+  border-radius: 0.4rem;
+  background-color: white;
+}
+
+.scanner-screen > p {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 1.6rem;
+  margin: 0;
+  color: #336443;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.scan-result {
+  position: absolute;
+  z-index: 4;
+  left: 2%;
+  bottom: 8%;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  backdrop-filter: blur(14px);
+}
+
+.journey-step-reward .journey-copy > p:last-child {
+  color: #3d5638;
+}
+
+.reward-orbit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reward-orbit .reward-ring {
+  position: absolute;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+}
+
+.reward-orbit .reward-ring-large {
+  width: min(36vw, 470px);
+}
+
+.reward-orbit .reward-ring-small {
+  width: min(26vw, 340px);
+  border-color: rgba(51, 100, 67, 0.15);
+}
+
+.reward-confirmation {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  top: 10%;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px);
+}
+
+.reward-confirmation span,
+.reward-confirmation strong {
+  display: block;
+}
+
+.reward-confirmation span {
+  color: #3d5638;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.reward-confirmation strong {
+  margin-top: 0.35rem;
+  color: #1f2a1d;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.reward-card {
+  position: relative;
+  z-index: 3;
+  width: min(92%, 390px);
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 2.25rem;
+  background: #336443;
+  color: white;
+  box-shadow: 0 50px 100px -45px rgba(31, 42, 29, 0.75);
+}
+
+.reward-card > div:first-child,
+.reward-card small {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reward-card > div:first-child {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+}
+
+.reward-card > div:first-child b {
+  color: #b8cdb9;
+}
+
+.reward-card > strong {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: clamp(4.3rem, 8vw, 6.8rem);
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.reward-progress {
+  height: 0.35rem;
+  margin-top: 2rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.reward-progress span {
+  display: block;
+  width: 72%;
+  height: 100%;
+  border-radius: inherit;
+  background: white;
+}
+
+.reward-card small {
+  margin-top: 0.7rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.app-proof {
+  isolation: isolate;
+}
+
+.app-proof-device {
+  perspective: 1200px;
+}
+
+.app-proof-halo {
+  position: absolute;
+  width: min(80vw, 560px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(184, 205, 185, 0.38), rgba(223, 233, 220, 0.12) 52%, transparent 72%);
+}
+
+.app-proof-word {
+  position: absolute;
+  z-index: 0;
+  color: #d9dfd5;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  letter-spacing: -0.055em;
+}
+
+.app-proof-word-one {
+  left: 0;
+  top: 18%;
+}
+
+.app-proof-word-two {
+  right: 0;
+  bottom: 18%;
+}
+
+.partner-card {
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.4);
+}
+
 .reveal {
   opacity: 1;
   transform: translateY(0);
@@ -280,6 +731,153 @@ a {
 
   .price-plane-right {
     opacity: 0.38;
+  }
+
+  .mobile-compact {
+    min-height: 0;
+  }
+
+  .journey-step {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 4.5rem 1.25rem 1.25rem;
+  }
+
+  .journey-copy h3 {
+    font-size: clamp(2.85rem, 13.5vw, 4.1rem);
+    line-height: 0.86;
+  }
+
+  .journey-copy > p:last-child {
+    margin-top: 1.15rem;
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .journey-label {
+    margin-bottom: 0.9rem;
+  }
+
+  .journey-visual {
+    min-height: 350px;
+  }
+
+  .journey-step-compare .comparison-orbit {
+    width: 300px;
+  }
+
+  .journey-step-compare .comparison-orbit-inner {
+    width: 218px;
+  }
+
+  .journey-step-compare .product-cutout {
+    width: 245px;
+    height: 245px;
+  }
+
+  .journey-step-compare .comparison-signal {
+    padding: 0.75rem 0.9rem;
+  }
+
+  .journey-step-compare .comparison-signal-other {
+    left: -0.15rem;
+    top: 12%;
+  }
+
+  .journey-step-compare .comparison-signal-best {
+    right: -0.1rem;
+    bottom: 12%;
+  }
+
+  .scan-stage {
+    min-height: 410px;
+  }
+
+  .scanner-phone {
+    width: 205px;
+    height: 380px;
+    border-radius: 35px;
+  }
+
+  .scanner-screen {
+    border-radius: 28px;
+  }
+
+  .scanner-frame {
+    inset: 3.75rem 1.2rem 3.8rem;
+  }
+
+  .scanner-frame .barcode {
+    width: 7rem;
+    height: 3.5rem;
+  }
+
+  .scan-stage .price-plane {
+    top: 17%;
+    width: 145px;
+    height: 250px;
+  }
+
+  .scan-stage .price-plane-left {
+    left: -4%;
+  }
+
+  .scan-stage .price-plane-right {
+    right: -4%;
+  }
+
+  .scan-stage .scan-radar {
+    width: 315px;
+  }
+
+  .scan-result {
+    left: -0.25rem;
+    bottom: 5%;
+  }
+
+  .reward-orbit {
+    min-height: 370px;
+  }
+
+  .reward-orbit .reward-ring-large {
+    width: 330px;
+  }
+
+  .reward-orbit .reward-ring-small {
+    width: 240px;
+  }
+
+  .reward-confirmation {
+    left: -0.25rem;
+    top: 5%;
+    padding: 0.8rem 0.9rem;
+  }
+
+  .reward-confirmation strong {
+    font-size: 1.5rem;
+  }
+
+  .reward-card {
+    padding: 1.6rem;
+    border-radius: 1.8rem;
+  }
+
+  .app-proof-device {
+    min-height: 620px;
+  }
+
+  .app-proof-word {
+    font-size: 3.25rem;
+  }
+
+  .app-proof-word-one {
+    left: -0.5rem;
+    top: 13%;
+  }
+
+  .app-proof-word-two {
+    right: -0.5rem;
+    bottom: 12%;
   }
 }
 
