@@ -2,7 +2,7 @@
 
 A minimal, Albanian-first brand experience for **Krahaso**, built around one simple rhythm: **Krahaso. Skano. Fito.**
 
-The visual direction follows the supplied full-screen video reference: restrained Neue Haas typography, forest greens, translucent navigation, generous composition and purposeful CSS motion.
+The visual direction combines the supplied full-screen video reference with a compact mobile product story: restrained Neue Haas typography, editorial serif accents, forest greens, translucent navigation and purposeful CSS motion.
 
 ## Stack
 
@@ -36,8 +36,11 @@ The source-contract suite protects the approved stack, font treatment, video ren
 ```text
 index.html                    metadata and external font links
 src/
-  App.tsx                     complete Krahaso brand experience
+  App.tsx                     hero, navigation, partner and launch composition
   BoomerangVideoBg.tsx        supplied frame-capture video renderer
+  components/
+    ProductJourney.tsx        compare → barcode scan → receipt rewards story
+    AppProof.tsx              authentic app screenshot and product benefits
   index.css                   Tailwind layers and brand motion
   main.tsx                    Vite React entry
 public/
@@ -56,7 +59,10 @@ The opening video is loaded from the supplied CloudFront URL and rendered by `Bo
 ## Brand and honesty rules
 
 - Public copy stays short and brand-led.
-- The only core story is **Krahaso. Skano. Fito.**
+- The core story is **Krahaso. Skano. Fito.**
+- Barcode scanning is the primary comparison action.
+- Receipt scanning appears only in the rewards step.
+- The real app screenshot is the main proof asset below the product journey.
 - Example prices are marked as illustrative.
 - Download actions answer with **Së shpejti** until store links exist.
 - Admin access points to `https://admin.krahaso.app`.
