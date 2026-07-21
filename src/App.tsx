@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { LogIn, UserPlus, Play, Sparkles, Menu, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 import BoomerangVideoBg from './BoomerangVideoBg';
 import { ProductJourney } from './components/ProductJourney';
 import { AppProof } from './components/AppProof';
@@ -13,6 +14,13 @@ const navLinks = [
   { href: '#skano', label: 'Skano' },
   { href: '#fito', label: 'Fito' },
 ];
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.6, delay, ease: 'easeOut' as const },
+});
 
 function BrandMark({ inverse = false }: { inverse?: boolean }) {
   return (
@@ -63,7 +71,7 @@ function App() {
             <span className="text-lg font-semibold tracking-[-0.035em] sm:text-xl md:text-2xl">Krahaso</span>
           </a>
 
-          <div className="hidden items-center gap-1 rounded-full border border-white/60 bg-white/70 py-1 pl-6 pr-1 shadow-sm backdrop-blur-md lg:flex">
+          <div className="liquid-glass hidden items-center gap-1 rounded-full py-1 pl-6 pr-1 lg:flex">
             {navLinks.map((link, index) => (
               <a
                 key={link.href}
@@ -143,7 +151,7 @@ function App() {
           </div>
         </aside>
 
-        <div id="fillimi" className="hero-copy relative z-10 flex h-full flex-col items-start justify-start px-5 pt-28 text-left sm:px-10 sm:pt-36 md:px-14">
+        <motion.div {...fadeUp(0.1)} id="fillimi" className="hero-copy relative z-10 flex h-full flex-col items-start justify-start px-5 pt-28 text-left sm:px-10 sm:pt-36 md:px-14">
           <h1
             id="hero-title"
             className="max-w-4xl text-[3.15rem] font-medium leading-[0.88] tracking-[-0.055em] text-[#063d24] sm:text-6xl md:text-7xl lg:text-[5.6rem] xl:text-[6.4rem]"
@@ -154,7 +162,7 @@ function App() {
           <p className="mt-5 max-w-md text-[15px] leading-6 text-[#274a35] sm:mt-7 sm:text-lg sm:leading-7">
             Skano barkodin, krahaso çmimet dhe zgjidh më lirë, direkt nga telefoni.
           </p>
-        </div>
+        </motion.div>
 
         <div className="hero-actions absolute bottom-5 left-5 right-5 z-10 max-w-sm sm:bottom-10 sm:left-10 sm:right-auto md:left-14">
           <div className="mb-3 flex items-center gap-2 text-[#3d5638] sm:text-white/95">
@@ -179,7 +187,21 @@ function App() {
       </section>
       </div>
 
-      <FeatureGrid />
+      <section id="manifesti" className="cinematic-statement" aria-labelledby="statement-title">
+        <motion.div {...fadeUp()} className="cinematic-statement-inner">
+          <p className="section-label">MËNYRA E RE PËR TË BLERË</p>
+          <h2 id="statement-title">
+            Krahaso ka ndryshuar mënyrën si i gjen çmimet.
+            <span> A je gati të blesh më zgjuar?</span>
+          </h2>
+          <p className="statement-copy">Më pak kërkim. Më pak fletushka. Më shumë qartësi para çdo blerjeje.</p>
+        </motion.div>
+      </section>
+
+      <motion.div {...fadeUp()} className="solution-wrap">
+        <p className="solution-label">Zgjidhje</p>
+        <FeatureGrid />
+      </motion.div>
 
       <ProductJourney />
       <AppProof />
@@ -205,7 +227,7 @@ function App() {
         <span className="closing-k absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none text-[24rem] font-medium leading-none tracking-[-0.11em] text-white/[0.055] sm:text-[44rem]" aria-hidden="true">K</span>
         <div className="reveal relative z-10 mx-auto w-full max-w-[1400px] text-center">
           <div className="mx-auto flex w-fit items-center gap-3"><BrandMark inverse /><span className="text-xl font-semibold tracking-[-0.04em]">Krahaso</span></div>
-          <h2 id="download-title" className="mx-auto mt-8 max-w-6xl text-[clamp(4rem,10vw,10rem)] font-normal leading-[0.8] tracking-[-0.065em]">Krahaso.<br /><span className="text-[#85AB8B]">Skano. Fito.</span></h2>
+          <h2 id="download-title" className="mx-auto mt-8 max-w-6xl text-[clamp(4rem,10vw,10rem)] font-normal leading-[0.8] tracking-[-0.065em]">Blerjet e zgjuara.<br /><span className="editorial-accent text-[#47e081]">Fillojnë këtu.</span></h2>
           <p className="mx-auto mt-7 max-w-md text-sm leading-6 text-white/55 sm:text-base">Krahasimi i çmimeve në Kosovë, direkt nga telefoni.</p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4 sm:mt-11">
             <span className="inline-flex min-h-12 items-center rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-[#1f2a1d]">Vjen së shpejti</span>
