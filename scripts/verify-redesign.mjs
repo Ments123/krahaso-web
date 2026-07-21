@@ -22,7 +22,7 @@ test("the active runtime is the approved Vite and Neue Haas foundation", async (
   assert.ok(pkg.devDependencies.vite);
   assert.ok(pkg.devDependencies["@vitejs/plugin-react"]);
   assert.equal(pkg.dependencies.next, undefined);
-  assert.equal(pkg.dependencies["framer-motion"], undefined);
+  assert.ok(pkg.dependencies["framer-motion"]);
 
   assert.match(html, /id="root"/);
   assert.match(html, /fonts\.googleapis\.com/);
@@ -193,6 +193,22 @@ test("the Halo-inspired refinement stays green, useful and mobile-first", async 
   assert.match(css, /@media \(max-width: 639px\)/);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   assert.doesNotMatch(pageSource, /marquee|Backed by|partner zyrtar|7,000/i);
+});
+
+test("the Mindloop-inspired direction is cinematic without losing Krahaso", async () => {
+  const [app, css] = await Promise.all([read("src/App.tsx"), read("src/index.css")]);
+
+  assert.match(app, /motion/);
+  assert.match(app, /Krahaso ka ndryshuar mënyrën si i gjen çmimet/);
+  assert.match(app, /Më pak kërkim/);
+  assert.match(app, /Zgjidhje/);
+  assert.match(app, /Blerjet e zgjuara/);
+  assert.match(app, /liquid-glass/);
+  assert.match(css, /--krahaso-night:\s*#020b06/i);
+  assert.match(css, /\.liquid-glass/);
+  assert.match(css, /\.cinematic-statement/);
+  assert.match(css, /prefers-reduced-motion/);
+  assert.doesNotMatch(app, /7,000|subscriber|ChatGPT|Perplexity|Google AI/i);
 });
 
 test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {
