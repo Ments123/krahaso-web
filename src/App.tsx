@@ -156,11 +156,11 @@ function App() {
             id="hero-title"
             className="max-w-4xl text-[3.15rem] font-medium leading-[0.88] tracking-[-0.055em] text-[#063d24] sm:text-6xl md:text-7xl lg:text-[5.6rem] xl:text-[6.4rem]"
           >
-            Harro fletushkat.
-            <span className="editorial-accent block text-[#08A64A]">Krahaso më zgjuar.</span>
+            Kalo te
+            <span className="editorial-accent block text-[#08A64A]">më e lira</span>
           </h1>
           <p className="mt-5 max-w-md text-[15px] leading-6 text-[#274a35] sm:mt-7 sm:text-lg sm:leading-7">
-            Skano barkodin, krahaso çmimet dhe zgjidh më lirë, direkt nga telefoni.
+            Skano produktin dhe shiko menjëherë ku kushton më pak
           </p>
         </motion.div>
 
