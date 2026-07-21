@@ -9,15 +9,15 @@ export function AppProof() {
     <section id="aplikacioni" className="app-proof relative overflow-hidden bg-white" aria-labelledby="app-title">
       <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 sm:px-10 sm:py-28 lg:grid-cols-[.9fr_1.1fr] lg:gap-20 lg:px-16 lg:py-32">
         <div className="reveal">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#85AB8B]">Aplikacioni që po prisje</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08A64A]">Aplikacioni që po prisje</p>
           <h2 id="app-title" className="mt-5 max-w-3xl text-[clamp(3.1rem,7vw,7.4rem)] font-normal leading-[0.86] tracking-[-0.06em] text-[#1f2a1d]">
             Fletushkat ishin dje.<br />
-            <span className="editorial-accent text-[#85AB8B]">Çmimet tani janë në xhepin tënd.</span>
+            <span className="editorial-accent text-[#08A64A]">Çmimet tani janë në xhepin tënd.</span>
           </h2>
           <div className="mt-10 divide-y divide-[#1f2a1d]/10 border-y border-[#1f2a1d]/10">
             {benefits.map(([number, title, description]) => (
               <div key={number} className="grid grid-cols-[2.25rem_1fr] gap-3 py-4 sm:grid-cols-[3rem_9rem_1fr] sm:items-center">
-                <span className="text-xs font-semibold text-[#85AB8B]">{number}</span>
+                <span className="text-xs font-semibold text-[#08A64A]">{number}</span>
                 <strong className="text-base font-medium text-[#1f2a1d]">{title}</strong>
                 <p className="col-start-2 text-sm leading-6 text-[#4b5b47] sm:col-start-auto">{description}</p>
               </div>
