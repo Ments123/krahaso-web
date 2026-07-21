@@ -55,14 +55,15 @@ test("the supplied boomerang renderer captures and replays video frames", async 
 });
 
 test("the Krahaso page is a minimal cinematic brand experience", async () => {
-  const [app, journey, proof, css, cutout] = await Promise.all([
+  const [app, features, journey, proof, css, cutout] = await Promise.all([
     read("src/App.tsx"),
+    read("src/components/FeatureGrid.tsx"),
     read("src/components/ProductJourney.tsx"),
     read("src/components/AppProof.tsx"),
     read("src/index.css"),
     read("public/products/coffee-cutout.svg"),
   ]);
-  const pageSource = [app, journey, proof].join("\n");
+  const pageSource = [app, features, journey, proof].join("\n");
 
   assert.match(app, /https:\/\/d8j0ntlcm91z4\.cloudfront\.net\/user_38xzZboKViGWJOttwIXH07lWA1P\/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6\.mp4/);
   assert.match(app, /LogIn, UserPlus, Play, Sparkles, Menu, X/);
@@ -70,7 +71,7 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.match(app, /https:\/\/admin\.krahaso\.app/);
   assert.match(app, /Vjen së shpejti/);
   assert.match(app, /aria-expanded/);
-  assert.match(app, /id="manifesti"/);
+  assert.match(pageSource, /id="manifesti"/);
   assert.match(pageSource, /id="krahaso"/);
   assert.match(pageSource, /id="skano"/);
   assert.match(pageSource, /id="fito"/);
@@ -95,9 +96,8 @@ test("the Krahaso page is a minimal cinematic brand experience", async () => {
   assert.match(app, /Harro fletushkat/);
   assert.match(app, /Krahaso më zgjuar/);
   assert.match(app, /Skano barkodin, krahaso çmimet dhe zgjidh më lirë, direkt nga telefoni/);
-  assert.match(app, /Ti zgjedh produktin/);
-  assert.match(app, /Krahaso të tregon ku/);
-  assert.match(app, /Çmimet e supermarketeve, të mbledhura në një vend që ti të zgjedhësh më lirë/);
+  assert.match(pageSource, /Njihu me[\s\S]*Krahaso/);
+  assert.match(pageSource, /Çmimet, produktet dhe ofertat e supermarketeve/);
   assert.doesNotMatch(app, /Çmimet ndryshojnë|Zgjedhja jote nuk duhet|Mirë se erdhe te Krahaso/);
   assert.match(pageSource, /Skano barkodin/);
   assert.match(pageSource, /Barkodi u njoh/);
@@ -162,6 +162,37 @@ test("the lower page is a continuous mobile-first product story", async () => {
   assert.match(css, /\.app-proof/);
   assert.match(css, /\.partner-card/);
   assert.match(css, /@media \(max-width: 639px\)/);
+});
+
+test("the Halo-inspired refinement stays green, useful and mobile-first", async () => {
+  const [app, features, journey, proof, css] = await Promise.all([
+    read("src/App.tsx"),
+    read("src/components/FeatureGrid.tsx"),
+    read("src/components/ProductJourney.tsx"),
+    read("src/components/AppProof.tsx"),
+    read("src/index.css"),
+  ]);
+  const pageSource = [app, features, journey, proof].join("\n");
+
+  assert.match(app, /hero-shell/);
+  assert.match(app, /hero-card/);
+  assert.match(app, /<FeatureGrid \/>/);
+  assert.match(features, /Njihu me[\s\S]*Krahaso/);
+  assert.match(features, /Krahaso çmimet/);
+  assert.match(features, /Skano barkodin/);
+  assert.match(features, /Gjej ofertën më të mirë/);
+  assert.match(features, /Skano faturën dhe fito/);
+  assert.match(features, /feature-card/g);
+  assert.match(pageSource, /#08a64a|#08A64A/);
+  assert.match(css, /--krahaso-green:\s*#08a64a/i);
+  assert.match(css, /--krahaso-paper:\s*#f5f7f3/i);
+  assert.match(css, /min-height:\s*44px/);
+  assert.match(css, /100svh/);
+  assert.match(css, /scroll-snap-type:\s*x mandatory/);
+  assert.match(css, /scroll-snap-align:\s*start/);
+  assert.match(css, /@media \(max-width: 639px\)/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.doesNotMatch(pageSource, /marquee|Backed by|partner zyrtar|7,000/i);
 });
 
 test("the rejected Next runtime is removed and the Vite handoff is documented", async () => {
