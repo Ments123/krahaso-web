@@ -1,19 +1,44 @@
+import { useEffect, useRef } from 'react';
+import { trackEvent } from '../lib/analytics';
+
 const benefits = [
   ['01', 'Kërko', 'Gjeje produktin që të duhet.'],
-  ['02', 'Skano', 'Lexoje barkodin direkt nga telefoni.'],
-  ['03', 'Krahaso', 'Shih çmimet dhe vendos ku të blesh.'],
+  ['02', 'Skano', 'Identifikoje produktin nga barkodi.'],
+  ['03', 'Krahaso', 'Shih çmimet e disponueshme dhe vendos ku të blesh.'],
 ] as const;
 
 export function AppProof() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      trackEvent('app_proof_view');
+      observer.disconnect();
+    }, { threshold: 0.35 });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="aplikacioni" className="app-proof relative overflow-hidden bg-white" aria-labelledby="app-title">
+    <section
+      id="aplikacioni"
+      ref={sectionRef}
+      className="app-proof relative overflow-hidden bg-white"
+      aria-labelledby="app-title"
+    >
       <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 sm:px-10 sm:py-28 lg:grid-cols-[.9fr_1.1fr] lg:gap-20 lg:px-16 lg:py-32">
         <div className="reveal">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08A64A]">Aplikacioni që po prisje</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08A64A]">Aplikacioni Krahaso</p>
           <h2 id="app-title" className="mt-5 max-w-3xl text-[clamp(3.1rem,7vw,7.4rem)] font-normal leading-[0.86] tracking-[-0.06em] text-[#1f2a1d]">
-            Fletushkat ishin dje.<br />
-            <span className="editorial-accent text-[#08A64A]">Çmimet tani janë në xhepin tënd.</span>
+            Çmimet e Kosovës.<br />
+            <span className="editorial-accent text-[#08A64A]">Në xhepin tënd.</span>
           </h2>
+          <p className="mt-7 max-w-xl text-base leading-7 text-[#4b5b47]">
+            Kërko ose skano një produkt dhe shih çmimet që Krahaso ka në dispozicion, pa kaluar nga një fletushkë në tjetrën.
+          </p>
           <div className="mt-10 divide-y divide-[#1f2a1d]/10 border-y border-[#1f2a1d]/10">
             {benefits.map(([number, title, description]) => (
               <div key={number} className="grid grid-cols-[2.25rem_1fr] gap-3 py-4 sm:grid-cols-[3rem_9rem_1fr] sm:items-center">
@@ -26,8 +51,8 @@ export function AppProof() {
         </div>
 
         <div className="app-proof-device reveal relative mx-auto flex min-h-[610px] w-full max-w-[620px] items-center justify-center sm:min-h-[760px]">
-          <span className="app-proof-word app-proof-word-one" aria-hidden="true">Krahaso</span>
-          <span className="app-proof-word app-proof-word-two" aria-hidden="true">Skano</span>
+          <span className="app-proof-word app-proof-word-one" aria-hidden="true">Kërko</span>
+          <span className="app-proof-word app-proof-word-two" aria-hidden="true">Krahaso</span>
           <div className="app-proof-halo" aria-hidden="true" />
           <div className="phone-stage relative z-10 h-[590px] w-[286px] overflow-hidden rounded-[50px] bg-[#121812] p-[9px] shadow-[0_70px_130px_-55px_rgba(31,42,29,.7)] sm:h-[700px] sm:w-[340px] sm:rounded-[54px] sm:p-[10px]">
             <img

@@ -1,23 +1,32 @@
-# Krahaso Final Design QA
+# Krahaso App-Acquisition QA
 
-final result: passed
+Result: automated checks passed; hosted visual verification pending.
 
-## Comparison target
+## Scope verified
 
-- Source: the supplied 716 × 1536 Krahaso home-screen capture.
-- Implementation: the `#aplikacioni` showcase at 390 × 844 mobile and 1440 × 900 desktop viewports.
-- Comparison evidence: `artifacts/design-qa-comparison.png`, `artifacts/app-showcase-mobile-crop.png`, and `artifacts/app-showcase-desktop.png`.
+- Hero headline remains exactly `Kalo te më e lira`.
+- The hero keeps one ordinary autoplaying, muted, looping, inline video with metadata preload.
+- The real Krahaso home screenshot remains the first proof section after the hero.
+- The primary journey is `Skano → Krahaso → Zgjidh`.
+- Receipt rewards are separate from barcode price comparison and disabled by default.
+- Prelaunch mode does not create fake or empty store links.
+- The mobile install bar appears only after the hero, is dismissible for the session, and does not remain focusable while hidden.
+- SEO metadata, robots.txt, sitemap.xml, factual JSON-LD, analytics events, and UTM preservation are present.
 
-## Results
+## Automated evidence
 
-- The real app screenshot is rendered edge-to-edge inside the existing black device frame.
-- Screenshot content, colours, proportions, and hierarchy match the supplied source. The only visible treatment is the intentional device-corner clipping.
-- The fabricated Dynamic Island, fabricated dashboard cards, tiles, and in-phone download control are removed.
-- Mobile copy wraps cleanly without horizontal overflow, clipped controls, or overlap with the phone.
-- Desktop keeps the approved editorial scale and positions the real screen as the clear focal point.
-- The image resolves at its full 716 × 1536 intrinsic size and renders at 268 × 572 on mobile.
-- Browser capture found no Vite error overlay, JavaScript exception, or console error in the tested local experience.
+- `npm run verify:design`: 8/8 checks passed.
+- `npm run build`: passed.
+- `git diff --check`: passed.
+- Production JavaScript: 282.62 kB raw / 90.42 kB gzip.
+- Production CSS: 48.37 kB raw / 10.86 kB gzip.
+- Compared with the production baseline, JavaScript decreased by 1.57 kB raw and remained effectively flat when gzipped.
+- Independent code review found no critical issues. Its mobile accessibility and fictitious-data findings were corrected before this report.
 
-## Remaining P3 follow-up
+## Visual verification status
 
-- The supplied app capture still contains the source-app flame emoji and the phrase `nga market më të mira`. These are part of the approved real screenshot, not website-generated content. Replace the screenshot after the app copy is corrected to `nga supermarketet` and a new clean capture is available.
+The local headless Chromium runtime aborts in its system graphics library before creating a page, so no new browser screenshots are claimed here. Responsive visual and console verification must be completed against the Vercel preview generated from this branch.
+
+## Known content dependency
+
+Store, preorder, preregistration, and waitlist URLs remain deliberately unset. Until verified URLs are supplied, the page shows the neutral non-clickable status `Lansimi po përgatitet`.
