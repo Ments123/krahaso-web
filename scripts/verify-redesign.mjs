@@ -55,6 +55,7 @@ test('the production foundation and approved Krahaso identity remain intact', as
   assert.match(css, /Neue Haas Grotesk Display Pro 55 Roman/);
   assert.match(css, /prefers-reduced-motion/);
   assert.match(css, /min-height:\s*44px/);
+  assert.match(css, /\.site-footer nav a\s*\{[^}]*min-width:\s*44px/);
   assert.match(vite, /react\(\)/);
   assert.match(main, /createRoot/);
   assert.match(main, /<App/);
@@ -215,6 +216,8 @@ test('the hero uses one efficient non-blocking video without frame caching', asy
   assert.equal(await exists('src/BoomerangVideoBg.tsx'), false);
   assert.match(css, /hero-wash/);
   assert.match(css, /prefers-reduced-motion/);
+  assert.match(app, /useReducedMotion/);
+  assert.match(app, /reducedMotionProps/);
 });
 
 test('SEO metadata and crawler files target truthful Kosovo price comparison', async () => {

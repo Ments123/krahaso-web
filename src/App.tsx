@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ScanBarcode } from 'lucide-react';
 import HeroVideoBg from './HeroVideoBg';
 import { AppAcquisitionCta } from './components/AppAcquisitionCta';
@@ -24,6 +24,11 @@ const fadeUp = (delay = 0) => ({
 });
 
 function App() {
+  const shouldReduceMotion = useReducedMotion();
+  const reducedMotionProps = (delay = 0) => (
+    shouldReduceMotion ? { initial: false as const } : fadeUp(delay)
+  );
+
   return (
     <main className="premium-shell bg-[#f5f7f3] text-[#162419]">
       <div className="hero-shell">
@@ -37,7 +42,7 @@ function App() {
           <SiteHeader />
 
           <motion.div
-            {...fadeUp(0.1)}
+            {...reducedMotionProps(0.1)}
             className="hero-copy relative z-10 flex h-full flex-col items-start justify-start px-5 pt-28 text-left sm:px-10 sm:pt-36 md:px-14"
           >
             <h1
@@ -79,7 +84,7 @@ function App() {
       )}
 
       <section className="cinematic-statement" aria-labelledby="statement-title">
-        <motion.div {...fadeUp()} className="cinematic-statement-inner">
+        <motion.div {...reducedMotionProps()} className="cinematic-statement-inner">
           <p className="section-label">MË PAK HAMENDËSIM</p>
           <h2 id="statement-title">
             Një barkod. Çmimet që kemi në dispozicion.
