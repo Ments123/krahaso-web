@@ -56,7 +56,7 @@ function App() {
               Kalo te
               <span className="editorial-accent block text-[#08A64A]">më e lira</span>
             </h1>
-            <p className="mt-5 max-w-lg text-[15px] leading-6 text-[#274a35] sm:mt-7 sm:text-lg sm:leading-7">
+            <p className="hero-description mt-5 max-w-lg text-[15px] leading-6 text-[#274a35] sm:mt-7 sm:text-lg sm:leading-7">
               Skano barkodin. Krahaso çmimet në supermarketet e Kosovës. Shih ku kushton më pak.
             </p>
           </motion.div>
