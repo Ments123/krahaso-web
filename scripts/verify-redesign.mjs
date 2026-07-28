@@ -212,6 +212,8 @@ test('the hero uses one efficient non-blocking video without frame caching', asy
   assert.match(hero, /loop/);
   assert.match(hero, /playsInline/);
   assert.match(hero, /preload="metadata"/);
+  assert.match(hero, /matchMedia\(['"]\(min-width: 640px\)['"]\)/);
+  assert.match(hero, /\.play\(\)/);
   assert.match(hero, /poster="\/hero-bridge\.webp"/);
   assert.equal(poster.subarray(0, 4).toString('ascii'), 'RIFF');
   assert.equal(poster.subarray(8, 12).toString('ascii'), 'WEBP');
@@ -222,6 +224,9 @@ test('the hero uses one efficient non-blocking video without frame caching', asy
   assert.equal(await exists('src/BoomerangVideoBg.tsx'), false);
   assert.match(css, /hero-wash/);
   assert.match(css, /prefers-reduced-motion/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\) and \(max-width: 639px\)/);
+  assert.match(app, /className="hero-description/);
+  assert.match(css, /@media \(min-width: 768px\)[\s\S]*?\.hero-description\s*\{[^}]*position:\s*absolute/);
   assert.match(app, /useReducedMotion/);
   assert.match(app, /reducedMotionProps/);
 });
