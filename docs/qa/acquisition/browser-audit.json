@@ -1,0 +1,192 @@
+{
+  "generatedAt": "2026-07-26T23:21:52.585Z",
+  "bundle": {
+    "js": "index-BqYmnD9P.js",
+    "css": "index-DDeHDe1A.css"
+  },
+  "externalVideo": "blocked by local sandbox and excluded from application failure counts",
+  "viewports": [
+    {
+      "name": "mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "initial": {
+        "title": "Krahaso Çmimet në Supermarkete në Kosovë | Krahaso",
+        "h1Count": 1,
+        "h1": "Kalo te\nmë e lira",
+        "overflowPx": 0,
+        "duplicates": [],
+        "brokenAnchors": [],
+        "touchTargetFailures": [],
+        "appImage": {
+          "complete": true,
+          "naturalWidth": 716,
+          "naturalHeight": 1536,
+          "alt": "Pamje reale e ballinës së aplikacionit Krahaso"
+        },
+        "neutralStatus": [
+          "Lansimi po përgatitet",
+          "Lansimi po përgatitet"
+        ],
+        "video": {
+          "muted": true,
+          "loop": true,
+          "playsInline": true,
+          "preload": "metadata"
+        }
+      },
+      "menu": {
+        "open": {
+          "expanded": "true",
+          "hidden": "false",
+          "inert": false
+        },
+        "closed": {
+          "expanded": "false",
+          "hidden": "true",
+          "inert": true
+        }
+      },
+      "errors": [],
+      "failed": [
+        "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6.mp4"
+      ]
+    },
+    {
+      "name": "mobile-430x932",
+      "width": 430,
+      "height": 932,
+      "initial": {
+        "title": "Krahaso Çmimet në Supermarkete në Kosovë | Krahaso",
+        "h1Count": 1,
+        "h1": "Kalo te\nmë e lira",
+        "overflowPx": 0,
+        "duplicates": [],
+        "brokenAnchors": [],
+        "touchTargetFailures": [],
+        "appImage": {
+          "complete": true,
+          "naturalWidth": 716,
+          "naturalHeight": 1536,
+          "alt": "Pamje reale e ballinës së aplikacionit Krahaso"
+        },
+        "neutralStatus": [
+          "Lansimi po përgatitet",
+          "Lansimi po përgatitet"
+        ],
+        "video": {
+          "muted": true,
+          "loop": true,
+          "playsInline": true,
+          "preload": "metadata"
+        }
+      },
+      "menu": {
+        "open": {
+          "expanded": "true",
+          "hidden": "false",
+          "inert": false
+        },
+        "closed": {
+          "expanded": "false",
+          "hidden": "true",
+          "inert": true
+        }
+      },
+      "errors": [],
+      "failed": [
+        "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6.mp4"
+      ]
+    },
+    {
+      "name": "tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "initial": {
+        "title": "Krahaso Çmimet në Supermarkete në Kosovë | Krahaso",
+        "h1Count": 1,
+        "h1": "Kalo te\nmë e lira",
+        "overflowPx": 0,
+        "duplicates": [],
+        "brokenAnchors": [],
+        "touchTargetFailures": [],
+        "appImage": {
+          "complete": true,
+          "naturalWidth": 716,
+          "naturalHeight": 1536,
+          "alt": "Pamje reale e ballinës së aplikacionit Krahaso"
+        },
+        "neutralStatus": [
+          "Lansimi po përgatitet",
+          "Lansimi po përgatitet"
+        ],
+        "video": {
+          "muted": true,
+          "loop": true,
+          "playsInline": true,
+          "preload": "metadata"
+        }
+      },
+      "menu": {
+        "open": {
+          "expanded": "true",
+          "hidden": "false",
+          "inert": false
+        },
+        "closed": {
+          "expanded": "false",
+          "hidden": "true",
+          "inert": true
+        }
+      },
+      "errors": [],
+      "failed": [
+        "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6.mp4"
+      ]
+    },
+    {
+      "name": "desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "initial": {
+        "title": "Krahaso Çmimet në Supermarkete në Kosovë | Krahaso",
+        "h1Count": 1,
+        "h1": "Kalo te\nmë e lira",
+        "overflowPx": 0,
+        "duplicates": [],
+        "brokenAnchors": [],
+        "touchTargetFailures": [],
+        "appImage": {
+          "complete": true,
+          "naturalWidth": 716,
+          "naturalHeight": 1536,
+          "alt": "Pamje reale e ballinës së aplikacionit Krahaso"
+        },
+        "neutralStatus": [
+          "Lansimi po përgatitet",
+          "Lansimi po përgatitet"
+        ],
+        "video": {
+          "muted": true,
+          "loop": true,
+          "playsInline": true,
+          "preload": "metadata"
+        }
+      },
+      "menu": null,
+      "errors": [],
+      "failed": [
+        "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6.mp4"
+      ]
+    }
+  ],
+  "reducedMotion": {
+    "videoDisplay": "none",
+    "activeMotion": [],
+    "scrollBehavior": "auto",
+    "errors": [],
+    "failed": [
+      "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6.mp4"
+    ]
+  }
+}
