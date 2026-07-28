@@ -1381,8 +1381,8 @@ a {
     width: min(32rem, calc(46% - 3rem));
     max-width: 32rem;
     margin-top: 0;
-    color: #173e29;
-    text-shadow: 0 1px 18px rgba(249, 244, 232, 0.95);
+    color: #f7f2e7;
+    text-shadow: 0 2px 18px rgba(5, 38, 23, 0.72);
   }
 }
 

@@ -227,6 +227,7 @@ test('the hero uses one efficient non-blocking video without frame caching', asy
   assert.match(css, /@media \(prefers-reduced-motion: reduce\) and \(max-width: 639px\)/);
   assert.match(app, /className="hero-description/);
   assert.match(css, /@media \(min-width: 768px\)[\s\S]*?\.hero-description\s*\{[^}]*position:\s*absolute/);
+  assert.match(css, /\.hero-description\s*\{[^}]*color:\s*#f7f2e7/);
   assert.match(app, /useReducedMotion/);
   assert.match(app, /reducedMotionProps/);
 });
