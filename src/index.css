@@ -1373,6 +1373,19 @@ a {
   display: block;
 }
 
+@media (min-width: 768px) {
+  .hero-description {
+    position: absolute;
+    top: clamp(22rem, 64%, 38rem);
+    left: 54%;
+    width: min(32rem, calc(46% - 3rem));
+    max-width: 32rem;
+    margin-top: 0;
+    color: #173e29;
+    text-shadow: 0 1px 18px rgba(249, 244, 232, 0.95);
+  }
+}
+
 .acquisition-links {
   display: flex;
   flex-wrap: wrap;
@@ -1874,7 +1887,7 @@ a {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (max-width: 639px) {
   .hero-video {
     visibility: hidden;
   }
