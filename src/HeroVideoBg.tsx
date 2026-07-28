@@ -1,15 +1,21 @@
 type Props = {
   src: string;
   className?: string;
+  reducedMotion?: boolean;
 };
 
-export default function HeroVideoBg({ src, className = '' }: Props) {
+export default function HeroVideoBg({
+  src,
+  className = '',
+  reducedMotion = false,
+}: Props) {
   return (
     <div className={`hero-video-wrap ${className}`} aria-hidden="true">
       <video
         className="hero-video h-full w-full object-cover"
         src={src}
-        autoPlay
+        poster="/hero-bridge.webp"
+        autoPlay={!reducedMotion}
         muted
         loop
         playsInline

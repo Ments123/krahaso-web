@@ -1363,7 +1363,10 @@ a {
 }
 
 .hero-video-wrap {
-  background: #cddbc8;
+  background-color: #cddbc8;
+  background-image: url('/hero-bridge.webp');
+  background-position: center;
+  background-size: cover;
 }
 
 .hero-video {
@@ -1873,7 +1876,7 @@ a {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-video {
-    display: none;
+    visibility: hidden;
   }
 
   .mobile-install-bar {
