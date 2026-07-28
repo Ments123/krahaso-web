@@ -37,7 +37,11 @@ function App() {
           className="hero-card relative w-full overflow-hidden"
           aria-labelledby="hero-title"
         >
-          <HeroVideoBg src={BG_VIDEO} className="absolute inset-0 h-full w-full" />
+          <HeroVideoBg
+            src={BG_VIDEO}
+            className="absolute inset-0 h-full w-full"
+            reducedMotion={Boolean(shouldReduceMotion)}
+          />
           <div className="hero-wash absolute inset-0" />
           <SiteHeader />
 

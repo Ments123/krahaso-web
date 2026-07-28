@@ -197,10 +197,11 @@ test('main section IDs are unique and navigation targets exist', async () => {
 });
 
 test('the hero uses one efficient non-blocking video without frame caching', async () => {
-  const [hero, app, css] = await Promise.all([
+  const [hero, app, css, poster] = await Promise.all([
     read('src/HeroVideoBg.tsx'),
     read('src/App.tsx'),
     read('src/index.css'),
+    readBytes('public/hero-bridge.webp'),
   ]);
   const mediaSource = [hero, app].join('\n');
 
@@ -211,6 +212,11 @@ test('the hero uses one efficient non-blocking video without frame caching', asy
   assert.match(hero, /loop/);
   assert.match(hero, /playsInline/);
   assert.match(hero, /preload="metadata"/);
+  assert.match(hero, /poster="\/hero-bridge\.webp"/);
+  assert.equal(poster.subarray(0, 4).toString('ascii'), 'RIFF');
+  assert.equal(poster.subarray(8, 12).toString('ascii'), 'WEBP');
+  assert.match(css, /\.hero-video-wrap\s*\{[^}]*background-image:\s*url\(['"]?\/hero-bridge\.webp/);
+  assert.doesNotMatch(css, /\.hero-video\s*\{[^}]*display:\s*none/);
   assert.doesNotMatch(mediaSource, /canvas|getContext|requestVideoFrameCallback|requestAnimationFrame|framesRef/i);
   assert.equal((mediaSource.match(/<video/g) ?? []).length, 1);
   assert.equal(await exists('src/BoomerangVideoBg.tsx'), false);
