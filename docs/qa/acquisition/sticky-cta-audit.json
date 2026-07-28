@@ -1,0 +1,49 @@
+{
+  "initial": {
+    "bar": false,
+    "heroLinks": [
+      {
+        "text": "Më njofto kur të lansohet",
+        "href": "https://example.com/krahaso-waitlist",
+        "rel": "noopener noreferrer"
+      }
+    ]
+  },
+  "visible": {
+    "bar": true,
+    "aria": "Shkarko Krahaso",
+    "link": {
+      "text": "Njoftohu",
+      "href": "https://example.com/krahaso-waitlist",
+      "target": "_blank",
+      "rel": "noopener noreferrer",
+      "width": 132.6875,
+      "height": 44
+    },
+    "dismiss": {
+      "label": "Mbyll njoftimin e shkarkimit",
+      "width": 44,
+      "height": 44
+    },
+    "footerPadding": "128px"
+  },
+  "analytics": [
+    {
+      "event": "app_proof_view"
+    },
+    {
+      "event": "waitlist_click",
+      "placement": "sticky"
+    },
+    {
+      "event": "sticky_store_click",
+      "store": "waitlist"
+    }
+  ],
+  "dismissed": {
+    "bar": false,
+    "stored": "true",
+    "active": false
+  },
+  "persistedAfterFurtherScroll": false
+}
