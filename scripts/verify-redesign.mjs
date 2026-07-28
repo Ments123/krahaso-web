@@ -221,12 +221,14 @@ test('the hero uses one efficient non-blocking video without frame caching', asy
 });
 
 test('SEO metadata and crawler files target truthful Kosovo price comparison', async () => {
-  const [html, robots, sitemap, growth] = await Promise.all([
+  const [html, robots, sitemap, growth, vercelSource] = await Promise.all([
     read('index.html'),
     read('public/robots.txt'),
     read('public/sitemap.xml'),
     read('docs/growth/krahaso-price-index.md'),
+    read('vercel.json'),
   ]);
+  const vercel = JSON.parse(vercelSource);
 
   assert.match(html, /<title>Krahaso Çmimet në Supermarkete në Kosovë \| Krahaso<\/title>/);
   assert.match(html, /Skano barkodin dhe krahaso çmimet e produkteve në supermarketet e Kosovës\. Shih ku kushton më pak dhe kurse me Krahaso\./);
@@ -241,6 +243,24 @@ test('SEO metadata and crawler files target truthful Kosovo price comparison', a
   assert.match(robots, /Sitemap:\s*https:\/\/krahaso\.app\/sitemap\.xml/);
   assert.match(sitemap, /<loc>https:\/\/krahaso\.app\/<\/loc>/);
   assert.equal((sitemap.match(/<url>/g) ?? []).length, 1);
+  assert.deepEqual(vercel.redirects, [
+    {
+      source: '/(.*)',
+      has: [{ type: 'host', value: 'www.krahaso.app' }],
+      destination: 'https://krahaso.app/$1',
+      permanent: true,
+    },
+  ]);
+  assert.ok(
+    vercel.headers.some(
+      ({ source, headers }) =>
+        source === '/(.*)' &&
+        headers.some(
+          ({ key, value }) =>
+            key === 'X-Robots-Tag' && value === 'index, follow',
+        ),
+    ),
+  );
 
   assert.match(growth, /\/cmimet\//);
   assert.match(growth, /\/produkt\/\[slug\]\//);
