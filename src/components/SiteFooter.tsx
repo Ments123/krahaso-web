@@ -1,3 +1,4 @@
+import { Apple, Play } from 'lucide-react';
 import { BrandMark } from './BrandMark';
 import { trackEvent } from '../lib/analytics';
 import { PLAY_STORE_URL } from './AppAcquisitionCta';
@@ -14,9 +15,14 @@ export function SiteFooter() {
           </div>
         </div>
         <nav aria-label="Navigimi në fund">
-          <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer">
-            Google Play
+          <a className="footer-store-link" href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer">
+            <Play aria-hidden="true" />
+            <span>Google Play</span>
           </a>
+          <span className="footer-store-status" aria-label="iOS coming soon">
+            <Apple aria-hidden="true" />
+            <span>iOS coming soon</span>
+          </span>
           <a
             href="https://admin.krahaso.app"
             target="_blank"

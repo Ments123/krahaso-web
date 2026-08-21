@@ -34,12 +34,12 @@ function App() {
           >
             <h1
               id="hero-title"
-              className="max-w-4xl text-[3.15rem] font-medium leading-[0.88] tracking-[-0.055em] text-[#063d24] sm:text-6xl md:text-7xl lg:text-[5.6rem]"
+              className="hero-title-contrast max-w-4xl text-[3.15rem] font-medium leading-[0.88] tracking-[-0.055em] sm:text-6xl md:text-7xl lg:text-[5.6rem]"
             >
               Kalo te
-              <span className="editorial-accent block text-[#08A64A]">më e lira</span>
+              <span className="editorial-accent block">më e lira</span>
             </h1>
-            <p className="mt-5 max-w-lg text-[15px] leading-6 text-[#274a35] sm:mt-7 sm:text-lg sm:leading-7">
+            <p className="hero-description-contrast mt-5 max-w-lg text-[15px] leading-6 sm:mt-7 sm:text-lg sm:leading-7">
               Krahaso çmimet në marketet e Kosovës, skano barkodin dhe shiko menjëherë ku kushton më pak.
             </p>
             <div id="shkarko" className="mt-7 scroll-mt-6">
