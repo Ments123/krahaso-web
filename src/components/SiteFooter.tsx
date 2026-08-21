@@ -1,5 +1,6 @@
 import { BrandMark } from './BrandMark';
 import { trackEvent } from '../lib/analytics';
+import { PLAY_STORE_URL } from './AppAcquisitionCta';
 
 export function SiteFooter() {
   return (
@@ -13,9 +14,9 @@ export function SiteFooter() {
           </div>
         </div>
         <nav aria-label="Navigimi në fund">
-          <a href="#si-funksionon">Si funksionon</a>
-          <a href="#aplikacioni">Aplikacioni</a>
-          <a href="#partneret">Për partnerët</a>
+          <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer">
+            Google Play
+          </a>
           <a
             href="https://admin.krahaso.app"
             target="_blank"
