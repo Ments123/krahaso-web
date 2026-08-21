@@ -1,4 +1,4 @@
-import { Apple, Play } from 'lucide-react';
+import { SiApple, SiGoogleplay } from 'react-icons/si';
 import { BrandMark } from './BrandMark';
 import { trackEvent } from '../lib/analytics';
 import { PLAY_STORE_URL } from './AppAcquisitionCta';
@@ -16,11 +16,11 @@ export function SiteFooter() {
         </div>
         <nav aria-label="Navigimi në fund">
           <a className="footer-store-link" href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer">
-            <Play aria-hidden="true" />
+            <SiGoogleplay aria-hidden="true" />
             <span>Google Play</span>
           </a>
           <span className="footer-store-status" aria-label="iOS coming soon">
-            <Apple aria-hidden="true" />
+            <SiApple aria-hidden="true" />
             <span>iOS coming soon</span>
           </span>
           <a
