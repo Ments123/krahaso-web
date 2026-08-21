@@ -1,11 +1,5 @@
-import { Apple, Bell, Play } from 'lucide-react';
-import {
-  getAcquisitionLinks,
-  launchConfig,
-  type AcquisitionKind,
-} from '../config/launch';
-import { detectPlatform } from '../lib/platform';
-import { preserveUtm, trackEvent, type AnalyticsEventName } from '../lib/analytics';
+import { Play } from 'lucide-react';
+import { preserveUtm, trackEvent } from '../lib/analytics';
 
 type Props = {
   placement: 'hero' | 'nav' | 'download' | 'sticky';
@@ -14,11 +8,8 @@ type Props = {
   onNavigate?: () => void;
 };
 
-const eventForKind: Record<AcquisitionKind, AnalyticsEventName> = {
-  'app-store': 'app_store_click',
-  'play-store': 'play_store_click',
-  waitlist: 'waitlist_click',
-};
+export const PLAY_STORE_URL =
+  'https://play.google.com/store/apps/details?id=com.krahaso.app';
 
 export function AppAcquisitionCta({
   placement,
@@ -26,48 +17,23 @@ export function AppAcquisitionCta({
   compact = false,
   onNavigate,
 }: Props) {
-  const links = getAcquisitionLinks(launchConfig, detectPlatform());
-
-  if (links.length === 0) {
-    return (
-      <span
-        className={`acquisition-status ${inverse ? 'acquisition-status-inverse' : ''}`}
-        role="status"
-      >
-        Lansimi po përgatitet
-      </span>
-    );
-  }
-
   return (
     <div className={`acquisition-links ${compact ? 'acquisition-links-compact' : ''}`}>
-      {links.map((link, index) => {
-        const Icon = link.kind === 'app-store'
-          ? Apple
-          : link.kind === 'play-store'
-            ? Play
-            : Bell;
-        const primary = index === 0;
-
-        return (
-          <a
-            key={`${link.kind}-${link.href}`}
-            href={preserveUtm(link.href)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`acquisition-link ${primary ? 'acquisition-link-primary' : 'acquisition-link-secondary'} ${inverse ? 'acquisition-link-inverse' : ''}`}
-            onClick={() => {
-              trackEvent(eventForKind[link.kind], { placement });
-              if (placement === 'hero') trackEvent('hero_store_click', { store: link.kind });
-              if (placement === 'sticky') trackEvent('sticky_store_click', { store: link.kind });
-              onNavigate?.();
-            }}
-          >
-            <Icon aria-hidden="true" />
-            <span>{compact ? link.compactLabel : link.label}</span>
-          </a>
-        );
-      })}
+      <a
+        href={preserveUtm(PLAY_STORE_URL)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`acquisition-link acquisition-link-primary ${inverse ? 'acquisition-link-inverse' : ''}`}
+        onClick={() => {
+          trackEvent('play_store_click', { placement });
+          if (placement === 'hero') trackEvent('hero_store_click', { store: 'play-store' });
+          if (placement === 'sticky') trackEvent('sticky_store_click', { store: 'play-store' });
+          onNavigate?.();
+        }}
+      >
+        <Play aria-hidden="true" />
+        <span>{compact ? 'Shkarko' : 'Shkarko në Google Play'}</span>
+      </a>
     </div>
   );
 }
