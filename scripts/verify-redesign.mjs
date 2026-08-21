@@ -121,76 +121,40 @@ test('launch state and acquisition destinations are centralised and honest', asy
   }
 });
 
-test('the homepage is ordered as an app-acquisition journey', async () => {
-  const sources = await Promise.all(sourcePaths.map(read));
-  const [app, header, cta, sticky, proof, journey, features, download, rewards, partner, footer] = sources;
-  const pageSource = sources.join('\n');
+test('the homepage is a compact app-download journey', async () => {
+  const [app, header, cta, footer] = await Promise.all([
+    read('src/App.tsx'),
+    read('src/components/SiteHeader.tsx'),
+    read('src/components/AppAcquisitionCta.tsx'),
+    read('src/components/SiteFooter.tsx'),
+  ]);
+  const pageSource = [app, header, cta, footer].join('\n');
 
   assert.match(app, /Kalo te[\s\S]*më e lira/);
-  assert.match(app, /Skano barkodin\. Krahaso çmimet në supermarketet e Kosovës\. Shih ku kushton më pak\./);
-  assert.match(app, /<AppProof[\s\S]*<ProductJourney[\s\S]*<FeatureGrid[\s\S]*<DownloadSection/);
-  assert.match(app, /rewardsEnabled[\s\S]*<RewardsSection/);
-  assert.match(app, /<PartnerTeaser[\s\S]*<SiteFooter/);
+  assert.match(app, /Krahaso çmimet në marketet e Kosovës, skano barkodin/);
+  assert.match(app, /<SiteHeader[\s\S]*<AppAcquisitionCta[\s\S]*<SiteFooter/);
+  assert.doesNotMatch(app, /<AppProof|<ProductJourney|<FeatureGrid|<DownloadSection|<RewardsSection|<PartnerTeaser|<MobileInstallBar/);
   assert.equal((pageSource.match(/<h1\b/g) ?? []).length, 1);
-
-  assert.match(header, /Si funksionon/);
-  assert.match(header, /Aplikacioni/);
-  assert.match(header, /Shkarko/);
-  assert.match(header, /aria-expanded/);
-  assert.match(header, /Escape/);
-  assert.equal((header.match(/Shkarko/g) ?? []).length, 1);
-  assert.doesNotMatch(header, />\s*Admin\s*</);
-  assert.doesNotMatch(header, />\s*Partnerët\s*</);
-  assert.doesNotMatch(header, />\s*Fito\s*</);
-
-  assert.match(cta, /AppAcquisitionCta/);
-  assert.match(sticky, /sessionStorage/);
-  assert.match(sticky, /IntersectionObserver/);
-  assert.match(sticky, /AppAcquisitionCta/);
-  assert.match(sticky, /Mbyll/);
-  assert.match(sticky, /!heroPassed/);
-  assert.match(sticky, /has-mobile-install-bar/);
-
-  assert.match(proof, /\/app\/krahaso-home\.webp/);
-  assert.match(proof, /Pamje reale e ballinës së aplikacionit Krahaso/);
-  assert.match(proof, /loading="lazy"/);
-  assert.match(proof, /decoding="async"/);
-
-  assert.match(journey, /id="si-funksionon"/);
-  assert.match(journey, /01[\s\S]*Skano[\s\S]*02[\s\S]*Krahaso[\s\S]*03[\s\S]*Zgjidh/);
-  assert.match(journey, /Drejto kamerën te barkodi i produktit/);
-  assert.match(journey, /supermarketet ku kemi çmime të disponueshme/);
-  assert.match(journey, /Shih diferencën dhe vendos ku ia vlen të blesh/);
-  assert.doesNotMatch(journey, /fatur|pikë|shpërblim/i);
-
-  assert.match(features, /Kërko produktin/);
-  assert.match(features, /Skano barkodin/);
-  assert.match(features, /Krahaso çmimet/);
-  assert.match(features, /Gjej ofertën më të mirë/);
-  assert.doesNotMatch(features, /fatur|pikë|shpërblim/i);
-
-  assert.match(download, /id="shkarko"/);
-  assert.match(download, /Skano\. Krahaso\. Kalo te më e lira\./);
-  assert.match(download, /AppAcquisitionCta/);
-  assert.match(rewards, /VITE_REWARDS_ENABLED|rewardsEnabled/);
-  assert.doesNotMatch(rewards, /1,240|2,000|72%/);
-  assert.match(partner, /Je supermarket apo biznes/);
-  assert.match(partner, /Bëhu pjesë e Krahaso/);
+  assert.match(header, /href="#shkarko"/);
+  assert.match(cta, /Shkarko në Google Play/);
+  assert.match(footer, /Google Play/);
   assert.match(footer, /https:\/\/admin\.krahaso\.app/);
-  assert.match(footer, /Për partnerët/);
-
   assert.doesNotMatch(pageSource, /7,000|milion|rating|shkarkime|partner zyrtar/i);
   assert.doesNotMatch(pageSource, /href=["']#["']/);
 });
 
 test('main section IDs are unique and navigation targets exist', async () => {
-  const sources = await Promise.all(sourcePaths.map((path) => read(path).catch(() => '')));
+  const sources = await Promise.all([
+    read('src/App.tsx'),
+    read('src/components/SiteHeader.tsx'),
+    read('src/components/SiteFooter.tsx'),
+  ]);
   const pageSource = sources.join('\n');
   const ids = [...pageSource.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
   const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
 
   assert.deepEqual(duplicates, []);
-  for (const id of ['fillimi', 'aplikacioni', 'si-funksionon', 'krahaso', 'shkarko', 'partneret']) {
+  for (const id of ['fillimi', 'shkarko']) {
     assert.ok(ids.includes(id), `missing #${id}`);
   }
   assert.doesNotMatch(pageSource, /id="manifesti"/);
@@ -225,11 +189,8 @@ test('the hero uses one efficient non-blocking video without frame caching', asy
   assert.match(css, /hero-wash/);
   assert.match(css, /prefers-reduced-motion/);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\) and \(max-width: 639px\)/);
-  assert.match(app, /className="hero-description/);
-  assert.match(css, /@media \(min-width: 768px\)[\s\S]*?\.hero-description\s*\{[^}]*position:\s*absolute/);
-  assert.match(css, /\.hero-description\s*\{[^}]*color:\s*#f7f2e7/);
   assert.match(app, /useReducedMotion/);
-  assert.match(app, /reducedMotionProps/);
+  assert.match(css, /\.hero-card\s*\{[^}]*min-height:\s*clamp\(34rem, 72svh, 48rem\)/);
 });
 
 test('SEO metadata and crawler files target truthful Kosovo price comparison', async () => {
