@@ -313,10 +313,16 @@ test('hero contrast and footer store states stay accessible at both breakpoints'
   assert.match(app, /className="hero-description-contrast/);
   assert.match(css, /\.hero-title-contrast[\s\S]*color:\s*#47e081/i);
   assert.match(css, /\.hero-description-contrast[\s\S]*color:\s*#47e081/i);
+  const heroContrastRule = css.match(
+    /\.hero-title-contrast,[\s\S]*?\.hero-description-contrast\s*\{([^}]*)\}/,
+  )?.[1] ?? '';
+  assert.doesNotMatch(heroContrastRule, /text-shadow/i);
   assert.match(css, /@media \(max-width: 767px\)[\s\S]*\.hero-copy\s*\{[^}]*justify-content:\s*flex-start[^}]*padding-top:/);
 
   assert.match(brand, /inverse[\s\S]*<img[\s\S]*src="\/favicon\.png"/);
-  assert.match(footer, /<Play[^>]*aria-hidden="true"/);
-  assert.match(footer, /<Apple[^>]*aria-hidden="true"/);
+  assert.match(footer, /SiGoogleplay/);
+  assert.match(footer, /SiApple/);
+  assert.match(footer, /<SiGoogleplay[^>]*aria-hidden="true"/);
+  assert.match(footer, /<SiApple[^>]*aria-hidden="true"/);
   assert.match(footer, /iOS coming soon/);
 });
