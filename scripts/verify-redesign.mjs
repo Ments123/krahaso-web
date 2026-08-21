@@ -326,3 +326,16 @@ test('the rejected Next runtime stays removed and operations are documented', as
   await assert.rejects(read('app/page.tsx'), { code: 'ENOENT' });
   await assert.rejects(read('next.config.mjs'), { code: 'ENOENT' });
 });
+
+
+test('the homepage is compact and sends visitors straight to Google Play', async () => {
+  const [app, cta] = await Promise.all([
+    read('src/App.tsx'),
+    read('src/components/AppAcquisitionCta.tsx'),
+  ]);
+
+  assert.match(app, /id="shkarko"/);
+  assert.match(app, /<SiteHeader[\s\S]*<AppAcquisitionCta[\s\S]*<SiteFooter/);
+  assert.doesNotMatch(app, /<AppProof|<ProductJourney|<FeatureGrid|<DownloadSection|<RewardsSection|<PartnerTeaser|<MobileInstallBar/);
+  assert.match(cta, /https:\/\/play\.google\.com\/store\/apps\/details\?id=com\.krahaso\.app/);
+});
