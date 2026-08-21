@@ -166,18 +166,17 @@ a {
 }
 
 .hero-shell {
-  min-height: 100svh;
   padding: 0.75rem;
 }
 
 .hero-card {
-  min-height: calc(100svh - 1.5rem);
+  min-height: clamp(34rem, 72svh, 48rem);
   border-radius: 1.75rem;
   box-shadow: 0 28px 80px -52px rgba(6, 61, 36, 0.7);
 }
 
 .hero-copy {
-  min-height: calc(100svh - 1.5rem);
+  min-height: clamp(34rem, 72svh, 48rem);
 }
 
 .primary-pill {
@@ -1371,19 +1370,6 @@ a {
 
 .hero-video {
   display: block;
-}
-
-@media (min-width: 768px) {
-  .hero-description {
-    position: absolute;
-    top: clamp(22rem, 64%, 38rem);
-    left: 54%;
-    width: min(32rem, calc(46% - 3rem));
-    max-width: 32rem;
-    margin-top: 0;
-    color: #f7f2e7;
-    text-shadow: 0 2px 18px rgba(5, 38, 23, 0.72);
-  }
 }
 
 .acquisition-links {
