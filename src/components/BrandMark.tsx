@@ -4,23 +4,12 @@ type Props = {
 };
 
 export function BrandMark({ inverse = false, className = '' }: Props) {
-  if (inverse) {
-    return (
-      <img
-        src="/favicon.png"
-        alt=""
-        aria-hidden="true"
-        className={`brand-mark-image ${className}`}
-      />
-    );
-  }
-
   return (
-    <span
+    <img
+      src="/favicon.png"
+      alt=""
       aria-hidden="true"
-      className={`brand-mark ${className}`}
-    >
-      K
-    </span>
+      className={`brand-mark-image ${inverse ? 'brand-mark-image-inverse' : ''} ${className}`}
+    />
   );
 }

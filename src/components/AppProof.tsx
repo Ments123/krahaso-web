@@ -56,7 +56,7 @@ export function AppProof() {
           <div className="app-proof-halo" aria-hidden="true" />
           <div className="phone-stage relative z-10 h-[590px] w-[286px] overflow-hidden rounded-[50px] bg-[#121812] p-[9px] shadow-[0_70px_130px_-55px_rgba(31,42,29,.7)] sm:h-[700px] sm:w-[340px] sm:rounded-[54px] sm:p-[10px]">
             <img
-              src="/app/krahaso-home.webp"
+              src="/app/krahaso-home.jpg"
               alt="Pamje reale e ballinës së aplikacionit Krahaso"
               className="block h-full w-full rounded-[42px] object-cover object-top sm:rounded-[45px]"
               loading="lazy"

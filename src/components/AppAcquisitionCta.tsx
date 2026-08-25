@@ -1,4 +1,4 @@
-import { Play } from 'lucide-react';
+import { SiGoogleplay } from 'react-icons/si';
 import { preserveUtm, trackEvent } from '../lib/analytics';
 
 type Props = {
@@ -31,7 +31,7 @@ export function AppAcquisitionCta({
           onNavigate?.();
         }}
       >
-        <Play aria-hidden="true" />
+        <SiGoogleplay aria-hidden="true" />
         <span>{compact ? 'Shkarko' : 'Shkarko në Google Play'}</span>
       </a>
     </div>

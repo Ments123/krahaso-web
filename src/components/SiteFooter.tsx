@@ -11,7 +11,7 @@ export function SiteFooter() {
           <BrandMark inverse />
           <div>
             <strong>Krahaso</strong>
-            <p>Skano barkodin, krahaso çmimet dhe shih ku kushton më pak.</p>
+            <p>Krahaso para se të blesh.</p>
           </div>
         </div>
         <nav aria-label="Navigimi në fund">
@@ -19,10 +19,17 @@ export function SiteFooter() {
             <SiGoogleplay aria-hidden="true" />
             <span>Google Play</span>
           </a>
-          <span className="footer-store-status" aria-label="iOS coming soon">
+          <span className="footer-store-status" aria-label="iOS së shpejti">
             <SiApple aria-hidden="true" />
-            <span>iOS coming soon</span>
+            <span>iOS — së shpejti</span>
           </span>
+          <a href="https://api.krahaso.app/privacy" target="_blank" rel="noopener noreferrer">
+            Privatësia
+          </a>
+          <a href="https://api.krahaso.app/account-deletion" target="_blank" rel="noopener noreferrer">
+            Fshi llogarinë
+          </a>
+          <a href="mailto:privacy@krahaso.app">Kontakti</a>
           <a
             href="https://admin.krahaso.app"
             target="_blank"
@@ -32,7 +39,7 @@ export function SiteFooter() {
             Admin
           </a>
         </nav>
-        <span className="site-footer-copyright">© 2026 Krahaso</span>
+        <span className="site-footer-copyright">© 2026 Krahaso · Kosovë</span>
       </div>
     </footer>
   );
