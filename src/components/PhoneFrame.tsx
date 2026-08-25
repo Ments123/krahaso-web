@@ -1,18 +1,20 @@
-import type { FeatureId } from '../content/landing';
+import { appScreens, type AppScreenId } from '../content/landing';
 
 type Props = {
   className?: string;
-  focus?: FeatureId;
+  screen?: AppScreenId;
   priority?: boolean;
   label?: string;
 };
 
 export function PhoneFrame({
   className = '',
-  focus,
+  screen = 'home',
   priority = false,
-  label = 'Pamje reale nga aplikacioni Krahaso',
+  label,
 }: Props) {
+  const screenshot = appScreens[screen];
+
   return (
     <figure className={`phone-frame ${className}`.trim()}>
       <div className="phone-hardware" aria-hidden="true">
@@ -20,14 +22,13 @@ export function PhoneFrame({
       </div>
       <div className="phone-screen">
         <img
-          src="/app/krahaso-home.webp"
-          alt={label}
+          src={screenshot.src}
+          alt={label ?? screenshot.alt}
           width="716"
           height="1536"
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
         />
-        {focus ? <span className={`screen-focus screen-focus-${focus}`} aria-hidden="true" /> : null}
       </div>
     </figure>
   );

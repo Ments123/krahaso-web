@@ -29,7 +29,7 @@ export function OfferProof() {
           </div>
           <PhoneFrame
             className="offer-phone"
-            focus="ofertat"
+            screen="offers"
             label="Pamje reale e ofertave në aplikacionin Krahaso"
           />
           <div className="offer-proof-card offer-proof-card-right" aria-hidden="true">

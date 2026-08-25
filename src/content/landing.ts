@@ -1,6 +1,36 @@
+export const appScreens = {
+  home: {
+    src: '/app/krahaso-home.jpg',
+    alt: 'Ballina e aplikacionit Krahaso me kërkim, kategori dhe oferta',
+  },
+  homeFeed: {
+    src: '/app/krahaso-home-feed.jpg',
+    alt: 'Ofertat e nxehta dhe ofertat personale në ballinën e Krahaso',
+  },
+  offers: {
+    src: '/app/krahaso-offers.jpg',
+    alt: 'Lista e ofertave nga marketet në aplikacionin Krahaso',
+  },
+  scanner: {
+    src: '/app/krahaso-scanner.jpg',
+    alt: 'Skaneri i barkodit duke njohur një produkt në Krahaso',
+  },
+  basket: {
+    src: '/app/krahaso-basket.jpg',
+    alt: 'Shporta që krahason totalin mes marketeve në Krahaso',
+  },
+  rewards: {
+    src: '/app/krahaso-rewards.jpg',
+    alt: 'Faqja Fito me pikët dhe mënyrat për të fituar në Krahaso',
+  },
+} as const;
+
+export type AppScreenId = keyof typeof appScreens;
+
 export const featureChapters = [
   {
     id: 'kerko',
+    screen: 'home',
     step: '01',
     title: 'Kërko',
     eyebrow: 'Gjeje shpejt',
@@ -9,6 +39,7 @@ export const featureChapters = [
   },
   {
     id: 'ofertat',
+    screen: 'offers',
     step: '02',
     title: 'Ofertat',
     eyebrow: 'Shiko çfarë ka sot',
@@ -17,6 +48,7 @@ export const featureChapters = [
   },
   {
     id: 'skano',
+    screen: 'scanner',
     step: '03',
     title: 'Skano',
     eyebrow: 'Nga barkodi te produkti',
@@ -25,6 +57,7 @@ export const featureChapters = [
   },
   {
     id: 'shporta',
+    screen: 'basket',
     step: '04',
     title: 'Shporta',
     eyebrow: 'Krahaso më shumë se një produkt',
@@ -33,6 +66,7 @@ export const featureChapters = [
   },
   {
     id: 'fito',
+    screen: 'rewards',
     step: '05',
     title: 'Fito',
     eyebrow: 'Ndihmo që çmimet të jenë më të sakta',

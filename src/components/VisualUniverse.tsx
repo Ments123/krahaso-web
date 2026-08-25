@@ -112,7 +112,7 @@ export function VisualUniverse() {
 
         <div ref={phoneRef} className="universe-phone">
           <p className="eyebrow universe-kicker">Një pamje. Më shumë qartësi.</p>
-          <PhoneFrame label="Ballina reale e aplikacionit Krahaso" />
+          <PhoneFrame screen="homeFeed" />
         </div>
 
         <div ref={copyRef} className="universe-copy">

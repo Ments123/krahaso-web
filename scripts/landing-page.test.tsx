@@ -18,9 +18,39 @@ test('renders one clear product story with stable download actions', () => {
   const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
   assert.deepEqual(duplicates, []);
 
-  assert.match(html, /\/app\/krahaso-home\.webp/);
+  assert.match(html, /\/app\/krahaso-home\.jpg/);
   assert.match(html, /https:\/\/play\.google\.com\/store\/apps\/details\?id=com\.krahaso\.app/);
   assert.match(html, /iOS — së shpejti/);
+});
+
+test('maps the six supplied current screenshots to their matching product scenes', () => {
+  const html = renderToStaticMarkup(<App />);
+  const expectedScreens = [
+    '/app/krahaso-home.jpg',
+    '/app/krahaso-home-feed.jpg',
+    '/app/krahaso-offers.jpg',
+    '/app/krahaso-scanner.jpg',
+    '/app/krahaso-basket.jpg',
+    '/app/krahaso-rewards.jpg',
+  ];
+
+  for (const screen of expectedScreens) {
+    assert.match(html, new RegExp(screen.replaceAll('.', '\\.')));
+  }
+
+  const featureScreen = (id: string) =>
+    html.match(
+      new RegExp(
+        `<article[^>]*feature-chapter-${id}[^>]*>[\\s\\S]*?<\\/article>`,
+      ),
+    )?.[0] ?? '';
+
+  assert.match(featureScreen('kerko'), /\/app\/krahaso-home\.jpg/);
+  assert.match(featureScreen('ofertat'), /\/app\/krahaso-offers\.jpg/);
+  assert.match(featureScreen('skano'), /\/app\/krahaso-scanner\.jpg/);
+  assert.match(featureScreen('shporta'), /\/app\/krahaso-basket\.jpg/);
+  assert.match(featureScreen('fito'), /\/app\/krahaso-rewards\.jpg/);
+  assert.doesNotMatch(html, /\/app\/krahaso-home\.webp/);
 });
 
 test('explains the real app journey in the approved order', () => {

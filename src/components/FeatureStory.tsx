@@ -113,7 +113,7 @@ export function FeatureStory() {
                 <div className="feature-orbit" aria-hidden="true" />
                 <PhoneFrame
                   className="feature-phone"
-                  focus={chapter.id}
+                  screen={chapter.screen}
                   label={`Pamje reale e aplikacionit për veçorinë ${chapter.title}`}
                 />
               </div>

@@ -7,11 +7,19 @@ const readBytes = (path) => readFile(new URL(`../${path}`, import.meta.url));
 const exists = (path) => stat(new URL(`../${path}`, import.meta.url)).then(() => true, () => false);
 
 test('keeps the Vite production foundation and real brand assets', async () => {
-  const [pkgRaw, vite, main, screenshot, social, favicon] = await Promise.all([
+  const screenshotPaths = [
+    'public/app/krahaso-home.jpg',
+    'public/app/krahaso-home-feed.jpg',
+    'public/app/krahaso-offers.jpg',
+    'public/app/krahaso-scanner.jpg',
+    'public/app/krahaso-basket.jpg',
+    'public/app/krahaso-rewards.jpg',
+  ];
+  const [pkgRaw, vite, main, screenshots, social, favicon] = await Promise.all([
     read('package.json'),
     read('vite.config.ts'),
     read('src/main.tsx'),
-    readBytes('public/app/krahaso-home.webp'),
+    Promise.all(screenshotPaths.map(readBytes)),
     readBytes('public/krahaso-social.webp'),
     readBytes('public/favicon.png'),
   ]);
@@ -25,7 +33,9 @@ test('keeps the Vite production foundation and real brand assets', async () => {
   assert.equal(pkg.dependencies.three, undefined);
   assert.match(vite, /react\(\)/);
   assert.match(main, /createRoot/);
-  assert.equal(screenshot.subarray(0, 4).toString('ascii'), 'RIFF');
+  for (const screenshot of screenshots) {
+    assert.equal(screenshot.subarray(0, 3).toString('hex'), 'ffd8ff');
+  }
   assert.equal(social.subarray(0, 4).toString('ascii'), 'RIFF');
   assert.equal(favicon.subarray(1, 4).toString('ascii'), 'PNG');
 });
@@ -76,6 +86,7 @@ test('uses genuine product proof and avoids fabricated comparison claims', async
     'src/App.tsx',
     'src/content/landing.ts',
     'src/components/HeroSection.tsx',
+    'src/components/AppProof.tsx',
     'src/components/PhoneFrame.tsx',
     'src/components/FeatureStory.tsx',
     'src/components/OfferProof.tsx',
@@ -84,7 +95,17 @@ test('uses genuine product proof and avoids fabricated comparison claims', async
   ];
   const sources = (await Promise.all(paths.map(read))).join('\n');
 
-  assert.match(sources, /\/app\/krahaso-home\.webp/);
+  for (const screenshot of [
+    'krahaso-home.jpg',
+    'krahaso-home-feed.jpg',
+    'krahaso-offers.jpg',
+    'krahaso-scanner.jpg',
+    'krahaso-basket.jpg',
+    'krahaso-rewards.jpg',
+  ]) {
+    assert.match(sources, new RegExp(`/app/${screenshot.replaceAll('.', '\\.')}`));
+  }
+  assert.doesNotMatch(sources, /\/app\/krahaso-home\.webp/);
   assert.match(sources, /fito pikë kur pranohet/i);
   assert.doesNotMatch(sources, /€22\.45|€23\.30|€24\.10|€25\.05|7,000|milion|rating|partner zyrtar/i);
   assert.doesNotMatch(sources, /<video|cloudfront/i);
