@@ -40,7 +40,7 @@ test('keeps the Vite production foundation and real brand assets', async () => {
   assert.equal(favicon.subarray(1, 4).toString('ascii'), 'PNG');
 });
 
-test('ships semantic, local-first metadata and crawler infrastructure', async () => {
+test('ships semantic metadata, app structured data and crawler infrastructure', async () => {
   const [html, robots, sitemap, vercelSource] = await Promise.all([
     read('index.html'),
     read('public/robots.txt'),
@@ -50,15 +50,62 @@ test('ships semantic, local-first metadata and crawler infrastructure', async ()
   const vercel = JSON.parse(vercelSource);
 
   assert.match(html, /<html lang="sq">/);
-  assert.match(html, /<title>Krahaso para se të blesh \| Krahaso<\/title>/);
+  assert.match(html, /<title>Krahaso çmimet në Kosovë \| Krahaso<\/title>/);
+  assert.match(
+    html,
+    /content="Skano ose kërko produktin dhe shiko çmimet që kemi nga marketet e Kosovës\."/,
+  );
   assert.match(html, /rel="canonical" href="https:\/\/krahaso\.app\/"/);
   assert.match(html, /property="og:image" content="https:\/\/krahaso\.app\/krahaso-social\.webp"/);
   assert.match(html, /"@type":\s*"Organization"/);
+  const structuredDataSource = html.match(
+    /<script type="application\/ld\+json">([\s\S]*?)<\/script>/,
+  )?.[1];
+  assert.ok(structuredDataSource, 'missing JSON-LD graph');
+  const structuredData = JSON.parse(structuredDataSource);
+  const application = structuredData['@graph'].find(
+    (entry) => entry['@type'] === 'MobileApplication',
+  );
+  assert.deepEqual(application, {
+    '@type': 'MobileApplication',
+    '@id': 'https://krahaso.app/#android-app',
+    name: 'Krahaso: Çmimet në Kosovë',
+    operatingSystem: 'Android',
+    applicationCategory: 'ShoppingApplication',
+    installUrl: 'https://play.google.com/store/apps/details?id=com.krahaso.app',
+    url: 'https://krahaso.app/',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  });
   assert.doesNotMatch(html, /fonts\.googleapis|onlinewebfonts|cloudfront/);
   assert.match(robots, /Sitemap:\s*https:\/\/krahaso\.app\/sitemap\.xml/);
   assert.match(sitemap, /<loc>https:\/\/krahaso\.app\/<\/loc>/);
   assert.equal(vercel.framework, 'vite');
   assert.ok(vercel.redirects.some(({ destination }) => destination === 'https://krahaso.app/$1'));
+
+  const headersFor = (source) =>
+    new Map(
+      vercel.headers
+        .find((rule) => rule.source === source)
+        ?.headers.map(({ key, value }) => [key, value]) ?? [],
+    );
+  const globalHeaders = headersFor('/(.*)');
+  assert.equal(globalHeaders.get('X-Content-Type-Options'), 'nosniff');
+  assert.equal(globalHeaders.get('X-Frame-Options'), 'DENY');
+  assert.equal(globalHeaders.get('Referrer-Policy'), 'strict-origin-when-cross-origin');
+  assert.equal(
+    globalHeaders.get('Permissions-Policy'),
+    'camera=(), microphone=(), geolocation=()',
+  );
+  assert.equal(
+    headersFor('/assets/(.*)').get('Cache-Control'),
+    'public, max-age=31536000, immutable',
+  );
+  for (const source of ['/app/(.*)', '/products/(.*)', '/logos/(.*)']) {
+    assert.equal(
+      headersFor(source).get('Cache-Control'),
+      'public, max-age=86400, stale-while-revalidate=604800',
+    );
+  }
 });
 
 test('uses explicit ScrollTrigger choreography with progressive fallbacks', async () => {
