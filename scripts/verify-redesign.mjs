@@ -153,6 +153,10 @@ test('uses explicit ScrollTrigger choreography with progressive fallbacks', asyn
     /@media \(max-width: 899px\)[\s\S]*?\.visual-universe\.motion-ready\s*\{[^}]*height:\s*230svh/,
   );
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.match(
+    css,
+    /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.hero-phone\s*\{[^}]*animation:\s*none\s*!important/,
+  );
   assert.match(css, /@media \(max-width: 899px\)/);
   assert.match(css, /min-height:\s*44px/);
   assert.match(css, /\.story-intro\s*\{[^}]*min-height:\s*50svh/);

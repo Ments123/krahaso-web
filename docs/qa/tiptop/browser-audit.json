@@ -1,0 +1,608 @@
+{
+  "generatedAt": "2026-08-30T23:55:46.990Z",
+  "browser": {
+    "executablePath": "/tmp/krahaso-chromium-runtime/chromium",
+    "version": "149.0.7827.0"
+  },
+  "bundles": [
+    "gsap-mX7e7ydu.js",
+    "index-BNUdKMVY.css",
+    "index-D9B1WG_1.js"
+  ],
+  "baseline": {
+    "universe": 3931.1875,
+    "features": 6014,
+    "combined": 9945.1875,
+    "documentHeight": 12694
+  },
+  "current": {
+    "universe": 2714.390625,
+    "features": 3655.34375,
+    "combined": 6369.734375,
+    "documentHeight": 9119
+  },
+  "pageLengthReduction": 0.35951590907662623,
+  "viewports": [
+    {
+      "name": "desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "base": {
+        "title": "Krahaso çmimet në Kosovë | Krahaso",
+        "documentHeight": 8818,
+        "horizontalOverflow": 0,
+        "h1Count": 1,
+        "duplicateIds": [],
+        "brokenInternalAnchors": [],
+        "failedImages": [],
+        "touchTargetFailures": [],
+        "motionReady": true
+      },
+      "heroMotion": {
+        "before": "matrix(0.999468, 0.0326111, -0.0326111, 0.999468, 0, -1.96787)",
+        "after": "matrix(0.999562, 0.0295807, -0.0295807, 0.999562, 0, -4.57355)",
+        "animationName": "hero-phone-drift"
+      },
+      "forward": [
+        {
+          "progress": 0,
+          "galleryScale": 0.9999,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 1
+        },
+        {
+          "progress": 0.25,
+          "galleryScale": 0.8233,
+          "phoneScale": 0.9201,
+          "phoneOpacity": 0.0009,
+          "copyOpacity": 0.749
+        },
+        {
+          "progress": 0.55,
+          "galleryScale": 0.6116,
+          "phoneScale": 0.9975,
+          "phoneOpacity": 0.9687,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.8,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 1,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        }
+      ],
+      "reverse": [
+        {
+          "progress": 1,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.8,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.55,
+          "galleryScale": 0.6116,
+          "phoneScale": 0.9975,
+          "phoneOpacity": 0.9687,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.25,
+          "galleryScale": 0.8233,
+          "phoneScale": 0.9201,
+          "phoneOpacity": 0.0009,
+          "copyOpacity": 0.749
+        },
+        {
+          "progress": 0,
+          "galleryScale": 1,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 1
+        }
+      ],
+      "featureMotion": null,
+      "orientation": null,
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "desktop-1280x800",
+      "width": 1280,
+      "height": 800,
+      "base": {
+        "title": "Krahaso çmimet në Kosovë | Krahaso",
+        "documentHeight": 8170,
+        "horizontalOverflow": 0,
+        "h1Count": 1,
+        "duplicateIds": [],
+        "brokenInternalAnchors": [],
+        "failedImages": [],
+        "touchTargetFailures": [],
+        "motionReady": true
+      },
+      "heroMotion": null,
+      "forward": [
+        {
+          "progress": 0,
+          "galleryScale": 0.9999,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 1
+        },
+        {
+          "progress": 0.25,
+          "galleryScale": 0.8235,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 0.75
+        },
+        {
+          "progress": 0.55,
+          "galleryScale": 0.6118,
+          "phoneScale": 0.9974,
+          "phoneOpacity": 0.9677,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.8,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 1,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        }
+      ],
+      "reverse": [
+        {
+          "progress": 1,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.8,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.55,
+          "galleryScale": 0.6118,
+          "phoneScale": 0.9974,
+          "phoneOpacity": 0.9677,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.25,
+          "galleryScale": 0.8235,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 0.75
+        },
+        {
+          "progress": 0,
+          "galleryScale": 1,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 1
+        }
+      ],
+      "featureMotion": null,
+      "orientation": null,
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "base": {
+        "title": "Krahaso çmimet në Kosovë | Krahaso",
+        "documentHeight": 10673,
+        "horizontalOverflow": 0,
+        "h1Count": 1,
+        "duplicateIds": [],
+        "brokenInternalAnchors": [],
+        "failedImages": [],
+        "touchTargetFailures": [],
+        "motionReady": true
+      },
+      "heroMotion": null,
+      "forward": [
+        {
+          "progress": 0,
+          "galleryScale": 0.86,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 1
+        },
+        {
+          "progress": 0.25,
+          "galleryScale": 0.7182,
+          "phoneScale": 0.9225,
+          "phoneOpacity": 0.0318,
+          "copyOpacity": 0.6779
+        },
+        {
+          "progress": 0.55,
+          "galleryScale": 0.5484,
+          "phoneScale": 0.9975,
+          "phoneOpacity": 0.9686,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.8,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 1,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        }
+      ],
+      "reverse": [
+        {
+          "progress": 1,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.8,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.55,
+          "galleryScale": 0.5484,
+          "phoneScale": 0.9975,
+          "phoneOpacity": 0.9686,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.25,
+          "galleryScale": 0.7182,
+          "phoneScale": 0.9225,
+          "phoneOpacity": 0.0318,
+          "copyOpacity": 0.6779
+        },
+        {
+          "progress": 0,
+          "galleryScale": 0.86,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 1
+        }
+      ],
+      "featureMotion": {
+        "start": {
+          "copyOpacity": 0.45,
+          "copyTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)",
+          "visualOpacity": 0.45,
+          "visualTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)"
+        },
+        "end": {
+          "copyOpacity": 0.9837,
+          "copyTransform": "matrix(0.9991, 0, 0, 0.9991, 0, 1.0673)",
+          "visualOpacity": 0.9837,
+          "visualTransform": "matrix(0.9991, 0, 0, 0.9991, 0, 1.0673)"
+        }
+      },
+      "orientation": null,
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "base": {
+        "title": "Krahaso çmimet në Kosovë | Krahaso",
+        "documentHeight": 10044,
+        "horizontalOverflow": 0,
+        "h1Count": 1,
+        "duplicateIds": [],
+        "brokenInternalAnchors": [],
+        "failedImages": [],
+        "touchTargetFailures": [],
+        "motionReady": true
+      },
+      "heroMotion": {
+        "before": "matrix(0.999424, 0.0339327, -0.0339327, 0.999424, 0, -0.79184)",
+        "after": "matrix(0.999478, 0.0322963, -0.0322963, 0.999478, 0, -2.13194)",
+        "animationName": "hero-phone-drift-mobile"
+      },
+      "forward": [
+        {
+          "progress": 0,
+          "galleryScale": 0.86,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 1
+        },
+        {
+          "progress": 0.25,
+          "galleryScale": 0.7185,
+          "phoneScale": 0.9224,
+          "phoneOpacity": 0.0305,
+          "copyOpacity": 0.6794
+        },
+        {
+          "progress": 0.55,
+          "galleryScale": 0.548,
+          "phoneScale": 0.9976,
+          "phoneOpacity": 0.9706,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.8,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 1,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        }
+      ],
+      "reverse": [
+        {
+          "progress": 1,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.8,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.55,
+          "galleryScale": 0.548,
+          "phoneScale": 0.9976,
+          "phoneOpacity": 0.9706,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.25,
+          "galleryScale": 0.7185,
+          "phoneScale": 0.9224,
+          "phoneOpacity": 0.0305,
+          "copyOpacity": 0.6794
+        },
+        {
+          "progress": 0,
+          "galleryScale": 0.86,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 1
+        }
+      ],
+      "featureMotion": {
+        "start": {
+          "copyOpacity": 0.45,
+          "copyTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)",
+          "visualOpacity": 0.45,
+          "visualTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)"
+        },
+        "end": {
+          "copyOpacity": 0.9899,
+          "copyTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6619)",
+          "visualOpacity": 0.9899,
+          "visualTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6619)"
+        }
+      },
+      "orientation": {
+        "landscape": {
+          "ready": true,
+          "pinSpacers": 0,
+          "stagePosition": "sticky"
+        },
+        "portrait": {
+          "ready": true,
+          "pinSpacers": 0,
+          "stagePosition": "sticky"
+        }
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "mobile-360x800",
+      "width": 360,
+      "height": 800,
+      "base": {
+        "title": "Krahaso çmimet në Kosovë | Krahaso",
+        "documentHeight": 9793,
+        "horizontalOverflow": 0,
+        "h1Count": 1,
+        "duplicateIds": [],
+        "brokenInternalAnchors": [],
+        "failedImages": [],
+        "touchTargetFailures": [],
+        "motionReady": true
+      },
+      "heroMotion": null,
+      "forward": [
+        {
+          "progress": 0,
+          "galleryScale": 0.86,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 1
+        },
+        {
+          "progress": 0.25,
+          "galleryScale": 0.7183,
+          "phoneScale": 0.9225,
+          "phoneOpacity": 0.0313,
+          "copyOpacity": 0.6786
+        },
+        {
+          "progress": 0.55,
+          "galleryScale": 0.5483,
+          "phoneScale": 0.9975,
+          "phoneOpacity": 0.9688,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.8,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 1,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        }
+      ],
+      "reverse": [
+        {
+          "progress": 1,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.8,
+          "galleryScale": 0.52,
+          "phoneScale": 1,
+          "phoneOpacity": 1,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.55,
+          "galleryScale": 0.5483,
+          "phoneScale": 0.9975,
+          "phoneOpacity": 0.9688,
+          "copyOpacity": 0
+        },
+        {
+          "progress": 0.25,
+          "galleryScale": 0.7183,
+          "phoneScale": 0.9225,
+          "phoneOpacity": 0.0313,
+          "copyOpacity": 0.6786
+        },
+        {
+          "progress": 0,
+          "galleryScale": 0.86,
+          "phoneScale": 0.92,
+          "phoneOpacity": 0,
+          "copyOpacity": 1
+        }
+      ],
+      "featureMotion": {
+        "start": {
+          "copyOpacity": 0.45,
+          "copyTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)",
+          "visualOpacity": 0.45,
+          "visualTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)"
+        },
+        "end": {
+          "copyOpacity": 0.989,
+          "copyTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.7183)",
+          "visualOpacity": 0.989,
+          "visualTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.7183)"
+        }
+      },
+      "orientation": null,
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  ],
+  "reducedMotion": {
+    "motionReady": false,
+    "universeHeight": 844,
+    "viewportHeight": 844,
+    "phoneOpacity": 1,
+    "phoneVisibility": "visible",
+    "copyOpacity": 1,
+    "heroAnimationName": "none",
+    "horizontalOverflow": 0,
+    "consoleErrors": [],
+    "failedRequests": []
+  },
+  "zoom200": {
+    "horizontalOverflow": 0,
+    "headerCta": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop",
+    "referrer": "utm_source=qa&utm_campaign=tiptop",
+    "focusSequence": [
+      {
+        "tag": "A",
+        "className": "skip-link",
+        "text": "Kalo te përmbajtja",
+        "width": 179.359375,
+        "height": 46,
+        "outlineStyle": "solid",
+        "outlineWidth": "3px"
+      },
+      {
+        "tag": "A",
+        "className": "site-brand",
+        "text": "Krahaso",
+        "width": 119.40625,
+        "height": 44,
+        "outlineStyle": "solid",
+        "outlineWidth": "3px"
+      },
+      {
+        "tag": "A",
+        "className": "acquisition-link acquisition-link-primary ",
+        "text": "Shkarko",
+        "width": 120.6875,
+        "height": 44,
+        "outlineStyle": "solid",
+        "outlineWidth": "3px"
+      }
+    ],
+    "consoleErrors": []
+  },
+  "failures": []
+}

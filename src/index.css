@@ -285,6 +285,8 @@ section[id] { scroll-margin-top: 88px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .hero-phone { animation: none !important; }
+  .hero-float-card, .scroll-cue-line { animation: none !important; }
   .visual-universe { height: auto; }
   .universe-stage { min-height: 100svh; }
   .universe-gallery { inset: 0; opacity: .45; transform: scale(.62) !important; }
