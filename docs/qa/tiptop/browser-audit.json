@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T08:10:30.162Z",
+  "generatedAt": "2026-08-31T11:29:24.775Z",
   "browser": {
     "executablePath": "/tmp/chromium",
     "version": "149.0.7827.0"
@@ -7,8 +7,8 @@
   "reducedMotionQuery": "(prefers-reduced-motion: reduce)",
   "bundles": [
     "gsap-mX7e7ydu.js",
-    "index-BNUdKMVY.css",
-    "index-D9B1WG_1.js"
+    "index-C4ldA-F4.js",
+    "index-HxR7PfYw.css"
   ],
   "baseline": {
     "universe": 3931.1875,
@@ -36,12 +36,30 @@
         "duplicateIds": [],
         "brokenInternalAnchors": [],
         "failedImages": [],
+        "acquisitionLinks": [
+          {
+            "placement": "nav",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "hero",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "download",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "footer",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          }
+        ],
         "touchTargetFailures": [],
         "motionReady": true
       },
       "heroMotion": {
-        "before": "matrix(0.999466, 0.032678, -0.032678, 0.999466, 0, -1.9103)",
-        "after": "matrix(0.99956, 0.0296662, -0.0296662, 0.99956, 0, -4.50002)",
+        "before": "matrix(0.999455, 0.0330008, -0.0330008, 0.999455, 0, -1.63274)",
+        "after": "matrix(0.999547, 0.0300959, -0.0300959, 0.999547, 0, -4.13059)",
         "animationName": "hero-phone-drift"
       },
       "forward": [
@@ -50,35 +68,40 @@
           "galleryScale": 1,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 1
+          "copyOpacity": 1,
+          "phoneCenterOffset": 0.000030517578125
         },
         {
           "progress": 0.25,
           "galleryScale": 0.8233,
           "phoneScale": 0.9201,
           "phoneOpacity": 0.0009,
-          "copyOpacity": 0.749
+          "copyOpacity": 0.749,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.55,
           "galleryScale": 0.6116,
           "phoneScale": 0.9975,
           "phoneOpacity": 0.9687,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0.000030517578125
         },
         {
           "progress": 0.8,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 1,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         }
       ],
       "reverse": [
@@ -87,35 +110,40 @@
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.8,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.55,
           "galleryScale": 0.6116,
           "phoneScale": 0.9975,
           "phoneOpacity": 0.9687,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0.000030517578125
         },
         {
           "progress": 0.25,
           "galleryScale": 0.8233,
           "phoneScale": 0.9201,
           "phoneOpacity": 0.0009,
-          "copyOpacity": 0.749
+          "copyOpacity": 0.749,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0,
           "galleryScale": 1,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 1
+          "copyOpacity": 1,
+          "phoneCenterOffset": 0.000030517578125
         }
       ],
       "featureMotion": null,
@@ -135,6 +163,24 @@
         "duplicateIds": [],
         "brokenInternalAnchors": [],
         "failedImages": [],
+        "acquisitionLinks": [
+          {
+            "placement": "nav",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "hero",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "download",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "footer",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          }
+        ],
         "touchTargetFailures": [],
         "motionReady": true
       },
@@ -145,35 +191,40 @@
           "galleryScale": 1,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 1
+          "copyOpacity": 1,
+          "phoneCenterOffset": -0.0000152587890625
         },
         {
           "progress": 0.25,
           "galleryScale": 0.8235,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 0.75
+          "copyOpacity": 0.75,
+          "phoneCenterOffset": -0.0000152587890625
         },
         {
           "progress": 0.55,
           "galleryScale": 0.6118,
           "phoneScale": 0.9974,
           "phoneOpacity": 0.9677,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0.000030517578125
         },
         {
           "progress": 0.8,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 1,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         }
       ],
       "reverse": [
@@ -182,35 +233,40 @@
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.8,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.55,
           "galleryScale": 0.6118,
           "phoneScale": 0.9974,
           "phoneOpacity": 0.9677,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0.000030517578125
         },
         {
           "progress": 0.25,
           "galleryScale": 0.8235,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 0.75
+          "copyOpacity": 0.75,
+          "phoneCenterOffset": -0.0000152587890625
         },
         {
           "progress": 0,
           "galleryScale": 1,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 1
+          "copyOpacity": 1,
+          "phoneCenterOffset": -0.0000152587890625
         }
       ],
       "featureMotion": null,
@@ -230,6 +286,24 @@
         "duplicateIds": [],
         "brokenInternalAnchors": [],
         "failedImages": [],
+        "acquisitionLinks": [
+          {
+            "placement": "nav",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "hero",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "download",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "footer",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          }
+        ],
         "touchTargetFailures": [],
         "motionReady": true
       },
@@ -240,35 +314,40 @@
           "galleryScale": 0.86,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 1
+          "copyOpacity": 1,
+          "phoneCenterOffset": -0.0000152587890625
         },
         {
           "progress": 0.25,
           "galleryScale": 0.7182,
           "phoneScale": 0.9225,
           "phoneOpacity": 0.0318,
-          "copyOpacity": 0.6779
+          "copyOpacity": 0.6779,
+          "phoneCenterOffset": 0.0000152587890625
         },
         {
           "progress": 0.55,
           "galleryScale": 0.5484,
           "phoneScale": 0.9975,
           "phoneOpacity": 0.9686,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": -0.0000152587890625
         },
         {
           "progress": 0.8,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 1,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         }
       ],
       "reverse": [
@@ -277,35 +356,40 @@
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.8,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.55,
           "galleryScale": 0.5484,
           "phoneScale": 0.9975,
           "phoneOpacity": 0.9686,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": -0.0000152587890625
         },
         {
           "progress": 0.25,
           "galleryScale": 0.7182,
           "phoneScale": 0.9225,
           "phoneOpacity": 0.0318,
-          "copyOpacity": 0.6779
+          "copyOpacity": 0.6779,
+          "phoneCenterOffset": 0.0000152587890625
         },
         {
           "progress": 0,
           "galleryScale": 0.86,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 1
+          "copyOpacity": 1,
+          "phoneCenterOffset": -0.0000152587890625
         }
       ],
       "featureMotion": {
@@ -338,12 +422,30 @@
         "duplicateIds": [],
         "brokenInternalAnchors": [],
         "failedImages": [],
+        "acquisitionLinks": [
+          {
+            "placement": "nav",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "hero",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "download",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "footer",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          }
+        ],
         "touchTargetFailures": [],
         "motionReady": true
       },
       "heroMotion": {
-        "before": "matrix(0.99943, 0.0337556, -0.0337556, 0.99943, 0, -0.936846)",
-        "after": "matrix(0.999486, 0.0320475, -0.0320475, 0.999486, 0, -2.33568)",
+        "before": "matrix(0.999425, 0.0338984, -0.0338984, 0.999425, 0, -0.819928)",
+        "after": "matrix(0.99948, 0.0322465, -0.0322465, 0.99948, 0, -2.17271)",
         "animationName": "hero-phone-drift-mobile"
       },
       "forward": [
@@ -352,35 +454,40 @@
           "galleryScale": 0.86,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 1
+          "copyOpacity": 1,
+          "phoneCenterOffset": 0.00000762939453125
         },
         {
           "progress": 0.25,
           "galleryScale": 0.7185,
           "phoneScale": 0.9224,
           "phoneOpacity": 0.0305,
-          "copyOpacity": 0.6794
+          "copyOpacity": 0.6794,
+          "phoneCenterOffset": -0.00000762939453125
         },
         {
           "progress": 0.55,
           "galleryScale": 0.548,
           "phoneScale": 0.9976,
           "phoneOpacity": 0.9706,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": -0.0000152587890625
         },
         {
           "progress": 0.8,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 1,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         }
       ],
       "reverse": [
@@ -389,35 +496,40 @@
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.8,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.55,
           "galleryScale": 0.548,
           "phoneScale": 0.9976,
           "phoneOpacity": 0.9706,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": -0.0000152587890625
         },
         {
           "progress": 0.25,
           "galleryScale": 0.7185,
           "phoneScale": 0.9224,
           "phoneOpacity": 0.0305,
-          "copyOpacity": 0.6794
+          "copyOpacity": 0.6794,
+          "phoneCenterOffset": -0.00000762939453125
         },
         {
           "progress": 0,
           "galleryScale": 0.86,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 1
+          "copyOpacity": 1,
+          "phoneCenterOffset": 0.00000762939453125
         }
       ],
       "featureMotion": {
@@ -428,10 +540,10 @@
           "visualTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)"
         },
         "end": {
-          "copyOpacity": 0.9896,
-          "copyTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6803)",
-          "visualOpacity": 0.9896,
-          "visualTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6803)"
+          "copyOpacity": 0.9899,
+          "copyTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6619)",
+          "visualOpacity": 0.9899,
+          "visualTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6619)"
         }
       },
       "orientation": {
@@ -461,6 +573,24 @@
         "duplicateIds": [],
         "brokenInternalAnchors": [],
         "failedImages": [],
+        "acquisitionLinks": [
+          {
+            "placement": "nav",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "hero",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "download",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          },
+          {
+            "placement": "footer",
+            "href": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop"
+          }
+        ],
         "touchTargetFailures": [],
         "motionReady": true
       },
@@ -471,35 +601,40 @@
           "galleryScale": 0.86,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 1
+          "copyOpacity": 1,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.25,
           "galleryScale": 0.7183,
           "phoneScale": 0.9225,
           "phoneOpacity": 0.0313,
-          "copyOpacity": 0.6786
+          "copyOpacity": 0.6786,
+          "phoneCenterOffset": 0.00000762939453125
         },
         {
           "progress": 0.55,
           "galleryScale": 0.5483,
           "phoneScale": 0.9975,
           "phoneOpacity": 0.9688,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": -0.00000762939453125
         },
         {
           "progress": 0.8,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 1,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         }
       ],
       "reverse": [
@@ -508,35 +643,40 @@
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.8,
           "galleryScale": 0.52,
           "phoneScale": 1,
           "phoneOpacity": 1,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": 0
         },
         {
           "progress": 0.55,
           "galleryScale": 0.5483,
           "phoneScale": 0.9975,
           "phoneOpacity": 0.9688,
-          "copyOpacity": 0
+          "copyOpacity": 0,
+          "phoneCenterOffset": -0.00000762939453125
         },
         {
           "progress": 0.25,
           "galleryScale": 0.7183,
           "phoneScale": 0.9225,
           "phoneOpacity": 0.0313,
-          "copyOpacity": 0.6786
+          "copyOpacity": 0.6786,
+          "phoneCenterOffset": 0.00000762939453125
         },
         {
           "progress": 0,
           "galleryScale": 0.86,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
-          "copyOpacity": 1
+          "copyOpacity": 1,
+          "phoneCenterOffset": 0
         }
       ],
       "featureMotion": {
@@ -547,10 +687,10 @@
           "visualTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)"
         },
         "end": {
-          "copyOpacity": 0.9896,
-          "copyTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6803)",
-          "visualOpacity": 0.9896,
-          "visualTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6803)"
+          "copyOpacity": 0.9841,
+          "copyTransform": "matrix(0.9991, 0, 0, 0.9991, 0, 1.0401)",
+          "visualOpacity": 0.9841,
+          "visualTransform": "matrix(0.9991, 0, 0, 0.9991, 0, 1.0401)"
         }
       },
       "orientation": null,
@@ -570,9 +710,39 @@
     "consoleErrors": [],
     "failedRequests": []
   },
+  "motionPreferenceChanges": {
+    "initial": {
+      "motionReady": true,
+      "universeHeight": 1941.1875,
+      "viewportHeight": 844,
+      "pinSpacers": 0,
+      "styledFeatureElements": 10,
+      "heroAnimationName": "hero-phone-drift-mobile"
+    },
+    "reduced": {
+      "motionReady": false,
+      "universeHeight": 844,
+      "viewportHeight": 844,
+      "pinSpacers": 0,
+      "styledFeatureElements": 0,
+      "heroAnimationName": "none"
+    },
+    "restored": {
+      "motionReady": true,
+      "universeHeight": 1941.1875,
+      "viewportHeight": 844,
+      "pinSpacers": 0,
+      "styledFeatureElements": 10,
+      "heroAnimationName": "hero-phone-drift-mobile"
+    },
+    "consoleErrors": [],
+    "failedRequests": []
+  },
   "zoom200": {
     "horizontalOverflow": 0,
     "headerCta": "https://play.google.com/store/apps/details?id=com.krahaso.app&referrer=utm_source%3Dqa%26utm_campaign%3Dtiptop",
+    "headerClearance": 90.390625,
+    "clippedText": [],
     "referrer": "utm_source=qa&utm_campaign=tiptop",
     "focusSequence": [
       {
@@ -581,6 +751,10 @@
         "text": "Kalo te përmbajtja",
         "width": 179.359375,
         "height": 46,
+        "top": 10,
+        "right": 189.359375,
+        "bottom": 56,
+        "left": 10,
         "outlineStyle": "solid",
         "outlineWidth": "3px"
       },
@@ -590,15 +764,23 @@
         "text": "Krahaso",
         "width": 119.40625,
         "height": 44,
+        "top": 23,
+        "right": 152.40625,
+        "bottom": 67,
+        "left": 33,
         "outlineStyle": "solid",
         "outlineWidth": "3px"
       },
       {
         "tag": "A",
-        "className": "acquisition-link acquisition-link-primary ",
+        "className": "acquisition-link acquisition-link-primary acquisition-link-nav ",
         "text": "Shkarko",
         "width": 120.6875,
         "height": 44,
+        "top": 23,
+        "right": 611,
+        "bottom": 67,
+        "left": 490.3125,
         "outlineStyle": "solid",
         "outlineWidth": "3px"
       }

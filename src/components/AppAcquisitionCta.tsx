@@ -2,7 +2,7 @@ import { SiGoogleplay } from 'react-icons/si';
 import { preserveUtm, trackEvent } from '../lib/analytics';
 
 type Props = {
-  placement: 'hero' | 'nav' | 'download' | 'sticky';
+  placement: 'hero' | 'nav' | 'download' | 'sticky' | 'footer';
   inverse?: boolean;
   compact?: boolean;
   onNavigate?: () => void;
@@ -23,7 +23,8 @@ export function AppAcquisitionCta({
         href={preserveUtm(PLAY_STORE_URL)}
         target="_blank"
         rel="noopener noreferrer"
-        className={`acquisition-link acquisition-link-primary ${inverse ? 'acquisition-link-inverse' : ''}`}
+        data-acquisition-placement={placement}
+        className={`acquisition-link acquisition-link-primary acquisition-link-${placement} ${inverse ? 'acquisition-link-inverse' : ''}`}
         onClick={() => {
           trackEvent('play_store_click', { placement });
           if (placement === 'hero') trackEvent('hero_store_click', { store: 'play-store' });
@@ -32,7 +33,7 @@ export function AppAcquisitionCta({
         }}
       >
         <SiGoogleplay aria-hidden="true" />
-        <span>{compact ? 'Shkarko' : 'Shkarko në Google Play'}</span>
+        <span>{placement === 'footer' ? 'Google Play' : compact ? 'Shkarko' : 'Shkarko në Google Play'}</span>
       </a>
     </div>
   );

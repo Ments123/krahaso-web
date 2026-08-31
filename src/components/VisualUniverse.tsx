@@ -18,21 +18,50 @@ export function VisualUniverse() {
     const phone = phoneRef.current;
     const copy = copyRef.current;
     const overlay = overlayRef.current;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!root || !stage || !gallery || !phone || !copy || !overlay || reduced) {
+    if (!root || !stage || !gallery || !phone || !copy || !overlay) {
       return undefined;
     }
 
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
     let active = true;
-    let cleanup: (() => void) | undefined;
+    let setupVersion = 0;
+    let cleanupMotion: (() => void) | undefined;
 
-    void import('../motion/gsap')
-      .then(({ gsap, ScrollTrigger }) => {
-        if (!active) return;
+    const resetFallback = () => {
+      root.classList.remove('motion-ready');
+      [stage, gallery, ...gallery.querySelectorAll<HTMLElement>('.universe-tile-media'), phone, copy, overlay]
+        .forEach((element) => element.removeAttribute('style'));
+    };
+
+    const teardownMotion = () => {
+      setupVersion += 1;
+      const cleanup = cleanupMotion;
+      cleanupMotion = undefined;
+      cleanup?.();
+      resetFallback();
+    };
+
+    const setupMotion = async () => {
+      const version = ++setupVersion;
+      if (motionPreference.matches) {
+        resetFallback();
+        return;
+      }
+
+      try {
+        const { gsap, ScrollTrigger } = await import('../motion/gsap');
+        if (!active || motionPreference.matches || version !== setupVersion) return;
 
         const tiles = gallery.querySelectorAll<HTMLElement>('.universe-tile-media');
         const media = gsap.matchMedia();
+        let context: ReturnType<typeof gsap.context> | undefined;
+        const cleanupInstance = () => {
+          media.revert();
+          context?.revert();
+          root.classList.remove('motion-ready');
+          gsap.set([stage, gallery, ...tiles, phone, copy, overlay], { clearProps: 'all' });
+        };
         const render = (mode: UniverseMode, progress: number) => {
           const state = getUniverseState(progress, mode);
           const exitStart = mode === 'mobile' ? 0.78 : 0.82;
@@ -46,57 +75,72 @@ export function VisualUniverse() {
           gsap.set(phone, {
             autoAlpha: state.phoneOpacity,
             scale: state.phoneScale,
-            yPercent: -18 * exitProgress,
+            xPercent: -50,
+            yPercent: -50 - 18 * exitProgress,
           });
           gsap.set(copy, { autoAlpha: state.copyOpacity });
           gsap.set(overlay, { autoAlpha: exitProgress });
         };
 
-        const context = gsap.context(() => {
+        try {
+          context = gsap.context(() => {
+            media.add('(min-width: 900px)', () => {
+              render('desktop', 0);
+              const trigger = ScrollTrigger.create({
+                trigger: root,
+                start: 'top top',
+                end: 'bottom bottom',
+                pin: stage,
+                pinSpacing: false,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onUpdate: ({ progress }) => render('desktop', progress),
+              });
+              return () => trigger.kill();
+            });
+
+            media.add('(max-width: 899px)', () => {
+              render('mobile', 0);
+              const trigger = ScrollTrigger.create({
+                trigger: root,
+                start: 'top top',
+                end: 'bottom bottom',
+                invalidateOnRefresh: true,
+                onUpdate: ({ progress }) => render('mobile', progress),
+              });
+              return () => trigger.kill();
+            });
+          }, root);
+
+          if (!active || motionPreference.matches || version !== setupVersion) {
+            cleanupInstance();
+            return;
+          }
+
           root.classList.add('motion-ready');
+          ScrollTrigger.refresh();
+          cleanupMotion = cleanupInstance;
+        } catch {
+          cleanupInstance();
+          resetFallback();
+        }
+      } catch {
+        resetFallback();
+      }
+    };
 
-          media.add('(min-width: 900px)', () => {
-            render('desktop', 0);
-            const trigger = ScrollTrigger.create({
-              trigger: root,
-              start: 'top top',
-              end: 'bottom bottom',
-              pin: stage,
-              pinSpacing: false,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-              onUpdate: ({ progress }) => render('desktop', progress),
-            });
-            return () => trigger.kill();
-          });
+    const handleMotionPreference = () => {
+      teardownMotion();
+      if (!motionPreference.matches) void setupMotion();
+    };
 
-          media.add('(max-width: 899px)', () => {
-            render('mobile', 0);
-            const trigger = ScrollTrigger.create({
-              trigger: root,
-              start: 'top top',
-              end: 'bottom bottom',
-              invalidateOnRefresh: true,
-              onUpdate: ({ progress }) => render('mobile', progress),
-            });
-            return () => trigger.kill();
-          });
-        }, root);
-
-        cleanup = () => {
-          media.revert();
-          context.revert();
-          root.classList.remove('motion-ready');
-          gsap.set([gallery, ...tiles, phone, copy, overlay], { clearProps: 'all' });
-        };
-
-        ScrollTrigger.refresh();
-      })
-      .catch(() => undefined);
+    motionPreference.addEventListener('change', handleMotionPreference);
+    void setupMotion();
 
     return () => {
       active = false;
-      cleanup?.();
+      motionPreference.removeEventListener('change', handleMotionPreference);
+      teardownMotion();
     };
   }, []);
 

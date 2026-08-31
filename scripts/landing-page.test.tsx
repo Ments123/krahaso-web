@@ -26,10 +26,18 @@ test('routes every primary download action directly to Google Play', () => {
   const header = html.match(/<header[\s\S]*?<\/header>/)?.[0] ?? '';
 
   assert.match(header, new RegExp(`href="${escapedUrl}"`));
-  assert.ok(
-    (html.match(new RegExp(escapedUrl, 'g')) ?? []).length >= 3,
-    'header, hero and final download actions should link to Google Play',
+  assert.equal(
+    (html.match(new RegExp(escapedUrl, 'g')) ?? []).length,
+    4,
+    'nav, hero, final download and footer actions should link to Google Play',
   );
+  for (const placement of ['nav', 'hero', 'download', 'footer']) {
+    assert.match(
+      html,
+      new RegExp(`data-acquisition-placement="${placement}"`),
+      `missing acquisition attribution for ${placement}`,
+    );
+  }
 });
 
 test('uses the approved barcode-first hero copy and free badge', () => {

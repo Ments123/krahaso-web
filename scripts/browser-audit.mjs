@@ -172,6 +172,11 @@ async function collectPageState(page) {
     const failedImages = [...document.images]
       .filter((image) => !image.complete || image.naturalWidth === 0)
       .map((image) => image.getAttribute('src'));
+    const acquisitionLinks = [...document.querySelectorAll('.acquisition-link')]
+      .map((anchor) => ({
+        placement: anchor.getAttribute('data-acquisition-placement'),
+        href: anchor.href,
+      }));
     const touchTargetFailures = [...document.querySelectorAll('a, button')]
       .filter((element) => {
         const style = getComputedStyle(element);
@@ -199,6 +204,7 @@ async function collectPageState(page) {
       duplicateIds,
       brokenInternalAnchors,
       failedImages,
+      acquisitionLinks,
       touchTargetFailures,
       motionReady:
         document.querySelector('#universi')?.classList.contains('motion-ready') ?? false,
@@ -225,6 +231,7 @@ async function sampleUniverse(page, progress) {
     };
     const opacityOf = (selector) =>
       Number(getComputedStyle(document.querySelector(selector)).opacity);
+    const phoneRect = document.querySelector('.universe-phone').getBoundingClientRect();
 
     return {
       progress: value,
@@ -232,6 +239,8 @@ async function sampleUniverse(page, progress) {
       phoneScale: scaleOf('.universe-phone'),
       phoneOpacity: opacityOf('.universe-phone'),
       copyOpacity: opacityOf('.universe-copy'),
+      phoneCenterOffset:
+        phoneRect.left + phoneRect.width / 2 - window.innerWidth / 2,
     };
   }, progress);
 }
@@ -309,6 +318,7 @@ const audit = {
   pageLengthReduction: null,
   viewports: [],
   reducedMotion: null,
+  motionPreferenceChanges: null,
   zoom200: null,
   failures,
 };
@@ -400,6 +410,21 @@ for (const viewport of viewports) {
     requireAudit(base.failedImages.length === 0, `${viewport.name}: failed images`);
     requireAudit(base.touchTargetFailures.length === 0, `${viewport.name}: undersized targets`);
     requireAudit(base.motionReady, `${viewport.name}: motion enhancement did not start`);
+    const acquisitionPlacements = base.acquisitionLinks
+      .map(({ placement }) => placement)
+      .sort();
+    requireAudit(
+      JSON.stringify(acquisitionPlacements) ===
+        JSON.stringify(['download', 'footer', 'hero', 'nav']),
+      `${viewport.name}: acquisition placements were ${acquisitionPlacements.join(', ')}`,
+    );
+    for (const link of base.acquisitionLinks) {
+      requireAudit(
+        new URL(link.href).searchParams.get('referrer') ===
+          'utm_source=qa&utm_campaign=tiptop',
+        `${viewport.name}: ${link.placement} Play referrer was not preserved`,
+      );
+    }
     requireAudit(
       forward.at(-1).phoneOpacity > forward[0].phoneOpacity + 0.8,
       `${viewport.name}: phone reveal did not advance`,
@@ -407,6 +432,10 @@ for (const viewport of viewports) {
     requireAudit(
       forward.at(-1).galleryScale < forward[0].galleryScale - 0.2,
       `${viewport.name}: gallery did not compress`,
+    );
+    requireAudit(
+      Math.abs(forward.find(({ progress }) => progress === 0.55).phoneCenterOffset) <= 2,
+      `${viewport.name}: revealed phone was not horizontally centred`,
     );
 
     for (const sample of forward) {
@@ -499,6 +528,78 @@ for (const viewport of viewports) {
 
 {
   const session = await openPage(
+    'https://krahaso-motion-preference.test',
+    { width: 390, height: 844 },
+    { isMobile: true, hasTouch: true },
+  );
+  try {
+    const readMotionState = () => session.page.evaluate(() => {
+      const universe = document.querySelector('#universi');
+      const hero = document.querySelector('.hero-phone');
+      const featureElements = [
+        ...document.querySelectorAll('.feature-copy, .feature-visual'),
+      ];
+      return {
+        motionReady: universe.classList.contains('motion-ready'),
+        universeHeight: universe.getBoundingClientRect().height,
+        viewportHeight: window.innerHeight,
+        pinSpacers: document.querySelectorAll('.pin-spacer').length,
+        styledFeatureElements: featureElements.filter(
+          (element) => element.getAttribute('style')?.trim(),
+        ).length,
+        heroAnimationName: getComputedStyle(hero).animationName,
+      };
+    });
+
+    await waitForMotion(session.page);
+    const initial = await readMotionState();
+
+    await session.page.emulateMedia({ reducedMotion: 'reduce' });
+    await session.page.waitForFunction(
+      () => !document.querySelector('#universi')?.classList.contains('motion-ready'),
+      undefined,
+      { timeout: 5000 },
+    );
+    await session.page.waitForTimeout(120);
+    const reduced = await readMotionState();
+
+    await session.page.emulateMedia({ reducedMotion: 'no-preference' });
+    await waitForMotion(session.page);
+    const restored = await readMotionState();
+
+    audit.motionPreferenceChanges = {
+      initial,
+      reduced,
+      restored,
+      consoleErrors: session.consoleErrors,
+      failedRequests: session.failedRequests,
+    };
+    requireAudit(initial.motionReady, 'motion preference test did not initialise motion');
+    requireAudit(!reduced.motionReady, 'runtime reduced-motion change kept choreography active');
+    requireAudit(
+      reduced.universeHeight < reduced.viewportHeight * 1.2,
+      'runtime reduced-motion change retained a long runway',
+    );
+    requireAudit(reduced.pinSpacers === 0, 'runtime reduced-motion change retained pin spacers');
+    requireAudit(
+      reduced.styledFeatureElements === 0,
+      'runtime reduced-motion change retained feature animation styles',
+    );
+    requireAudit(reduced.heroAnimationName === 'none', 'runtime reduced-motion kept hero motion');
+    requireAudit(restored.motionReady, 'runtime motion preference did not restart choreography');
+    requireAudit(
+      restored.universeHeight > restored.viewportHeight * 2,
+      'runtime motion preference did not restore the mobile runway',
+    );
+    requireAudit(session.consoleErrors.length === 0, 'motion preference change console errors');
+    requireAudit(session.failedRequests.length === 0, 'motion preference change failed requests');
+  } finally {
+    await session.browser.close();
+  }
+}
+
+{
+  const session = await openPage(
     'https://krahaso-reduced.test',
     { width: 390, height: 844 },
     { isMobile: true, hasTouch: true, reducedMotion: 'reduce' },
@@ -555,6 +656,7 @@ for (const viewport of viewports) {
     const focusSequence = [];
     for (let index = 0; index < 3; index += 1) {
       await session.page.keyboard.press('Tab');
+      await session.page.waitForTimeout(220);
       focusSequence.push(await session.page.evaluate(() => {
         const active = document.activeElement;
         const rect = active.getBoundingClientRect();
@@ -565,16 +667,44 @@ for (const viewport of viewports) {
           text: active.textContent?.trim(),
           width: rect.width,
           height: rect.height,
+          top: rect.top,
+          right: rect.right,
+          bottom: rect.bottom,
+          left: rect.left,
           outlineStyle: style.outlineStyle,
           outlineWidth: style.outlineWidth,
         };
       }));
     }
-    const result = await session.page.evaluate(() => ({
-      horizontalOverflow:
-        document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      headerCta: document.querySelector('.site-header .acquisition-link')?.href,
-    }));
+    const result = await session.page.evaluate(() => {
+      const header = document.querySelector('.site-nav').getBoundingClientRect();
+      const title = document.querySelector('.hero h1').getBoundingClientRect();
+      const clippedText = [
+        ...document.querySelectorAll(
+          '.site-header a, .hero h1, .hero-lede, .hero-trust',
+        ),
+      ]
+        .filter((element) => {
+          const style = getComputedStyle(element);
+          const rect = element.getBoundingClientRect();
+          const visible = style.display !== 'none' && style.visibility !== 'hidden' &&
+            rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.top < window.innerHeight;
+          if (!visible) return false;
+          const horizontallyClipped = rect.left < -1 || rect.right > window.innerWidth + 1;
+          const contentClipped = ['hidden', 'clip'].includes(style.overflowX) &&
+            element.scrollWidth > element.clientWidth + 1;
+          return horizontallyClipped || contentClipped;
+        })
+        .map((element) => element.textContent?.trim().slice(0, 60));
+
+      return {
+        horizontalOverflow:
+          document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        headerCta: document.querySelector('.site-header .acquisition-link')?.href,
+        headerClearance: title.top - header.bottom,
+        clippedText,
+      };
+    });
     const referrer = new URL(result.headerCta).searchParams.get('referrer');
     audit.zoom200 = {
       ...result,
@@ -592,6 +722,13 @@ for (const viewport of viewports) {
       focusSequence.every(({ width, height }) => width >= 44 && height >= 44),
       'zoom focus target was under 44px',
     );
+    requireAudit(
+      focusSequence[0].top >= 0 && focusSequence[0].left >= 0 &&
+        focusSequence[0].right <= 640 && focusSequence[0].bottom <= 400,
+      'zoom skip link was clipped outside the viewport',
+    );
+    requireAudit(result.headerClearance >= 8, 'zoom header overlapped the hero title');
+    requireAudit(result.clippedText.length === 0, 'zoom clipped visible text');
     requireAudit(result.horizontalOverflow <= 0, 'zoom layout overflowed');
     requireAudit(
       referrer === 'utm_source=qa&utm_campaign=tiptop',

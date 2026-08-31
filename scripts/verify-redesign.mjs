@@ -138,10 +138,20 @@ test('uses explicit ScrollTrigger choreography with progressive fallbacks', asyn
   assert.match(universe, /gsap\.matchMedia\(\)/);
   assert.match(universe, /classList\.add\('motion-ready'\)/);
   assert.match(universe, /media\.add\('\(max-width: 899px\)'/);
+  assert.ok(
+    universe.indexOf("classList.add('motion-ready')") >
+      universe.indexOf("media.add('(max-width: 899px)'"),
+    'motion-ready must only be added after both responsive branches initialise',
+  );
+  assert.match(universe, /catch\s*\{\s*cleanupInstance\(\);\s*resetFallback\(\);/);
+  assert.match(universe, /addEventListener\('change'/);
+  assert.match(universe, /removeEventListener\('change'/);
   assert.doesNotMatch(universe, /window\.innerWidth < 900/);
   assert.match(features, /pin:\s*visual/);
   assert.match(features, /gsap\.matchMedia\(\)/);
   assert.match(features, /media\.add\('\(max-width: 899px\)'/);
+  assert.match(features, /addEventListener\('change'/);
+  assert.match(features, /removeEventListener\('change'/);
   assert.match(features, /scrub:\s*0\.35/);
   assert.match(features, /scale:\s*0\.97/);
   assert.doesNotMatch(features, /window\.innerWidth < 900/);
@@ -156,6 +166,10 @@ test('uses explicit ScrollTrigger choreography with progressive fallbacks', asyn
     /@media \(max-width: 899px\)[\s\S]*?\.visual-universe\.motion-ready\s*\{[^}]*height:\s*230svh/,
   );
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.match(
+    css,
+    /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.visual-universe\.motion-ready\s*\{[^}]*height:\s*auto/,
+  );
   assert.match(
     css,
     /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.hero-phone\s*\{[^}]*animation:\s*none\s*!important/,
@@ -210,8 +224,10 @@ test('keeps acquisition analytics, destinations, and utility links intact', asyn
   assert.match(cta, /https:\/\/play\.google\.com\/store\/apps\/details\?id=com\.krahaso\.app/);
   assert.match(cta, /preserveUtm/);
   assert.match(cta, /trackEvent/);
+  assert.match(cta, /data-acquisition-placement=\{placement\}/);
   assert.match(analytics, /dataLayer/);
   assert.match(analytics, /utm_/);
+  assert.match(footer, /<AppAcquisitionCta placement="footer"/);
   assert.match(footer, /https:\/\/api\.krahaso\.app\/privacy/);
   assert.match(footer, /https:\/\/api\.krahaso\.app\/account-deletion/);
   assert.match(footer, /mailto:privacy@krahaso\.app/);
@@ -237,5 +253,10 @@ test('keeps performance and rendered QA reproducible on a clean checkout', async
   assert.match(browserAudit, /desktop-1440x900/);
   assert.match(browserAudit, /mobile-390x844/);
   assert.match(browserAudit, /prefers-reduced-motion/);
+  assert.match(browserAudit, /motionPreferenceChanges/);
+  assert.match(browserAudit, /emulateMedia\(\{ reducedMotion: 'reduce' \}\)/);
+  assert.match(browserAudit, /data-acquisition-placement/);
+  assert.match(browserAudit, /headerClearance/);
+  assert.match(browserAudit, /clippedText/);
   assert.match(requirements, /^Pillow==\d+\.\d+\.\d+$/m);
 });
