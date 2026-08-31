@@ -8,76 +8,110 @@ export function FeatureStory() {
   useEffect(() => {
     const root = rootRef.current;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!root || reduced || window.innerWidth < 900) return undefined;
+    if (!root || reduced) return undefined;
 
     let active = true;
     let cleanup: (() => void) | undefined;
 
-    void import('../motion/gsap').then(({ gsap, ScrollTrigger }) => {
-      if (!active) return;
+    void import('../motion/gsap')
+      .then(({ gsap, ScrollTrigger }) => {
+        if (!active) return;
 
-      const context = gsap.context(() => {
         const cards = Array.from(root.querySelectorAll<HTMLElement>('.feature-chapter'));
-        const triggers: Array<ReturnType<typeof ScrollTrigger.create>> = [];
-        const tweens: gsap.core.Tween[] = [];
+        const media = gsap.matchMedia();
+        const context = gsap.context(() => {
+          media.add('(min-width: 900px)', () => {
+            const triggers: Array<ReturnType<typeof ScrollTrigger.create>> = [];
+            const tweens: gsap.core.Tween[] = [];
 
-        cards.slice(0, -1).forEach((card, index) => {
-          const visual = card.querySelector<HTMLElement>('.feature-visual');
-          const copy = card.querySelector<HTMLElement>('.feature-copy');
-          if (!visual || !copy) return;
+            cards.slice(0, -1).forEach((card, index) => {
+              const visual = card.querySelector<HTMLElement>('.feature-visual');
+              const copy = card.querySelector<HTMLElement>('.feature-copy');
+              if (!visual || !copy) return;
 
-          triggers.push(
-            ScrollTrigger.create({
-              trigger: card,
-              start: 'top 12%',
-              end: 'bottom 34%',
-              pin: visual,
-              pinSpacing: false,
-              anticipatePin: 1,
-            }),
-          );
-
-          tweens.push(
-            gsap.fromTo(
-              copy,
-              { autoAlpha: 0.3, y: 72 },
-              {
-                autoAlpha: 1,
-                y: 0,
-                ease: 'none',
-                scrollTrigger: {
+              triggers.push(
+                ScrollTrigger.create({
                   trigger: card,
-                  start: 'top 72%',
-                  end: 'top 34%',
-                  scrub: true,
-                },
-              },
-            ),
-          );
+                  start: 'top 16%',
+                  end: 'bottom 20%',
+                  pin: visual,
+                  pinSpacing: false,
+                  anticipatePin: 1,
+                }),
+              );
+              tweens.push(
+                gsap.fromTo(
+                  copy,
+                  { autoAlpha: 0.38, y: 48 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    ease: 'none',
+                    scrollTrigger: {
+                      trigger: card,
+                      start: 'top 78%',
+                      end: 'top 42%',
+                      scrub: true,
+                    },
+                  },
+                ),
+                gsap.to(visual, {
+                  y: `${-(index + 1) * 2}vh`,
+                  ease: 'none',
+                  scrollTrigger: {
+                    trigger: card,
+                    start: '50% 58%',
+                    end: 'bottom top',
+                    scrub: true,
+                  },
+                }),
+              );
+            });
 
-          tweens.push(
-            gsap.to(visual, {
-              y: `${-(index + 1) * 3.5}vh`,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: card,
-                start: '55% 60%',
-                end: 'bottom top',
-                scrub: true,
-              },
-            }),
-          );
-        });
+            return () => {
+              triggers.forEach((trigger) => trigger.kill());
+              tweens.forEach((tween) => tween.kill());
+            };
+          });
+
+          media.add('(max-width: 899px)', () => {
+            const tweens = cards.flatMap((card) => {
+              const copy = card.querySelector<HTMLElement>('.feature-copy');
+              const visual = card.querySelector<HTMLElement>('.feature-visual');
+              if (!copy || !visual) return [];
+
+              return [
+                gsap.fromTo(
+                  [copy, visual],
+                  { autoAlpha: 0.45, y: 36, scale: 0.97 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    scale: 1,
+                    ease: 'none',
+                    scrollTrigger: {
+                      trigger: card,
+                      start: 'top 88%',
+                      end: 'top 52%',
+                      scrub: 0.35,
+                    },
+                  },
+                ),
+              ];
+            });
+
+            return () => tweens.forEach((tween) => tween.kill());
+          });
+        }, root);
 
         cleanup = () => {
-          triggers.forEach((trigger) => trigger.kill());
-          tweens.forEach((tween) => tween.scrollTrigger?.kill());
+          media.revert();
           context.revert();
         };
-      }, root);
 
-      ScrollTrigger.refresh();
-    });
+        ScrollTrigger.refresh();
+      })
+      .catch(() => undefined);
 
     return () => {
       active = false;

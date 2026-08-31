@@ -137,7 +137,15 @@ test('uses explicit ScrollTrigger choreography with progressive fallbacks', asyn
   assert.match(universe, /media\.add\('\(max-width: 899px\)'/);
   assert.doesNotMatch(universe, /window\.innerWidth < 900/);
   assert.match(features, /pin:\s*visual/);
-  assert.match(features, /window\.innerWidth < 900/);
+  assert.match(features, /gsap\.matchMedia\(\)/);
+  assert.match(features, /media\.add\('\(max-width: 899px\)'/);
+  assert.match(features, /scrub:\s*0\.35/);
+  assert.match(features, /scale:\s*0\.97/);
+  assert.doesNotMatch(features, /window\.innerWidth < 900/);
+  const mobileFeatureBranch = features.slice(
+    features.indexOf("media.add('(max-width: 899px)'")
+  );
+  assert.doesNotMatch(mobileFeatureBranch, /pin:/);
   assert.match(progress, /clamp/);
   assert.match(css, /\.visual-universe\.motion-ready\s*\{[^}]*height:\s*290svh/);
   assert.match(
@@ -147,6 +155,11 @@ test('uses explicit ScrollTrigger choreography with progressive fallbacks', asyn
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(css, /@media \(max-width: 899px\)/);
   assert.match(css, /min-height:\s*44px/);
+  assert.match(css, /\.story-intro\s*\{[^}]*min-height:\s*50svh/);
+  assert.match(css, /\.feature-chapter\s*\{[^}]*min-height:\s*68svh/);
+  assert.match(css, /\.feature-chapter-inner\s*\{[^}]*min-height:\s*62svh/);
+  assert.match(css, /\.feature-visual\s*\{[^}]*min-height:\s*58svh/);
+  assert.match(css, /@keyframes hero-phone-drift/);
 });
 
 test('uses genuine product proof and avoids fabricated comparison claims', async () => {
