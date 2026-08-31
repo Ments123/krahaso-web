@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { readFile, stat } from 'node:fs/promises';
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
@@ -8,12 +9,12 @@ const exists = (path) => stat(new URL(`../${path}`, import.meta.url)).then(() =>
 
 test('keeps the Vite production foundation and real brand assets', async () => {
   const screenshotPaths = [
-    'public/app/krahaso-home.jpg',
-    'public/app/krahaso-home-feed.jpg',
-    'public/app/krahaso-offers.jpg',
-    'public/app/krahaso-scanner.jpg',
-    'public/app/krahaso-basket.jpg',
-    'public/app/krahaso-rewards.jpg',
+    'public/app/krahaso-home.webp',
+    'public/app/krahaso-home-feed.webp',
+    'public/app/krahaso-offers.webp',
+    'public/app/krahaso-scanner.webp',
+    'public/app/krahaso-basket.webp',
+    'public/app/krahaso-rewards.webp',
   ];
   const [pkgRaw, vite, main, screenshots, social, favicon] = await Promise.all([
     read('package.json'),
@@ -34,10 +35,17 @@ test('keeps the Vite production foundation and real brand assets', async () => {
   assert.match(vite, /react\(\)/);
   assert.match(main, /createRoot/);
   for (const screenshot of screenshots) {
-    assert.equal(screenshot.subarray(0, 3).toString('hex'), 'ffd8ff');
+    assert.equal(screenshot.subarray(0, 4).toString('ascii'), 'RIFF');
   }
   assert.equal(social.subarray(0, 4).toString('ascii'), 'RIFF');
   assert.equal(favicon.subarray(1, 4).toString('ascii'), 'PNG');
+
+  const imageCheck = spawnSync(
+    'python3',
+    ['scripts/optimise-web-images.py', '--check'],
+    { cwd: new URL('..', import.meta.url), encoding: 'utf8' },
+  );
+  assert.equal(imageCheck.status, 0, imageCheck.stderr || imageCheck.stdout);
 });
 
 test('ships semantic metadata, app structured data and crawler infrastructure', async () => {
@@ -56,6 +64,10 @@ test('ships semantic metadata, app structured data and crawler infrastructure', 
     /content="Skano ose kërko produktin dhe shiko çmimet që kemi nga marketet e Kosovës\."/,
   );
   assert.match(html, /rel="canonical" href="https:\/\/krahaso\.app\/"/);
+  assert.match(
+    html,
+    /rel="preload"[^>]+href="\/app\/krahaso-home\.webp"[^>]+fetchpriority="high"/,
+  );
   assert.match(html, /property="og:image" content="https:\/\/krahaso\.app\/krahaso-social\.webp"/);
   assert.match(html, /"@type":\s*"Organization"/);
   const structuredDataSource = html.match(
@@ -143,16 +155,16 @@ test('uses genuine product proof and avoids fabricated comparison claims', async
   const sources = (await Promise.all(paths.map(read))).join('\n');
 
   for (const screenshot of [
-    'krahaso-home.jpg',
-    'krahaso-home-feed.jpg',
-    'krahaso-offers.jpg',
-    'krahaso-scanner.jpg',
-    'krahaso-basket.jpg',
-    'krahaso-rewards.jpg',
+    'krahaso-home.webp',
+    'krahaso-home-feed.webp',
+    'krahaso-offers.webp',
+    'krahaso-scanner.webp',
+    'krahaso-basket.webp',
+    'krahaso-rewards.webp',
   ]) {
     assert.match(sources, new RegExp(`/app/${screenshot.replaceAll('.', '\\.')}`));
   }
-  assert.doesNotMatch(sources, /\/app\/krahaso-home\.webp/);
+  assert.doesNotMatch(sources, /\/app\/krahaso-(?:home|home-feed|offers|scanner|basket|rewards)\.jpg/);
   assert.match(sources, /fito pikë kur pranohet/i);
   assert.doesNotMatch(sources, /€22\.45|€23\.30|€24\.10|€25\.05|7,000|milion|rating|partner zyrtar/i);
   assert.doesNotMatch(sources, /<video|cloudfront/i);

@@ -6,6 +6,20 @@ import App from '../src/App';
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.krahaso.app';
 
+test('renders without React DOM attribute warnings', () => {
+  const errors: string[] = [];
+  const originalError = console.error;
+  console.error = (...args: unknown[]) => errors.push(args.map(String).join(' '));
+
+  try {
+    renderToStaticMarkup(<App />);
+  } finally {
+    console.error = originalError;
+  }
+
+  assert.deepEqual(errors, []);
+});
+
 test('routes every primary download action directly to Google Play', () => {
   const html = renderToStaticMarkup(<App />);
   const escapedUrl = PLAY_STORE_URL.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -50,7 +64,11 @@ test('renders one clear product story with stable download actions', () => {
   const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
   assert.deepEqual(duplicates, []);
 
-  assert.match(html, /\/app\/krahaso-home\.jpg/);
+  assert.match(html, /\/app\/krahaso-home\.webp/);
+  assert.match(
+    html,
+    /<img[^>]+src="\/app\/krahaso-home\.webp"[^>]+fetchpriority="high"/,
+  );
   assert.match(html, /https:\/\/play\.google\.com\/store\/apps\/details\?id=com\.krahaso\.app/);
   assert.match(html, /iOS — së shpejti/);
 });
@@ -58,12 +76,12 @@ test('renders one clear product story with stable download actions', () => {
 test('maps the six supplied current screenshots to their matching product scenes', () => {
   const html = renderToStaticMarkup(<App />);
   const expectedScreens = [
-    '/app/krahaso-home.jpg',
-    '/app/krahaso-home-feed.jpg',
-    '/app/krahaso-offers.jpg',
-    '/app/krahaso-scanner.jpg',
-    '/app/krahaso-basket.jpg',
-    '/app/krahaso-rewards.jpg',
+    '/app/krahaso-home.webp',
+    '/app/krahaso-home-feed.webp',
+    '/app/krahaso-offers.webp',
+    '/app/krahaso-scanner.webp',
+    '/app/krahaso-basket.webp',
+    '/app/krahaso-rewards.webp',
   ];
 
   for (const screen of expectedScreens) {
@@ -77,12 +95,19 @@ test('maps the six supplied current screenshots to their matching product scenes
       ),
     )?.[0] ?? '';
 
-  assert.match(featureScreen('kerko'), /\/app\/krahaso-home\.jpg/);
-  assert.match(featureScreen('ofertat'), /\/app\/krahaso-offers\.jpg/);
-  assert.match(featureScreen('skano'), /\/app\/krahaso-scanner\.jpg/);
-  assert.match(featureScreen('shporta'), /\/app\/krahaso-basket\.jpg/);
-  assert.match(featureScreen('fito'), /\/app\/krahaso-rewards\.jpg/);
-  assert.doesNotMatch(html, /\/app\/krahaso-home\.webp/);
+  assert.match(featureScreen('kerko'), /\/app\/krahaso-home\.webp/);
+  assert.match(featureScreen('ofertat'), /\/app\/krahaso-offers\.webp/);
+  assert.match(featureScreen('skano'), /\/app\/krahaso-scanner\.webp/);
+  assert.match(featureScreen('shporta'), /\/app\/krahaso-basket\.webp/);
+  assert.match(featureScreen('fito'), /\/app\/krahaso-rewards\.webp/);
+  assert.doesNotMatch(
+    html,
+    /\/app\/krahaso-(?:home|home-feed|offers|scanner|basket|rewards)\.jpg/,
+  );
+
+  for (const product of ['coffee', 'oil', 'eggs', 'detergent']) {
+    assert.match(html, new RegExp(`/products/${product}\\.webp`));
+  }
 });
 
 test('explains the real app journey in the approved order', () => {
