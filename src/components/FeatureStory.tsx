@@ -7,81 +7,159 @@ export function FeatureStory() {
 
   useEffect(() => {
     const root = rootRef.current;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!root || reduced || window.innerWidth < 900) return undefined;
+    if (!root) return undefined;
 
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
     let active = true;
-    let cleanup: (() => void) | undefined;
+    let setupVersion = 0;
+    let cleanupMotion: (() => void) | undefined;
 
-    void import('../motion/gsap').then(({ gsap, ScrollTrigger }) => {
-      if (!active) return;
+    const resetFallback = () => {
+      root.querySelectorAll<HTMLElement>('.feature-copy, .feature-visual')
+        .forEach((element) => element.removeAttribute('style'));
+    };
 
-      const context = gsap.context(() => {
+    const teardownMotion = () => {
+      setupVersion += 1;
+      const cleanup = cleanupMotion;
+      cleanupMotion = undefined;
+      cleanup?.();
+      resetFallback();
+    };
+
+    const setupMotion = async () => {
+      const version = ++setupVersion;
+      if (motionPreference.matches) {
+        resetFallback();
+        return;
+      }
+
+      try {
+        const { gsap, ScrollTrigger } = await import('../motion/gsap');
+        if (!active || motionPreference.matches || version !== setupVersion) return;
+
         const cards = Array.from(root.querySelectorAll<HTMLElement>('.feature-chapter'));
-        const triggers: Array<ReturnType<typeof ScrollTrigger.create>> = [];
-        const tweens: gsap.core.Tween[] = [];
-
-        cards.slice(0, -1).forEach((card, index) => {
-          const visual = card.querySelector<HTMLElement>('.feature-visual');
-          const copy = card.querySelector<HTMLElement>('.feature-copy');
-          if (!visual || !copy) return;
-
-          triggers.push(
-            ScrollTrigger.create({
-              trigger: card,
-              start: 'top 12%',
-              end: 'bottom 34%',
-              pin: visual,
-              pinSpacing: false,
-              anticipatePin: 1,
-            }),
-          );
-
-          tweens.push(
-            gsap.fromTo(
-              copy,
-              { autoAlpha: 0.3, y: 72 },
-              {
-                autoAlpha: 1,
-                y: 0,
-                ease: 'none',
-                scrollTrigger: {
-                  trigger: card,
-                  start: 'top 72%',
-                  end: 'top 34%',
-                  scrub: true,
-                },
-              },
-            ),
-          );
-
-          tweens.push(
-            gsap.to(visual, {
-              y: `${-(index + 1) * 3.5}vh`,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: card,
-                start: '55% 60%',
-                end: 'bottom top',
-                scrub: true,
-              },
-            }),
-          );
-        });
-
-        cleanup = () => {
-          triggers.forEach((trigger) => trigger.kill());
-          tweens.forEach((tween) => tween.scrollTrigger?.kill());
-          context.revert();
+        const media = gsap.matchMedia();
+        let context: ReturnType<typeof gsap.context> | undefined;
+        const cleanupInstance = () => {
+          media.revert();
+          context?.revert();
+          resetFallback();
         };
-      }, root);
 
-      ScrollTrigger.refresh();
-    });
+        try {
+          context = gsap.context(() => {
+            media.add('(min-width: 900px)', () => {
+              const triggers: Array<ReturnType<typeof ScrollTrigger.create>> = [];
+              const tweens: gsap.core.Tween[] = [];
+
+              cards.slice(0, -1).forEach((card, index) => {
+                const visual = card.querySelector<HTMLElement>('.feature-visual');
+                const copy = card.querySelector<HTMLElement>('.feature-copy');
+                if (!visual || !copy) return;
+
+                triggers.push(
+                  ScrollTrigger.create({
+                    trigger: card,
+                    start: 'top 16%',
+                    end: 'bottom 20%',
+                    pin: visual,
+                    pinSpacing: false,
+                    anticipatePin: 1,
+                  }),
+                );
+                tweens.push(
+                  gsap.fromTo(
+                    copy,
+                    { autoAlpha: 0.38, y: 48 },
+                    {
+                      autoAlpha: 1,
+                      y: 0,
+                      ease: 'none',
+                      scrollTrigger: {
+                        trigger: card,
+                        start: 'top 78%',
+                        end: 'top 42%',
+                        scrub: true,
+                      },
+                    },
+                  ),
+                  gsap.to(visual, {
+                    y: `${-(index + 1) * 2}vh`,
+                    ease: 'none',
+                    scrollTrigger: {
+                      trigger: card,
+                      start: '50% 58%',
+                      end: 'bottom top',
+                      scrub: true,
+                    },
+                  }),
+                );
+              });
+
+              return () => {
+                triggers.forEach((trigger) => trigger.kill());
+                tweens.forEach((tween) => tween.kill());
+              };
+            });
+
+            media.add('(max-width: 899px)', () => {
+              const tweens = cards.flatMap((card) => {
+                const copy = card.querySelector<HTMLElement>('.feature-copy');
+                const visual = card.querySelector<HTMLElement>('.feature-visual');
+                if (!copy || !visual) return [];
+
+                return [
+                  gsap.fromTo(
+                    [copy, visual],
+                    { autoAlpha: 0.45, y: 36, scale: 0.97 },
+                    {
+                      autoAlpha: 1,
+                      y: 0,
+                      scale: 1,
+                      ease: 'none',
+                      scrollTrigger: {
+                        trigger: card,
+                        start: 'top 88%',
+                        end: 'top 52%',
+                        scrub: 0.35,
+                      },
+                    },
+                  ),
+                ];
+              });
+
+              return () => tweens.forEach((tween) => tween.kill());
+            });
+          }, root);
+
+          if (!active || motionPreference.matches || version !== setupVersion) {
+            cleanupInstance();
+            return;
+          }
+
+          ScrollTrigger.refresh();
+          cleanupMotion = cleanupInstance;
+        } catch {
+          cleanupInstance();
+        }
+      } catch {
+        resetFallback();
+      }
+    };
+
+    const handleMotionPreference = () => {
+      teardownMotion();
+      if (!motionPreference.matches) void setupMotion();
+    };
+
+    motionPreference.addEventListener('change', handleMotionPreference);
+    void setupMotion();
 
     return () => {
       active = false;
-      cleanup?.();
+      motionPreference.removeEventListener('change', handleMotionPreference);
+      teardownMotion();
     };
   }, []);
 

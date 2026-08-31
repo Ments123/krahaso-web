@@ -1,26 +1,26 @@
 export const appScreens = {
   home: {
-    src: '/app/krahaso-home.jpg',
+    src: '/app/krahaso-home.webp',
     alt: 'Ballina e aplikacionit Krahaso me kërkim, kategori dhe oferta',
   },
   homeFeed: {
-    src: '/app/krahaso-home-feed.jpg',
+    src: '/app/krahaso-home-feed.webp',
     alt: 'Ofertat e nxehta dhe ofertat personale në ballinën e Krahaso',
   },
   offers: {
-    src: '/app/krahaso-offers.jpg',
+    src: '/app/krahaso-offers.webp',
     alt: 'Lista e ofertave nga marketet në aplikacionin Krahaso',
   },
   scanner: {
-    src: '/app/krahaso-scanner.jpg',
+    src: '/app/krahaso-scanner.webp',
     alt: 'Skaneri i barkodit duke njohur një produkt në Krahaso',
   },
   basket: {
-    src: '/app/krahaso-basket.jpg',
+    src: '/app/krahaso-basket.webp',
     alt: 'Shporta që krahason totalin mes marketeve në Krahaso',
   },
   rewards: {
-    src: '/app/krahaso-rewards.jpg',
+    src: '/app/krahaso-rewards.webp',
     alt: 'Faqja Fito me pikët dhe mënyrat për të fituar në Krahaso',
   },
 } as const;
@@ -78,14 +78,14 @@ export const featureChapters = [
 export type FeatureId = (typeof featureChapters)[number]['id'];
 
 export const universeTiles = [
-  { src: '/products/coffee.png', alt: 'Pako kafeje', kind: 'product' },
+  { src: '/products/coffee.webp', alt: 'Pako kafeje', kind: 'product' },
   { src: '/logos/viva.png', alt: 'Viva Fresh Store', kind: 'logo' },
-  { src: '/products/oil.png', alt: 'Shishe vaji', kind: 'product' },
+  { src: '/products/oil.webp', alt: 'Shishe vaji', kind: 'product' },
   { src: '/logos/interex.png', alt: 'Interex', kind: 'logo' },
   { src: '/logos/superviva.png', alt: 'Super Viva', kind: 'logo' },
-  { src: '/products/eggs.png', alt: 'Pako vezësh', kind: 'product' },
+  { src: '/products/eggs.webp', alt: 'Pako vezësh', kind: 'product' },
   { src: '/logos/maxi.png', alt: 'Maxi', kind: 'logo' },
-  { src: '/products/detergent.png', alt: 'Detergjent', kind: 'product' },
+  { src: '/products/detergent.webp', alt: 'Detergjent', kind: 'product' },
 ] as const;
 
 export const retailerLogos = [

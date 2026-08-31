@@ -17,6 +17,17 @@ declare global {
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
 
+export function buildCampaignReferrer(current: URL) {
+  const referrer = new URLSearchParams();
+
+  UTM_KEYS.forEach((key) => {
+    const value = current.searchParams.get(key);
+    if (value) referrer.set(key, value);
+  });
+
+  return referrer.toString();
+}
+
 export function trackEvent(
   name: AnalyticsEventName,
   payload: Record<string, string> = {},
@@ -31,13 +42,21 @@ export function preserveUtm(href: string) {
   try {
     const destination = new URL(href);
     const current = new URL(window.location.href);
+    const campaign = buildCampaignReferrer(current);
+    const isPlayListing =
+      destination.hostname === 'play.google.com' &&
+      destination.pathname === '/store/apps/details';
 
-    UTM_KEYS.forEach((key) => {
-      const value = current.searchParams.get(key);
-      if (value && !destination.searchParams.has(key)) {
-        destination.searchParams.set(key, value);
-      }
-    });
+    if (isPlayListing && campaign) {
+      destination.searchParams.set('referrer', campaign);
+    } else {
+      UTM_KEYS.forEach((key) => {
+        const value = current.searchParams.get(key);
+        if (value && !destination.searchParams.has(key)) {
+          destination.searchParams.set(key, value);
+        }
+      });
+    }
 
     return destination.toString();
   } catch {

@@ -9,8 +9,9 @@ import { VisualUniverse } from './components/VisualUniverse';
 function App() {
   return (
     <div className="site-shell">
+      <a className="skip-link" href="#main-content">Kalo te përmbajtja</a>
       <SiteHeader />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <HeroSection />
         <VisualUniverse />
         <FeatureStory />

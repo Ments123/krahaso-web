@@ -27,6 +27,7 @@ export function PhoneFrame({
           width="716"
           height="1536"
           loading={priority ? 'eager' : 'lazy'}
+          {...(priority ? { fetchpriority: 'high' } : {})}
           decoding="async"
         />
       </div>

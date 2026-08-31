@@ -1,4 +1,5 @@
 import { BrandMark } from './BrandMark';
+import { AppAcquisitionCta } from './AppAcquisitionCta';
 
 export function SiteHeader() {
   return (
@@ -11,7 +12,7 @@ export function SiteHeader() {
         <div className="site-nav-links">
           <a href="#veçorite">Si funksionon</a>
           <a href="#ofertat">Marketet</a>
-          <a href="#shkarko" className="nav-download">Shkarko</a>
+          <AppAcquisitionCta placement="nav" compact />
         </div>
       </nav>
     </header>

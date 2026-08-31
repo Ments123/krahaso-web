@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { universeTiles } from '../content/landing';
-import { getUniverseState } from '../motion/progress';
+import { getUniverseState, type UniverseMode } from '../motion/progress';
 import { PhoneFrame } from './PhoneFrame';
 
 export function VisualUniverse() {
@@ -18,82 +18,129 @@ export function VisualUniverse() {
     const phone = phoneRef.current;
     const copy = copyRef.current;
     const overlay = overlayRef.current;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!root || !stage || !gallery || !phone || !copy || !overlay || reduced || window.innerWidth < 900) {
+    if (!root || !stage || !gallery || !phone || !copy || !overlay) {
       return undefined;
     }
 
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
     let active = true;
-    let cleanup: (() => void) | undefined;
+    let setupVersion = 0;
+    let cleanupMotion: (() => void) | undefined;
 
-    void import('../motion/gsap').then(({ gsap, ScrollTrigger }) => {
-      if (!active) return;
+    const resetFallback = () => {
+      root.classList.remove('motion-ready');
+      [stage, gallery, ...gallery.querySelectorAll<HTMLElement>('.universe-tile-media'), phone, copy, overlay]
+        .forEach((element) => element.removeAttribute('style'));
+    };
 
-      const media = gallery.querySelectorAll<HTMLElement>('.universe-tile-media');
-      const context = gsap.context(() => {
-        const initial = getUniverseState(0);
-        gsap.set(gallery, { scale: initial.galleryScale });
-        gsap.set(media, { scale: initial.mediaScale });
-        gsap.set(phone, { autoAlpha: initial.phoneOpacity, scale: initial.phoneScale });
-        gsap.set(copy, { autoAlpha: initial.copyOpacity });
+    const teardownMotion = () => {
+      setupVersion += 1;
+      const cleanup = cleanupMotion;
+      cleanupMotion = undefined;
+      cleanup?.();
+      resetFallback();
+    };
 
-        const mainTrigger = ScrollTrigger.create({
-          trigger: root,
-          start: 'top top',
-          end: 'bottom bottom',
-          pin: stage,
-          pinSpacing: false,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: ({ progress }) => {
-            const state = getUniverseState(progress);
-            gsap.set(gallery, { scale: state.galleryScale });
-            gsap.set(media, { scale: state.mediaScale });
-            gsap.set(phone, {
-              autoAlpha: state.phoneOpacity,
-              scale: state.phoneScale,
-            });
-            gsap.set(copy, { autoAlpha: state.copyOpacity });
-          },
-        });
+    const setupMotion = async () => {
+      const version = ++setupVersion;
+      if (motionPreference.matches) {
+        resetFallback();
+        return;
+      }
 
-        const exitTween = gsap.to([gallery, phone], {
-          yPercent: -18,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root,
-            start: '82% bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
+      try {
+        const { gsap, ScrollTrigger } = await import('../motion/gsap');
+        if (!active || motionPreference.matches || version !== setupVersion) return;
 
-        const shadeTween = gsap.to(overlay, {
-          autoAlpha: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root,
-            start: '86% bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-
-        cleanup = () => {
-          mainTrigger.kill();
-          exitTween.scrollTrigger?.kill();
-          shadeTween.scrollTrigger?.kill();
-          context.revert();
+        const tiles = gallery.querySelectorAll<HTMLElement>('.universe-tile-media');
+        const media = gsap.matchMedia();
+        let context: ReturnType<typeof gsap.context> | undefined;
+        const cleanupInstance = () => {
+          media.revert();
+          context?.revert();
+          root.classList.remove('motion-ready');
+          gsap.set([stage, gallery, ...tiles, phone, copy, overlay], { clearProps: 'all' });
         };
-      }, root);
+        const render = (mode: UniverseMode, progress: number) => {
+          const state = getUniverseState(progress, mode);
+          const exitStart = mode === 'mobile' ? 0.78 : 0.82;
+          const exitProgress = Math.max(0, Math.min(1, (progress - exitStart) / (1 - exitStart)));
 
-      ScrollTrigger.refresh();
-    });
+          gsap.set(gallery, {
+            scale: state.galleryScale,
+            yPercent: -18 * exitProgress,
+          });
+          gsap.set(tiles, { scale: state.mediaScale });
+          gsap.set(phone, {
+            autoAlpha: state.phoneOpacity,
+            scale: state.phoneScale,
+            xPercent: -50,
+            yPercent: -50 - 18 * exitProgress,
+          });
+          gsap.set(copy, { autoAlpha: state.copyOpacity });
+          gsap.set(overlay, { autoAlpha: exitProgress });
+        };
+
+        try {
+          context = gsap.context(() => {
+            media.add('(min-width: 900px)', () => {
+              render('desktop', 0);
+              const trigger = ScrollTrigger.create({
+                trigger: root,
+                start: 'top top',
+                end: 'bottom bottom',
+                pin: stage,
+                pinSpacing: false,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onUpdate: ({ progress }) => render('desktop', progress),
+              });
+              return () => trigger.kill();
+            });
+
+            media.add('(max-width: 899px)', () => {
+              render('mobile', 0);
+              const trigger = ScrollTrigger.create({
+                trigger: root,
+                start: 'top top',
+                end: 'bottom bottom',
+                invalidateOnRefresh: true,
+                onUpdate: ({ progress }) => render('mobile', progress),
+              });
+              return () => trigger.kill();
+            });
+          }, root);
+
+          if (!active || motionPreference.matches || version !== setupVersion) {
+            cleanupInstance();
+            return;
+          }
+
+          root.classList.add('motion-ready');
+          ScrollTrigger.refresh();
+          cleanupMotion = cleanupInstance;
+        } catch {
+          cleanupInstance();
+          resetFallback();
+        }
+      } catch {
+        resetFallback();
+      }
+    };
+
+    const handleMotionPreference = () => {
+      teardownMotion();
+      if (!motionPreference.matches) void setupMotion();
+    };
+
+    motionPreference.addEventListener('change', handleMotionPreference);
+    void setupMotion();
 
     return () => {
       active = false;
-      cleanup?.();
+      motionPreference.removeEventListener('change', handleMotionPreference);
+      teardownMotion();
     };
   }, []);
 
