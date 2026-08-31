@@ -1,9 +1,10 @@
 {
-  "generatedAt": "2026-08-30T23:55:46.990Z",
+  "generatedAt": "2026-08-31T08:10:30.162Z",
   "browser": {
-    "executablePath": "/tmp/krahaso-chromium-runtime/chromium",
+    "executablePath": "/tmp/chromium",
     "version": "149.0.7827.0"
   },
+  "reducedMotionQuery": "(prefers-reduced-motion: reduce)",
   "bundles": [
     "gsap-mX7e7ydu.js",
     "index-BNUdKMVY.css",
@@ -39,14 +40,14 @@
         "motionReady": true
       },
       "heroMotion": {
-        "before": "matrix(0.999468, 0.0326111, -0.0326111, 0.999468, 0, -1.96787)",
-        "after": "matrix(0.999562, 0.0295807, -0.0295807, 0.999562, 0, -4.57355)",
+        "before": "matrix(0.999466, 0.032678, -0.032678, 0.999466, 0, -1.9103)",
+        "after": "matrix(0.99956, 0.0296662, -0.0296662, 0.99956, 0, -4.50002)",
         "animationName": "hero-phone-drift"
       },
       "forward": [
         {
           "progress": 0,
-          "galleryScale": 0.9999,
+          "galleryScale": 1,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
           "copyOpacity": 1
@@ -141,7 +142,7 @@
       "forward": [
         {
           "progress": 0,
-          "galleryScale": 0.9999,
+          "galleryScale": 1,
           "phoneScale": 0.92,
           "phoneOpacity": 0,
           "copyOpacity": 1
@@ -315,10 +316,10 @@
           "visualTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)"
         },
         "end": {
-          "copyOpacity": 0.9837,
-          "copyTransform": "matrix(0.9991, 0, 0, 0.9991, 0, 1.0673)",
-          "visualOpacity": 0.9837,
-          "visualTransform": "matrix(0.9991, 0, 0, 0.9991, 0, 1.0673)"
+          "copyOpacity": 0.9896,
+          "copyTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6803)",
+          "visualOpacity": 0.9896,
+          "visualTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6803)"
         }
       },
       "orientation": null,
@@ -341,8 +342,8 @@
         "motionReady": true
       },
       "heroMotion": {
-        "before": "matrix(0.999424, 0.0339327, -0.0339327, 0.999424, 0, -0.79184)",
-        "after": "matrix(0.999478, 0.0322963, -0.0322963, 0.999478, 0, -2.13194)",
+        "before": "matrix(0.99943, 0.0337556, -0.0337556, 0.99943, 0, -0.936846)",
+        "after": "matrix(0.999486, 0.0320475, -0.0320475, 0.999486, 0, -2.33568)",
         "animationName": "hero-phone-drift-mobile"
       },
       "forward": [
@@ -427,10 +428,10 @@
           "visualTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)"
         },
         "end": {
-          "copyOpacity": 0.9899,
-          "copyTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6619)",
-          "visualOpacity": 0.9899,
-          "visualTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6619)"
+          "copyOpacity": 0.9896,
+          "copyTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6803)",
+          "visualOpacity": 0.9896,
+          "visualTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6803)"
         }
       },
       "orientation": {
@@ -546,10 +547,10 @@
           "visualTransform": "matrix(0.97, 0, 0, 0.97, 0, 36)"
         },
         "end": {
-          "copyOpacity": 0.989,
-          "copyTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.7183)",
-          "visualOpacity": 0.989,
-          "visualTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.7183)"
+          "copyOpacity": 0.9896,
+          "copyTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6803)",
+          "visualOpacity": 0.9896,
+          "visualTransform": "matrix(0.9994, 0, 0, 0.9994, 0, 0.6803)"
         }
       },
       "orientation": null,

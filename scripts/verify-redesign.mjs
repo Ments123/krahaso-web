@@ -27,7 +27,10 @@ test('keeps the Vite production foundation and real brand assets', async () => {
   const pkg = JSON.parse(pkgRaw);
 
   assert.equal(pkg.scripts.dev, 'vite');
-  assert.equal(pkg.scripts.build, 'tsc -b && vite build');
+  assert.equal(
+    pkg.scripts.build,
+    'tsc -b && vite build && npm run verify:bundle',
+  );
   assert.ok(pkg.dependencies.react);
   assert.ok(pkg.dependencies.gsap);
   assert.equal(pkg.dependencies.lenis, undefined);
@@ -213,4 +216,26 @@ test('keeps acquisition analytics, destinations, and utility links intact', asyn
   assert.match(footer, /https:\/\/api\.krahaso\.app\/account-deletion/);
   assert.match(footer, /mailto:privacy@krahaso\.app/);
   assert.match(footer, /https:\/\/admin\.krahaso\.app/);
+});
+
+test('keeps performance and rendered QA reproducible on a clean checkout', async () => {
+  const [pkgSource, bundleGuard, browserAudit, requirements] = await Promise.all([
+    read('package.json'),
+    read('scripts/check-bundle-budgets.mjs'),
+    read('scripts/browser-audit.mjs'),
+    read('requirements-dev.txt'),
+  ]);
+  const pkg = JSON.parse(pkgSource);
+
+  assert.match(pkg.scripts.build, /npm run verify:bundle/);
+  assert.equal(pkg.scripts['verify:bundle'], 'node scripts/check-bundle-budgets.mjs');
+  assert.equal(pkg.scripts['qa:browser'], 'node scripts/browser-audit.mjs');
+  assert.match(bundleGuard, /55_000/);
+  assert.match(bundleGuard, /48_000/);
+  assert.match(browserAudit, /KRAHASO_PLAYWRIGHT/);
+  assert.match(browserAudit, /KRAHASO_CHROMIUM/);
+  assert.match(browserAudit, /desktop-1440x900/);
+  assert.match(browserAudit, /mobile-390x844/);
+  assert.match(browserAudit, /prefers-reduced-motion/);
+  assert.match(requirements, /^Pillow==\d+\.\d+\.\d+$/m);
 });

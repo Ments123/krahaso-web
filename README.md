@@ -19,6 +19,7 @@ The production acquisition path links directly to the verified Android listing:
 
 ```bash
 npm ci
+python3 -m pip install -r requirements-dev.txt
 npm run dev
 ```
 
@@ -32,9 +33,19 @@ npm run build
 npm run preview
 ```
 
-`npm test` covers semantic rendering, Google Play attribution, genuine asset mapping, motion-state math, reduced-motion fallbacks, metadata, crawler infrastructure, bundle limits and reproducible image optimisation.
+`npm test` covers semantic rendering, Google Play attribution, genuine asset mapping, motion-state math, reduced-motion fallbacks, metadata, crawler infrastructure and reproducible image optimisation. `npm run build` now fails if the main or GSAP JavaScript crosses its gzip budget.
 
 Fresh rendered QA evidence lives in `docs/qa/tiptop/`. The browser audit checks five viewport sizes, forward and reverse scroll motion, mobile rotation, reduced motion, 200% zoom, focus treatment, target sizes, broken links, failed images, overflow and console errors.
+
+The audit runner uses QA-only browser installations rather than production dependencies:
+
+```bash
+KRAHASO_PLAYWRIGHT=/path/to/playwright/index.mjs \
+KRAHASO_CHROMIUM=/path/to/chromium \
+npm run qa:browser
+```
+
+For serverless Chromium builds, set `KRAHASO_CHROMIUM_ARGS_MODULE` to the package's ESM entry so the runner uses its supported launch arguments.
 
 ## Product proof and imagery
 
@@ -98,6 +109,8 @@ public/
   products/                        approved product sources and WebP outputs
   robots.txt / sitemap.xml         crawler infrastructure
 scripts/
+  browser-audit.mjs               reproducible compiled-browser motion QA
+  check-bundle-budgets.mjs        post-build gzip budget gate
   landing-page.test.tsx            rendering and content contracts
   acquisition.test.ts              attribution contracts
   optimise-web-images.py           deterministic image pipeline
