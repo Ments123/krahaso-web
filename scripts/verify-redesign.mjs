@@ -131,10 +131,19 @@ test('uses explicit ScrollTrigger choreography with progressive fallbacks', asyn
   assert.match(universe, /ScrollTrigger\.create/);
   assert.match(universe, /pin:\s*stage/);
   assert.match(universe, /pinSpacing:\s*false/);
-  assert.match(universe, /getUniverseState\(progress\)/);
+  assert.match(universe, /getUniverseState\(progress, mode\)/);
+  assert.match(universe, /gsap\.matchMedia\(\)/);
+  assert.match(universe, /classList\.add\('motion-ready'\)/);
+  assert.match(universe, /media\.add\('\(max-width: 899px\)'/);
+  assert.doesNotMatch(universe, /window\.innerWidth < 900/);
   assert.match(features, /pin:\s*visual/);
   assert.match(features, /window\.innerWidth < 900/);
   assert.match(progress, /clamp/);
+  assert.match(css, /\.visual-universe\.motion-ready\s*\{[^}]*height:\s*290svh/);
+  assert.match(
+    css,
+    /@media \(max-width: 899px\)[\s\S]*?\.visual-universe\.motion-ready\s*\{[^}]*height:\s*230svh/,
+  );
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(css, /@media \(max-width: 899px\)/);
   assert.match(css, /min-height:\s*44px/);

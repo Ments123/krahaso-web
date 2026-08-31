@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { universeTiles } from '../content/landing';
-import { getUniverseState } from '../motion/progress';
+import { getUniverseState, type UniverseMode } from '../motion/progress';
 import { PhoneFrame } from './PhoneFrame';
 
 export function VisualUniverse() {
@@ -20,76 +20,79 @@ export function VisualUniverse() {
     const overlay = overlayRef.current;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!root || !stage || !gallery || !phone || !copy || !overlay || reduced || window.innerWidth < 900) {
+    if (!root || !stage || !gallery || !phone || !copy || !overlay || reduced) {
       return undefined;
     }
 
     let active = true;
     let cleanup: (() => void) | undefined;
 
-    void import('../motion/gsap').then(({ gsap, ScrollTrigger }) => {
-      if (!active) return;
+    void import('../motion/gsap')
+      .then(({ gsap, ScrollTrigger }) => {
+        if (!active) return;
 
-      const media = gallery.querySelectorAll<HTMLElement>('.universe-tile-media');
-      const context = gsap.context(() => {
-        const initial = getUniverseState(0);
-        gsap.set(gallery, { scale: initial.galleryScale });
-        gsap.set(media, { scale: initial.mediaScale });
-        gsap.set(phone, { autoAlpha: initial.phoneOpacity, scale: initial.phoneScale });
-        gsap.set(copy, { autoAlpha: initial.copyOpacity });
+        const tiles = gallery.querySelectorAll<HTMLElement>('.universe-tile-media');
+        const media = gsap.matchMedia();
+        const render = (mode: UniverseMode, progress: number) => {
+          const state = getUniverseState(progress, mode);
+          const exitStart = mode === 'mobile' ? 0.78 : 0.82;
+          const exitProgress = Math.max(0, Math.min(1, (progress - exitStart) / (1 - exitStart)));
 
-        const mainTrigger = ScrollTrigger.create({
-          trigger: root,
-          start: 'top top',
-          end: 'bottom bottom',
-          pin: stage,
-          pinSpacing: false,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: ({ progress }) => {
-            const state = getUniverseState(progress);
-            gsap.set(gallery, { scale: state.galleryScale });
-            gsap.set(media, { scale: state.mediaScale });
-            gsap.set(phone, {
-              autoAlpha: state.phoneOpacity,
-              scale: state.phoneScale,
+          gsap.set(gallery, {
+            scale: state.galleryScale,
+            yPercent: -18 * exitProgress,
+          });
+          gsap.set(tiles, { scale: state.mediaScale });
+          gsap.set(phone, {
+            autoAlpha: state.phoneOpacity,
+            scale: state.phoneScale,
+            yPercent: -18 * exitProgress,
+          });
+          gsap.set(copy, { autoAlpha: state.copyOpacity });
+          gsap.set(overlay, { autoAlpha: exitProgress });
+        };
+
+        const context = gsap.context(() => {
+          root.classList.add('motion-ready');
+
+          media.add('(min-width: 900px)', () => {
+            render('desktop', 0);
+            const trigger = ScrollTrigger.create({
+              trigger: root,
+              start: 'top top',
+              end: 'bottom bottom',
+              pin: stage,
+              pinSpacing: false,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              onUpdate: ({ progress }) => render('desktop', progress),
             });
-            gsap.set(copy, { autoAlpha: state.copyOpacity });
-          },
-        });
+            return () => trigger.kill();
+          });
 
-        const exitTween = gsap.to([gallery, phone], {
-          yPercent: -18,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root,
-            start: '82% bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-
-        const shadeTween = gsap.to(overlay, {
-          autoAlpha: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root,
-            start: '86% bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
+          media.add('(max-width: 899px)', () => {
+            render('mobile', 0);
+            const trigger = ScrollTrigger.create({
+              trigger: root,
+              start: 'top top',
+              end: 'bottom bottom',
+              invalidateOnRefresh: true,
+              onUpdate: ({ progress }) => render('mobile', progress),
+            });
+            return () => trigger.kill();
+          });
+        }, root);
 
         cleanup = () => {
-          mainTrigger.kill();
-          exitTween.scrollTrigger?.kill();
-          shadeTween.scrollTrigger?.kill();
+          media.revert();
           context.revert();
+          root.classList.remove('motion-ready');
+          gsap.set([gallery, ...tiles, phone, copy, overlay], { clearProps: 'all' });
         };
-      }, root);
 
-      ScrollTrigger.refresh();
-    });
+        ScrollTrigger.refresh();
+      })
+      .catch(() => undefined);
 
     return () => {
       active = false;

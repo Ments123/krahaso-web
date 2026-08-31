@@ -140,19 +140,33 @@ test('keeps verified utility destinations in the minimal footer', () => {
   assert.match(html, /https:\/\/admin\.krahaso\.app/);
 });
 
-test('maps Visual Universe progress deterministically', async () => {
+test('maps Visual Universe progress deterministically across viewports', async () => {
   const { getUniverseState } = await import('../src/motion/progress');
 
   assert.deepEqual(getUniverseState(0), {
     galleryScale: 1,
-    mediaScale: 1.25,
+    mediaScale: 1.18,
     phoneOpacity: 0,
-    phoneScale: 0.9,
+    phoneScale: 0.92,
     copyOpacity: 1,
   });
-  assert.deepEqual(getUniverseState(0.75), {
-    galleryScale: 0.5,
+  assert.deepEqual(getUniverseState(0.68), {
+    galleryScale: 0.52,
     mediaScale: 1,
+    phoneOpacity: 1,
+    phoneScale: 1,
+    copyOpacity: 0,
+  });
+  assert.deepEqual(getUniverseState(0, 'mobile'), {
+    galleryScale: 0.86,
+    mediaScale: 1.08,
+    phoneOpacity: 0,
+    phoneScale: 0.92,
+    copyOpacity: 1,
+  });
+  assert.deepEqual(getUniverseState(0.6, 'mobile'), {
+    galleryScale: 0.52,
+    mediaScale: 0.96,
     phoneOpacity: 1,
     phoneScale: 1,
     copyOpacity: 0,

@@ -89,8 +89,9 @@ section[id] { scroll-margin-top: 88px; }
 .hero-orb-one { top: -18vw; right: -10vw; width: 42vw; height: 42vw; border: 1px solid rgba(8,166,74,.14); }
 .hero-orb-two { right: 28%; bottom: -24vw; width: 39vw; height: 39vw; background: rgba(20,201,99,.035); }
 
-.visual-universe { position: relative; height: 420svh; background: #03170d; }
-.universe-stage { position: relative; width: 100%; height: 100svh; overflow: hidden; background: radial-gradient(circle at 50% 45%, rgba(20,201,99,.14), transparent 27%), #03170d; }
+.visual-universe { position: relative; height: auto; background: #03170d; }
+.visual-universe.motion-ready { height: 290svh; }
+.universe-stage { position: relative; width: 100%; height: 100svh; min-height: 100svh; overflow: hidden; background: radial-gradient(circle at 50% 45%, rgba(20,201,99,.14), transparent 27%), #03170d; }
 .universe-stage::after { position: absolute; z-index: 2; inset: 0; content: ""; pointer-events: none; background: radial-gradient(circle at center, transparent 24%, rgba(1,16,8,.24) 64%, rgba(1,12,6,.72)); }
 .universe-gallery { position: absolute; z-index: 1; inset: -50svh -50vw; display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(3,1fr); gap: clamp(20px,2vw,36px); transform-origin: center; will-change: transform; }
 .universe-tile { min-width: 0; min-height: 0; }
@@ -106,6 +107,8 @@ section[id] { scroll-margin-top: 88px; }
 .universe-copy .eyebrow { color: #8df1b8; }
 .universe-copy h2 { margin-top: 10px; font-family: var(--font-display); font-size: clamp(2rem,4.4vw,4.8rem); font-weight: 500; letter-spacing: -.055em; line-height: .98; text-shadow: 0 3px 26px rgba(0,0,0,.72); }
 .universe-exit-overlay { position: absolute; z-index: 8; inset: 0; visibility: hidden; opacity: 0; pointer-events: none; background: linear-gradient(to bottom,transparent,rgba(3,23,13,.46) 30%,var(--krahaso-paper)); }
+.visual-universe:not(.motion-ready) .universe-gallery { inset: 0; opacity: .46; transform: scale(.62); }
+.visual-universe:not(.motion-ready) .universe-phone { visibility: visible; opacity: 1; }
 
 .feature-story { position: relative; background: var(--krahaso-paper); }
 .story-intro { display: grid; align-content: center; min-height: 82svh; max-width: 980px; padding-block: 120px; text-align: center; }
@@ -194,14 +197,19 @@ section[id] { scroll-margin-top: 88px; }
   .scroll-cue { display: none; }
   .visual-universe { height: auto; }
   .universe-stage { display: grid; place-items: center; min-height: 920px; height: auto; padding: 110px 18px 130px; }
-  .universe-gallery { inset: 0; grid-template-columns: repeat(2,1fr); grid-template-rows: repeat(2,1fr); gap: 16px; padding: 34px 18px; opacity: .44; transform: none !important; }
+  .universe-gallery { inset: 0; grid-template-columns: repeat(2,1fr); grid-template-rows: repeat(2,1fr); gap: 16px; padding: 34px 18px; opacity: .44; transform: none; }
   .universe-tile { grid-area: auto; }
   .universe-tile:nth-child(n + 5) { display: none; }
   .universe-tile-media { border-radius: 24px; }
-  .universe-phone { position: relative; top: auto; left: auto; width: min(55vw,280px); visibility: visible !important; opacity: 1 !important; transform: none !important; }
+  .universe-phone { position: relative; top: auto; left: auto; width: min(55vw,280px); visibility: visible; opacity: 1; transform: none; }
   .universe-kicker { display: block; }
   .universe-copy { top: auto; bottom: 44px; }
   .universe-copy h2 { font-size: clamp(2.4rem,8vw,4rem); }
+  .visual-universe.motion-ready { height: 230svh; }
+  .visual-universe.motion-ready .universe-stage { position: sticky; top: 0; display: block; height: 100svh; min-height: 100svh; padding: 0; }
+  .visual-universe.motion-ready .universe-gallery { inset: -12svh -24vw; gap: 16px; padding: 0; opacity: 1; transform-origin: center; }
+  .visual-universe.motion-ready .universe-phone { position: absolute; top: 50%; left: 50%; width: min(68vw,260px); visibility: hidden; opacity: 0; transform: translate(-50%,-50%); }
+  .visual-universe.motion-ready .universe-copy { top: clamp(84px,11svh,108px); bottom: auto; }
   .story-intro { min-height: auto; padding-block: 120px 90px; }
   .feature-chapter { min-height: auto; padding-block: 86px; }
   .feature-chapter-inner { grid-template-columns: 1fr; gap: 46px; min-height: auto; }
