@@ -4,6 +4,38 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import App from '../src/App';
 
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.krahaso.app';
+
+test('routes every primary download action directly to Google Play', () => {
+  const html = renderToStaticMarkup(<App />);
+  const escapedUrl = PLAY_STORE_URL.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const header = html.match(/<header[\s\S]*?<\/header>/)?.[0] ?? '';
+
+  assert.match(header, new RegExp(`href="${escapedUrl}"`));
+  assert.ok(
+    (html.match(new RegExp(escapedUrl, 'g')) ?? []).length >= 3,
+    'header, hero and final download actions should link to Google Play',
+  );
+});
+
+test('uses the approved barcode-first hero copy and free badge', () => {
+  const html = renderToStaticMarkup(<App />);
+
+  assert.match(
+    html,
+    /Skano ose kërko produktin dhe shiko çmimet që kemi nga marketet e Kosovës\./,
+  );
+  assert.match(html, />Falas<\/span>/);
+  assert.doesNotMatch(html, /Falë pagesë/);
+});
+
+test('provides a keyboard skip link to the main content', () => {
+  const html = renderToStaticMarkup(<App />);
+
+  assert.match(html, /<a class="skip-link" href="#main-content">Kalo te përmbajtja<\/a>/);
+  assert.match(html, /<main id="main-content" tabindex="-1">/);
+});
+
 test('renders one clear product story with stable download actions', () => {
   const html = renderToStaticMarkup(<App />);
 
@@ -55,8 +87,9 @@ test('maps the six supplied current screenshots to their matching product scenes
 
 test('explains the real app journey in the approved order', () => {
   const html = renderToStaticMarkup(<App />);
+  const featureStory = html.match(/<section id="veçorite"[\s\S]*?<\/section>/)?.[0] ?? '';
   const positions = ['Kërko', 'Ofertat', 'Skano', 'Shporta', 'Fito'].map((label) =>
-    html.indexOf(label),
+    featureStory.indexOf(label),
   );
 
   assert.ok(positions.every((position) => position >= 0), 'one or more feature chapters are missing');

@@ -33,6 +33,9 @@ figure, p, h1, h2, h3 { margin: 0; }
 section[id] { scroll-margin-top: 88px; }
 .section-shell { width: min(100% - 48px, 1240px); margin-inline: auto; }
 .eyebrow { color: var(--krahaso-green); font-size: .75rem; font-weight: 700; letter-spacing: .15em; line-height: 1.2; text-transform: uppercase; }
+:where(a, button):focus-visible { outline: 3px solid var(--krahaso-green-bright); outline-offset: 3px; }
+.skip-link { position: fixed; z-index: 200; top: 10px; left: 10px; min-height: 44px; padding: 11px 16px; border-radius: 12px; color: white; background: var(--krahaso-deep); box-shadow: 0 12px 32px rgba(6,61,36,.24); transform: translateY(-150%); transition: transform 180ms ease; }
+.skip-link:focus { transform: translateY(0); }
 
 .site-header { position: fixed; inset: 0 0 auto; z-index: 100; padding: 14px 0; pointer-events: none; }
 .site-nav { display: flex; align-items: center; justify-content: space-between; min-height: 58px; padding: 8px 10px 8px 14px; border: 1px solid rgba(255,255,255,.72); border-radius: 18px; background: rgba(247,249,245,.78); box-shadow: 0 12px 38px rgba(10,34,21,.09); backdrop-filter: blur(18px) saturate(150%); pointer-events: auto; }
@@ -42,8 +45,8 @@ section[id] { scroll-margin-top: 88px; }
 .site-nav-links { display: flex; align-items: center; gap: 6px; }
 .site-nav-links a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 12px; color: rgba(16,32,25,.74); font-size: .86rem; font-weight: 600; transition: color 180ms ease, background-color 180ms ease, transform 180ms ease; }
 .site-nav-links a:hover { color: var(--krahaso-deep); background: rgba(6,61,36,.06); }
-.site-nav-links .nav-download { color: white; background: var(--krahaso-deep); }
-.site-nav-links .nav-download:hover { color: white; background: #09502f; transform: translateY(-1px); }
+.site-nav-links .acquisition-link-primary { color: white; background: var(--krahaso-deep); }
+.site-nav-links .acquisition-link-primary:hover { color: white; background: #09502f; transform: translateY(-1px); }
 
 .hero { position: relative; min-height: 100svh; overflow: hidden; background: linear-gradient(120deg, rgba(255,255,255,.8), transparent 58%), radial-gradient(circle at 78% 44%, rgba(20,201,99,.17), transparent 25%), var(--krahaso-paper); }
 .hero::before { position: absolute; inset: 0; content: ""; opacity: .55; background-image: linear-gradient(rgba(6,61,36,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(6,61,36,.045) 1px, transparent 1px); background-size: 72px 72px; mask-image: linear-gradient(to right, black, transparent 72%); }
@@ -55,6 +58,7 @@ section[id] { scroll-margin-top: 88px; }
 .hero-actions, .final-download-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
 .acquisition-links { display: flex; }
 .acquisition-link { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 22px; border-radius: 14px; font-size: .94rem; font-weight: 650; letter-spacing: -.015em; transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease; }
+.acquisition-links-compact .acquisition-link { min-height: 44px; padding-inline: 16px; }
 .acquisition-link svg { width: 17px; height: 17px; }
 .acquisition-link-primary { color: white; background: var(--krahaso-deep); box-shadow: 0 14px 34px rgba(6,61,36,.18); }
 .acquisition-link-primary:hover { transform: translateY(-2px); background: #09502f; box-shadow: 0 18px 42px rgba(6,61,36,.23); }
@@ -177,7 +181,7 @@ section[id] { scroll-margin-top: 88px; }
 
 @media (max-width: 899px) {
   .section-shell, .hero-inner, .site-footer-inner { width: min(100% - 36px,720px); }
-  .site-nav-links > a:not(.nav-download) { display: none; }
+  .site-nav-links > a { display: none; }
   .hero { min-height: auto; }
   .hero-inner { grid-template-columns: 1fr; gap: 30px; min-height: 100svh; padding: 130px 0 68px; text-align: center; }
   .hero-copy { display: grid; justify-items: center; max-width: 680px; margin-inline: auto; }

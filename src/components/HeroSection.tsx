@@ -12,7 +12,7 @@ export function HeroSection() {
           <p className="eyebrow hero-eyebrow">Krahaso</p>
           <h1 id="hero-title">Krahaso para se të blesh.</h1>
           <p className="hero-lede">
-            Çmimet dhe ofertat e marketeve të Kosovës, në një aplikacion.
+            Skano ose kërko produktin dhe shiko çmimet që kemi nga marketet e Kosovës.
           </p>
           <div className="hero-actions">
             <AppAcquisitionCta placement="hero" />
@@ -36,7 +36,7 @@ export function HeroSection() {
           </div>
           <div className="hero-float-card hero-float-offer" aria-hidden="true">
             <SiGoogleplay />
-            <span>Falë pagesë</span>
+            <span>Falas</span>
           </div>
         </div>
       </div>
