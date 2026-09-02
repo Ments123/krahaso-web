@@ -91,6 +91,19 @@ test('ships semantic metadata, app structured data and crawler infrastructure', 
     url: 'https://krahaso.app/',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
   });
+  const iosApplication = structuredData['@graph'].find(
+    (entry) => entry['@id'] === 'https://krahaso.app/#ios-app',
+  );
+  assert.deepEqual(iosApplication, {
+    '@type': 'MobileApplication',
+    '@id': 'https://krahaso.app/#ios-app',
+    name: 'Krahaso: Çmimet në Kosovë',
+    operatingSystem: 'iOS',
+    applicationCategory: 'ShoppingApplication',
+    installUrl: 'https://apps.apple.com/us/app/krahaso/id6806572228',
+    url: 'https://krahaso.app/',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  });
   assert.doesNotMatch(html, /fonts\.googleapis|onlinewebfonts|cloudfront/);
   assert.match(robots, /Sitemap:\s*https:\/\/krahaso\.app\/sitemap\.xml/);
   assert.match(sitemap, /<loc>https:\/\/krahaso\.app\/<\/loc>/);
@@ -222,6 +235,7 @@ test('keeps acquisition analytics, destinations, and utility links intact', asyn
   ]);
 
   assert.match(cta, /https:\/\/play\.google\.com\/store\/apps\/details\?id=com\.krahaso\.app/);
+  assert.match(cta, /https:\/\/apps\.apple\.com\/us\/app\/krahaso\/id6806572228/);
   assert.match(cta, /preserveUtm/);
   assert.match(cta, /trackEvent/);
   assert.match(cta, /data-acquisition-placement=\{placement\}/);

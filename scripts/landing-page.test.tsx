@@ -5,6 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import App from '../src/App';
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.krahaso.app';
+const APP_STORE_URL = 'https://apps.apple.com/us/app/krahaso/id6806572228';
 
 test('renders without React DOM attribute warnings', () => {
   const errors: string[] = [];
@@ -20,16 +21,23 @@ test('renders without React DOM attribute warnings', () => {
   assert.deepEqual(errors, []);
 });
 
-test('routes every primary download action directly to Google Play', () => {
+test('routes every primary download action to both verified app stores', () => {
   const html = renderToStaticMarkup(<App />);
   const escapedUrl = PLAY_STORE_URL.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const escapedAppStoreUrl = APP_STORE_URL.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const header = html.match(/<header[\s\S]*?<\/header>/)?.[0] ?? '';
 
   assert.match(header, new RegExp(`href="${escapedUrl}"`));
+  assert.match(header, new RegExp(`href="${escapedAppStoreUrl}"`));
   assert.equal(
     (html.match(new RegExp(escapedUrl, 'g')) ?? []).length,
     4,
     'nav, hero, final download and footer actions should link to Google Play',
+  );
+  assert.equal(
+    (html.match(new RegExp(escapedAppStoreUrl, 'g')) ?? []).length,
+    4,
+    'nav, hero, final download and footer actions should link to the App Store',
   );
   for (const placement of ['nav', 'hero', 'download', 'footer']) {
     assert.match(
@@ -38,6 +46,7 @@ test('routes every primary download action directly to Google Play', () => {
       `missing acquisition attribution for ${placement}`,
     );
   }
+  assert.doesNotMatch(html, /iOS — së shpejti/);
 });
 
 test('uses the approved barcode-first hero copy and free badge', () => {
@@ -78,7 +87,7 @@ test('renders one clear product story with stable download actions', () => {
     /<img[^>]+src="\/app\/krahaso-home\.webp"[^>]+fetchpriority="high"/,
   );
   assert.match(html, /https:\/\/play\.google\.com\/store\/apps\/details\?id=com\.krahaso\.app/);
-  assert.match(html, /iOS — së shpejti/);
+  assert.match(html, /https:\/\/apps\.apple\.com\/us\/app\/krahaso\/id6806572228/);
 });
 
 test('maps the six supplied current screenshots to their matching product scenes', () => {

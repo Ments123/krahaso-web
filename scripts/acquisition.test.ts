@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { PLAY_STORE_URL } from '../src/components/AppAcquisitionCta';
+import { APP_STORE_URL, PLAY_STORE_URL } from '../src/components/AppAcquisitionCta';
 import * as analytics from '../src/lib/analytics';
 
 function withLocation<T>(href: string, run: () => T) {
@@ -48,7 +48,7 @@ test('encodes inbound campaign values in the Google Play referrer', () => {
 
 test('preserves campaign parameters on non-Play destinations', () => {
   withLocation('https://krahaso.app/?utm_medium=organic&utm_content=footer', () => {
-    const result = new URL(analytics.preserveUtm('https://example.com/join?utm_medium=email'));
+    const result = new URL(analytics.preserveUtm(`${APP_STORE_URL}?utm_medium=email`));
 
     assert.equal(result.searchParams.get('utm_medium'), 'email');
     assert.equal(result.searchParams.get('utm_content'), 'footer');
