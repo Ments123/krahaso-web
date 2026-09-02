@@ -1,4 +1,4 @@
-import { SiApple, SiGoogleplay } from 'react-icons/si';
+import { SiGoogleplay } from 'react-icons/si';
 import { PhoneFrame } from './PhoneFrame';
 import { AppAcquisitionCta } from './AppAcquisitionCta';
 
@@ -16,10 +16,6 @@ export function HeroSection() {
           </p>
           <div className="hero-actions">
             <AppAcquisitionCta placement="hero" />
-            <span className="ios-status">
-              <SiApple aria-hidden="true" />
-              iOS — së shpejti
-            </span>
           </div>
           <p className="hero-trust">
             <span className="trust-dot" aria-hidden="true" />

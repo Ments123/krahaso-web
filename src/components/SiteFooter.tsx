@@ -1,4 +1,3 @@
-import { SiApple } from 'react-icons/si';
 import { BrandMark } from './BrandMark';
 import { trackEvent } from '../lib/analytics';
 import { AppAcquisitionCta } from './AppAcquisitionCta';
@@ -16,10 +15,6 @@ export function SiteFooter() {
         </div>
         <nav aria-label="Navigimi në fund">
           <AppAcquisitionCta placement="footer" compact />
-          <span className="footer-store-status" aria-label="iOS së shpejti">
-            <SiApple aria-hidden="true" />
-            <span>iOS — së shpejti</span>
-          </span>
           <a href="https://api.krahaso.app/privacy" target="_blank" rel="noopener noreferrer">
             Privatësia
           </a>

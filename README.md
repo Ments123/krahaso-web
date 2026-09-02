@@ -5,7 +5,7 @@ The Albanian-first public website for [Krahaso](https://krahaso.app). It leads w
 The production acquisition path links directly to the verified Android listing:
 
 - Google Play: <https://play.google.com/store/apps/details?id=com.krahaso.app>
-- iOS: shown as `iOS — së shpejti`; it is not presented as a live download
+- App Store: <https://apps.apple.com/us/app/krahaso/id6806572228>
 
 ## Stack
 
@@ -82,7 +82,7 @@ The GSAP code is split from the main application bundle. Current guardrails keep
 
 ## Acquisition and attribution
 
-`src/components/AppAcquisitionCta.tsx` is the single Google Play action used by the fixed header, hero and final download section. Every primary action opens the verified listing directly.
+`src/components/AppAcquisitionCta.tsx` provides the verified Google Play and App Store actions used by the fixed header, hero and final download section.
 
 Inbound `utm_source`, `utm_medium`, `utm_campaign`, `utm_term` and `utm_content` values are encoded into Google Play's install `referrer` parameter. `src/lib/analytics.ts` pushes named events only when an existing `window.dataLayer` is available; it does not load an analytics vendor itself.
 
@@ -97,7 +97,7 @@ src/
   motion/progress.ts               deterministic desktop/mobile motion states
   motion/gsap.ts                   lazy GSAP and ScrollTrigger registration
   components/
-    AppAcquisitionCta.tsx          reusable verified Google Play action
+    AppAcquisitionCta.tsx          reusable verified app-store actions
     HeroSection.tsx                acquisition promise and primary proof
     VisualUniverse.tsx             resilient desktop/mobile scroll story
     FeatureStory.tsx               five genuine product chapters
@@ -130,4 +130,4 @@ scripts/
 - Price and offer copy is limited to data Krahaso has available.
 - No market is described as a partner without evidence.
 - The site does not publish fabricated prices, ratings, savings, downloads, testimonials or coverage claims.
-- iOS remains a truthful coming-soon status until a verified listing exists.
+- Store links must always use the verified Google Play and App Store listings above.

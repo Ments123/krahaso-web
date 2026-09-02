@@ -1,4 +1,3 @@
-import { SiApple } from 'react-icons/si';
 import { AppAcquisitionCta } from './AppAcquisitionCta';
 
 export function FinalDownload() {
@@ -12,10 +11,6 @@ export function FinalDownload() {
         </div>
         <div className="final-download-actions">
           <AppAcquisitionCta placement="download" inverse />
-          <span className="ios-status ios-status-dark">
-            <SiApple aria-hidden="true" />
-            iOS — së shpejti
-          </span>
         </div>
       </div>
       <div className="final-grid" aria-hidden="true" />
