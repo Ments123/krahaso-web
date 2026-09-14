@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build && npm run verify:bundle",
     "preview": "vite preview",
-    "test": "node --import tsx --test scripts/landing-page.test.tsx scripts/acquisition.test.ts && node --test scripts/verify-redesign.mjs",
+    "test": "node --import tsx --test scripts/landing-page.test.tsx scripts/acquisition.test.ts scripts/collector.test.ts && node --test scripts/verify-redesign.mjs",
     "verify:design": "node --test scripts/verify-redesign.mjs",
     "verify:bundle": "node scripts/check-bundle-budgets.mjs",
     "qa:browser": "node scripts/browser-audit.mjs"
