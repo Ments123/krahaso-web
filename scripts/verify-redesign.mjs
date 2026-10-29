@@ -61,17 +61,17 @@ test('ships semantic metadata, app structured data and crawler infrastructure', 
   const vercel = JSON.parse(vercelSource);
 
   assert.match(html, /<html lang="sq">/);
-  assert.match(html, /<title>Krahaso çmimet në Kosovë \| Krahaso<\/title>/);
+  assert.match(html, /<title>Krahaso çmimet në Kosovë, Shqipëri, Maqedoninë e Veriut dhe Mal të Zi<\/title>/);
   assert.match(
     html,
-    /content="Skano ose kërko produktin dhe shiko çmimet që kemi nga marketet e Kosovës\."/,
+    /content="Skano ose kërko produktin dhe shiko çmimet që kemi nga marketet në Kosovë, Shqipëri, Maqedoninë e Veriut dhe Mal të Zi\."/,
   );
   assert.match(html, /rel="canonical" href="https:\/\/krahaso\.app\/"/);
   assert.match(
     html,
     /rel="preload"[^>]+href="\/app\/krahaso-home\.webp"[^>]+fetchpriority="high"/,
   );
-  assert.match(html, /property="og:image" content="https:\/\/krahaso\.app\/krahaso-social\.webp"/);
+  assert.match(html, /property="og:image" content="https:\/\/krahaso\.app\/krahaso-social\.webp\?v=2"/);
   assert.match(html, /"@type":\s*"Organization"/);
   const structuredDataSource = html.match(
     /<script type="application\/ld\+json">([\s\S]*?)<\/script>/,
