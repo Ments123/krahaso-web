@@ -275,34 +275,38 @@ test('keeps performance and rendered QA reproducible on a clean checkout', async
   assert.match(requirements, /^Pillow==\d+\.\d+\.\d+$/m);
 });
 
-test('describes the licensed dataset and public index on both crawlable data pages', async () => {
-  const [albanian, english, sitemap] = await Promise.all([
-    read('data/index.html'),
+test('describes API access, the licensed dataset and public index on the English data page', async () => {
+  const [html, sitemap, config] = await Promise.all([
     read('en/data/index.html'),
     read('public/sitemap.xml'),
+    read('vercel.json'),
   ]);
-  for (const [lang, html, route] of [['sq', albanian, '/data/'], ['en', english, '/en/data/']]) {
-    assert.ok(html.includes('<html lang="' + lang + '">'));
-    assert.ok(html.includes('rel="canonical" href="https://krahaso.app' + route + '"'));
-    assert.ok(html.includes('hreflang="en" href="https://krahaso.app/en/data/"'));
-    assert.ok(html.includes('hreflang="sq" href="https://krahaso.app/data/"'));
-    assert.ok(sitemap.includes('<loc>https://krahaso.app' + route + '</loc>'));
-    assert.equal((html.match(/<h1>/g) ?? []).length, 1);
-    assert.equal((html.match(/<li>/g) ?? []).length, 11);
-    assert.match(html, /<dd>6M\+<\/dd>/);
-    assert.match(html, /mailto:partneret@krahaso\.app/);
-    assert.match(html, /https:\/\/stats\.krahaso\.app\/login/);
+  assert.ok(html.includes('<html lang="en">'));
+  assert.ok(html.includes('rel="canonical" href="https://krahaso.app/en/data/"'));
+  assert.doesNotMatch(html, /hreflang="sq"/);
+  assert.ok(sitemap.includes('<loc>https://krahaso.app/en/data/</loc>'));
+  assert.ok(!sitemap.includes('<loc>https://krahaso.app/data/</loc>'));
+  assert.deepEqual(JSON.parse(config).redirects.find(({ source }) => source === '/data/'), {
+    source: '/data/',
+    destination: '/en/data/',
+    permanent: true,
+  });
+  assert.equal((html.match(/<h1>/g) ?? []).length, 1);
+  assert.equal((html.match(/<li>/g) ?? []).length, 11);
+  assert.match(html, /<dd>6M\+<\/dd>/);
+  assert.match(html, /ready-to-use API keys/);
+  assert.match(html, /mailto:partneret@krahaso\.app\?subject=Krahaso%20Data%20API%20access/);
+  assert.match(html, /https:\/\/stats\.krahaso\.app\/login/);
 
-    const source = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
-    const graph = JSON.parse(source)['@graph'];
-    const licensedData = graph.find((entry) => entry['@id'] === 'https://krahaso.app/data/#dataset');
-    const publicData = graph.find((entry) => entry['@id'] === 'https://stats.krahaso.app/balkan#dataset');
-    assert.equal(licensedData.isAccessibleForFree, false);
-    assert.equal(licensedData.spatialCoverage.length, 11);
-    assert.equal(publicData.isAccessibleForFree, true);
-    assert.equal(publicData.distribution.length, 2);
-    for (const download of publicData.distribution) {
-      assert.ok(html.includes('href="' + download.contentUrl + '"'));
-    }
+  const source = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
+  const graph = JSON.parse(source)['@graph'];
+  const licensedData = graph.find((entry) => entry['@id'] === 'https://krahaso.app/en/data/#dataset');
+  const publicData = graph.find((entry) => entry['@id'] === 'https://stats.krahaso.app/balkan#dataset');
+  assert.equal(licensedData.isAccessibleForFree, false);
+  assert.equal(licensedData.spatialCoverage.length, 11);
+  assert.equal(publicData.isAccessibleForFree, true);
+  assert.equal(publicData.distribution.length, 2);
+  for (const download of publicData.distribution) {
+    assert.ok(html.includes('href="' + download.contentUrl + '"'));
   }
 });

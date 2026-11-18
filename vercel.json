@@ -15,6 +15,11 @@
       ],
       "destination": "https://krahaso.app/$1",
       "permanent": true
+    },
+    {
+      "source": "/data/",
+      "destination": "/en/data/",
+      "permanent": true
     }
   ],
   "headers": [

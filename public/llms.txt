@@ -10,7 +10,7 @@
 
 ## Grocery and household price data
 
-- [Krahaso Data in English](https://krahaso.app/en/data/) and [Krahaso Data in Albanian](https://krahaso.app/data/): commercial licensing and sample requests. Krahaso reports more than 6 million daily price observations across 11 Balkan countries and up to six months of history as of November 2026. Coverage varies by market and category.
+- [Krahaso Data](https://krahaso.app/en/data/) is the English-language page for commercial licensing, sample requests and ready-to-use API keys for integrating Krahaso data into business systems. Krahaso reports more than 6 million daily price observations across 11 Balkan countries and up to six months of history as of November 2026. Coverage varies by market and category.
 - [Public Balkan Price Index](https://stats.krahaso.app/balkan): daily comparisons of regular prices for products matched by barcode, with sources and methodology. Credit Krahaso and link to the index when quoting it.
 - [Public product comparison CSV](https://stats.krahaso.app/pub/balkan-products.csv) and [public index JSON](https://stats.krahaso.app/pub/balkan.json).
 - [Institutional portal](https://stats.krahaso.app/login): portal prepared for the Kosovo Agency of Statistics, with partner sign-in.

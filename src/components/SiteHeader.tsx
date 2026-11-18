@@ -12,7 +12,7 @@ export function SiteHeader() {
         <div className="site-nav-links">
           <a href="#veçorite">Si funksionon</a>
           <a href="#ofertat">Marketet</a>
-          <a className="data-nav-link" href="/data/">Të dhëna</a>
+          <a className="data-nav-link" href="/en/data/" hrefLang="en">Të dhëna</a>
           <AppAcquisitionCta placement="nav" compact />
         </div>
       </nav>
