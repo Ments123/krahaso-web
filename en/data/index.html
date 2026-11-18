@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#071c15">
     <title>Balkan Supermarket Price Data &amp; Grocery Price API | Krahaso</title>
-    <meta name="description" content="License daily and historical supermarket price data across the Balkans. Compare grocery prices by market, explore a live sample and request API access.">
+    <meta name="description" content="License daily and historical supermarket price data across the Balkans. View a small grocery price preview and request a quote for commercial API access.">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://krahaso.app/en/data/">
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -27,11 +27,10 @@
             "@id": "https://krahaso.app/en/data/#webpage",
             "url": "https://krahaso.app/en/data/",
             "name": "Balkan supermarket price data and grocery price API",
-            "description": "Daily and historical supermarket price data from the Balkans, with API licensing and a public matched-product price sample.",
+            "description": "Commercial access to daily and historical supermarket price data from the Balkans, with a dated basket index preview.",
             "inLanguage": "en",
-            "dateModified": "2026-11-18",
-            "mainEntity": { "@id": "https://krahaso.app/en/data/#dataset" },
-            "mentions": { "@id": "https://stats.krahaso.app/balkan#dataset" }
+            "dateModified": "2026-11-19",
+            "mainEntity": { "@id": "https://krahaso.app/en/data/#dataset" }
           },
           {
             "@type": "Dataset",
@@ -44,21 +43,6 @@
             "keywords": ["Balkan supermarket price data", "grocery price data API", "historical grocery prices", "retail price benchmarking"],
             "variableMeasured": ["Observed retail price", "Observation date", "Market", "Retailer"],
             "isAccessibleForFree": false
-          },
-          {
-            "@type": "Dataset",
-            "@id": "https://stats.krahaso.app/balkan#dataset",
-            "name": "Krahaso Balkan Price Index",
-            "description": "Daily public comparison of regular supermarket prices for barcode-matched products across selected Balkan markets. Product examples show the median price across eligible chains in each market, converted to euros.",
-            "url": "https://stats.krahaso.app/balkan",
-            "creator": { "@id": "https://krahaso.app/#organization" },
-            "spatialCoverage": { "@type": "Place", "name": "Selected Balkan markets" },
-            "variableMeasured": ["Median observed regular price in euros", "Observation date", "Market", "Number of chains"],
-            "isAccessibleForFree": true,
-            "distribution": [
-              { "@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://stats.krahaso.app/pub/balkan-products.csv" },
-              { "@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://stats.krahaso.app/pub/balkan.json" }
-            ]
           },
           {
             "@type": "BreadcrumbList",
@@ -78,7 +62,7 @@
       <nav class="data-shell data-nav" aria-label="Main navigation">
         <a class="data-brand" href="/"><img src="/favicon.png" alt="" width="36" height="36"> Krahaso</a>
         <div class="data-nav-links">
-          <a href="#public-sample">Price sample</a>
+          <a href="#basket-index">Data preview</a>
           <a href="#api-access">API access</a>
         </div>
       </nav>
@@ -93,32 +77,26 @@
             <p class="data-intro">Krahaso collects grocery and household product prices every day across the Balkans. License current and historical supermarket price data to benchmark prices, track your brand and analyse markets across Southeast Europe.</p>
             <p class="data-api-note">Ready-to-use API keys connect licensed data to your business systems.</p>
             <div class="data-actions">
-              <a class="data-button" href="mailto:partneret@krahaso.app?subject=Krahaso%20Data%20sample%20and%20licensing&amp;body=Organisation%3A%0AMarkets%20and%20categories%3A%0ADate%20range%3A%0AHow%20you%20plan%20to%20use%20the%20data%3A">Request a sample and quote <span aria-hidden="true">&#x2197;&#xfe0e;</span></a>
+              <a class="data-button" href="mailto:partneret@krahaso.app?subject=Krahaso%20Data%20licence%20quote&amp;body=Organisation%3A%0AMarkets%20and%20categories%3A%0ADate%20range%3A%0AHow%20you%20plan%20to%20use%20the%20data%3A">Request a licence quote <span aria-hidden="true">&#x2197;&#xfe0e;</span></a>
               <a class="data-button data-button-ghost" href="#api-access">Explore API access <span aria-hidden="true">↓</span></a>
             </div>
           </div>
-          <section class="data-sample" id="public-sample" aria-labelledby="sample-title">
+          <section class="data-sample" id="basket-index" aria-labelledby="sample-title">
             <div class="sample-heading">
-              <h2 id="sample-title">Compare a product across markets</h2>
-              <p><time id="sample-date" datetime="2026-11-18">18 November 2026</time> <span aria-hidden="true">·</span> EUR per pack</p>
+              <h2 id="sample-title">Kosovo grocery basket preview</h2>
+              <p>Five weekly points from 20 October to 17 November 2026</p>
             </div>
-            <div class="sample-select-wrap">
-              <label for="sample-product">Sample product</label>
-              <select id="sample-product" disabled>
-                <option value="80135876">Nutella, 400 g</option>
-              </select>
+            <div class="sample-latest"><strong>100.6</strong><span>Basket index on 17 November 2026</span></div>
+            <div class="sample-plot">
+              <div class="sample-scale" aria-hidden="true"><span>100.8</span><span>100.4</span><span>100.0</span></div>
+              <svg class="sample-trend" viewBox="0 0 360 120" preserveAspectRatio="none" role="img" aria-label="Kosovo basket index. 20 October 100.3, 27 October 100.5, 3 November 100.7, 10 November 100.7, 17 November 100.6.">
+                <path class="sample-grid" d="M0 8H360M0 60H360M0 112H360" vector-effect="non-scaling-stroke"/>
+                <path class="sample-area" d="M0 73L90 47 180 21 270 21 360 34V112H0Z"/>
+                <path class="sample-line" pathLength="1" d="M0 73L90 47 180 21 270 21 360 34" vector-effect="non-scaling-stroke"/>
+              </svg>
             </div>
-            <ul class="sample-markets" id="sample-markets" aria-label="Median regular prices by market">
-              <li style="--share:.9"><span>Kosovo</span><data value="4.50">€4.50</data><div class="sample-track" aria-hidden="true"><span></span></div></li>
-              <li style="--share:.954"><span>Albania</span><data value="4.77">€4.77</data><div class="sample-track" aria-hidden="true"><span></span></div></li>
-              <li style="--share:.822"><span>North Macedonia</span><data value="4.11">€4.11</data><div class="sample-track" aria-hidden="true"><span></span></div></li>
-              <li style="--share:.868"><span>Serbia</span><data value="4.34">€4.34</data><div class="sample-track" aria-hidden="true"><span></span></div></li>
-              <li style="--share:.85"><span>Bosnia and Herzegovina</span><data value="4.25">€4.25</data><div class="sample-track" aria-hidden="true"><span></span></div></li>
-              <li style="--share:.998"><span>Croatia</span><data value="4.99">€4.99</data><div class="sample-track" aria-hidden="true"><span></span></div></li>
-            </ul>
-            <div class="sample-axis" aria-hidden="true"><span>€0</span><span id="sample-scale-max">€5.00</span></div>
-            <p class="sr-only" id="sample-status" role="status"></p>
-            <p class="sample-source">Median regular price per market across at least two chains. <a href="https://stats.krahaso.app/balkan">Source and method</a></p>
+            <div class="sample-dates" aria-hidden="true"><span>20 Oct</span><span>3 Nov</span><span>17 Nov</span></div>
+            <p class="sample-source">Source: Krahaso Everyday Basket Index. Fifteen staples, regular prices, base 100 on 29 July 2026. Daily history is available under licence.</p>
           </section>
         </div>
       </section>
@@ -165,16 +143,11 @@
         </div>
       </section>
 
-      <section id="public-index" class="data-section data-shell data-detail" aria-labelledby="index-title">
-        <h2 id="index-title" data-reveal>Krahaso Balkan Price Index</h2>
+      <section class="data-section data-shell data-detail" aria-labelledby="index-title">
+        <h2 id="index-title" data-reveal>Grocery price indices and reports</h2>
         <div data-reveal>
-          <p>The free public index compares regular prices for barcode-matched products across eligible country pairs. It uses prices from at least two chains per country for each comparison product, converts prices to euros and reports its source notes and methodology. The index is updated daily.</p>
-          <p>Journalists and researchers can quote the public figures with credit to Krahaso and a link to the index.</p>
-          <div class="data-text-links">
-            <a href="https://stats.krahaso.app/balkan">Read the index and method</a>
-            <a href="https://stats.krahaso.app/pub/balkan-products.csv">Public product comparison CSV</a>
-            <a href="https://stats.krahaso.app/pub/balkan.json">Public index JSON</a>
-          </div>
+          <p>Track grocery price changes using a fixed basket, or request matched-product comparisons across retailers and markets. Tell us which dates, categories and markets you need so we can scope a report, data extract or ongoing licence.</p>
+          <div class="data-text-links"><a href="mailto:partneret@krahaso.app?subject=Krahaso%20Data%20preview">Request a tailored preview</a></div>
         </div>
       </section>
 
@@ -198,8 +171,8 @@
             <p>Request a sample for the markets, products and dates you need. We’ll confirm the data fields and integration steps and arrange API key access for licensed partners.</p>
           </details>
           <details data-reveal>
-            <summary>What do the prices in the public chart represent?</summary>
-            <p>They show the median observed regular price of the same matched product in each eligible market, converted to euros. The chart displays the observation date and availability varies by product.</p>
+            <summary>What does the basket preview show?</summary>
+            <p>Five rounded weekly points from the Kosovo Everyday Basket Index. The index tracks regular prices of 15 staples relative to a base of 100 on 29 July 2026. Detailed history and extracts are available under licence.</p>
           </details>
         </div>
       </section>

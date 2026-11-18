@@ -275,11 +275,13 @@ test('keeps performance and rendered QA reproducible on a clean checkout', async
   assert.match(requirements, /^Pillow==\d+\.\d+\.\d+$/m);
 });
 
-test('describes API access, the licensed dataset and public index on the English data page', async () => {
-  const [html, sitemap, config] = await Promise.all([
+test('describes licensed API access and shows a limited preview without linking public data exports', async () => {
+  const [html, sitemap, config, discovery, dataScript] = await Promise.all([
     read('en/data/index.html'),
     read('public/sitemap.xml'),
     read('vercel.json'),
+    read('public/llms.txt'),
+    read('src/data-page.ts'),
   ]);
   assert.ok(html.includes('<html lang="en">'));
   assert.ok(html.includes('rel="canonical" href="https://krahaso.app/en/data/"'));
@@ -293,21 +295,20 @@ test('describes API access, the licensed dataset and public index on the English
   });
   assert.equal((html.match(/<h1>/g) ?? []).length, 1);
   assert.match(html, /Ready-to-use API keys/);
-  assert.match(html, /<time id="sample-date" datetime="\d{4}-\d{2}-\d{2}">/);
-  assert.match(html, /id="sample-markets"[\s\S]*<data value="\d+\.\d{2}">€/);
-  assert.match(html, /<select id="sample-product" disabled>/);
+  assert.match(html, /Kosovo grocery basket preview/);
+  assert.match(html, /Five weekly points from 20 October to 17 November 2026/);
+  assert.match(html, /Request a licence quote/);
   assert.match(html, /mailto:partneret@krahaso\.app\?subject=Krahaso%20Data%20API%20access/);
   assert.match(html, /https:\/\/stats\.krahaso\.app\/login/);
 
   const source = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
   const graph = JSON.parse(source)['@graph'];
-  const licensedData = graph.find((entry) => entry['@id'] === 'https://krahaso.app/en/data/#dataset');
-  const publicData = graph.find((entry) => entry['@id'] === 'https://stats.krahaso.app/balkan#dataset');
+  const datasets = graph.filter((entry) => entry['@type'] === 'Dataset');
+  assert.equal(datasets.length, 1);
+  const [licensedData] = datasets;
+  assert.equal(licensedData['@id'], 'https://krahaso.app/en/data/#dataset');
   assert.equal(licensedData.isAccessibleForFree, false);
   assert.equal(licensedData.spatialCoverage.name, 'Balkans');
-  assert.equal(publicData.isAccessibleForFree, true);
-  assert.equal(publicData.distribution.length, 2);
-  for (const download of publicData.distribution) {
-    assert.ok(html.includes('href="' + download.contentUrl + '"'));
-  }
+  assert.equal(licensedData.distribution, undefined);
+  assert.doesNotMatch(html + discovery + dataScript, /stats\.krahaso\.app\/(?:pub\/|balkan\b)|basket-index\.(?:csv|json)|\bfetch\s*\(/);
 });

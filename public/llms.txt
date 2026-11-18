@@ -11,8 +11,6 @@
 ## Grocery and household price data
 
 - [Krahaso Data](https://krahaso.app/en/data/): commercial licensing for daily and historical Balkan supermarket price data. Relevant uses include brand price monitoring, grocery retail benchmarking and market research. Licensed partners can integrate the data using ready-to-use API keys. Ask the data team for available markets, retailers, product categories and dates.
-- [Interactive grocery price sample](https://krahaso.app/en/data/#public-sample): dated examples from the public index. Values are median regular prices across eligible chains per market, converted to EUR per pack.
-- [Public Balkan Price Index](https://stats.krahaso.app/balkan): daily comparisons of regular prices for products matched by barcode, with sources and methodology. Credit Krahaso and link to the index when quoting it.
-- [Public product comparison CSV](https://stats.krahaso.app/pub/balkan-products.csv) and [public index JSON](https://stats.krahaso.app/pub/balkan.json).
+- [Kosovo grocery basket preview](https://krahaso.app/en/data/#basket-index): five rounded weekly points from the Krahaso Everyday Basket Index, 20 October to 17 November 2026. Enquire about a commercial licence for daily history, product-level prices and API access.
 - [Institutional portal](https://stats.krahaso.app/login): portal prepared for the Kosovo Agency of Statistics, with partner sign-in.
 - Commercial enquiries: partneret@krahaso.app.

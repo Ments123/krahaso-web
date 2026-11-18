@@ -17,7 +17,6 @@ a { color: inherit; }
 a:focus-visible { outline: 3px solid #08a64a; outline-offset: 4px; }
 p, h1, h2, h3, dl, dd { margin: 0; }
 section[id] { scroll-margin-top: 24px; }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 .data-shell { width: min(100% - 40px, 1190px); margin-inline: auto; }
 .data-skip { position: absolute; top: 12px; left: 12px; padding: 12px; background: white; transform: translateY(-160%); }
@@ -81,32 +80,17 @@ section[id] { scroll-margin-top: 24px; }
 .sample-heading { display: grid; gap: 5px; margin-bottom: 19px; }
 .sample-heading h2 { max-width: 22ch; font-size: clamp(1.42rem, 2.4vw, 2rem); font-weight: 630; line-height: 1.1; letter-spacing: -.04em; }
 .sample-heading p, .sample-source { color: #c1d8ca; font-size: .84rem; }
-.sample-select-wrap { display: grid; gap: 5px; margin-bottom: 16px; }
-.sample-select-wrap label { color: #daeee2; font-size: .82rem; font-weight: 700; }
-.sample-select-wrap select {
-  min-width: 0;
-  width: 100%;
-  min-height: 42px;
-  padding: 8px 10px;
-  border: 1px solid #699985;
-  border-radius: 11px;
-  background: #12372b;
-  color: #fff;
-  font: inherit;
-  font-size: .92rem;
-  color-scheme: dark;
-  text-overflow: ellipsis;
-}
-.sample-select-wrap select:disabled { opacity: 1; }
-.sample-select-wrap select:focus-visible { outline: 3px solid #a6eebe; outline-offset: 2px; }
-.sample-markets { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.sample-markets li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 12px; color: #e2f4e9; font-size: .88rem; }
-.sample-markets data { color: #ccffdc; font-variant-numeric: tabular-nums; font-weight: 720; }
-.sample-track { grid-column: 1 / -1; height: 5px; border-radius: 10px; background: #3a6354; overflow: hidden; }
-.sample-track span { display: block; height: 100%; background: linear-gradient(90deg, #6ac98e, #c4ffdc); border-radius: inherit; transform: scaleX(var(--share)); transform-origin: left; }
-.sample-axis { display: flex; justify-content: space-between; margin-top: 5px; color: #c1d8ca; font-size: .75rem; font-variant-numeric: tabular-nums; }
+.sample-latest { display: grid; margin: 20px 0; gap: 4px; color: #c1d8ca; font-size: .84rem; }
+.sample-latest strong { color: #ccffdc; font-size: clamp(2.3rem, 4vw, 3.65rem); line-height: 1; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
+.sample-plot { display: grid; grid-template-columns: 3.1rem minmax(0, 1fr); align-items: stretch; }
+.sample-scale { display: flex; flex-direction: column; justify-content: space-between; }
+.sample-trend { width: 100%; height: 120px; overflow: visible; }
+.sample-grid { fill: none; stroke: #4b7363; stroke-width: 1; }
+.sample-area { fill: #a6ecc321; }
+.sample-line { fill: none; stroke: #c3ffdb; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.sample-dates { display: flex; justify-content: space-between; padding-left: 3.1rem; margin-top: 3px; }
+.sample-scale, .sample-dates { color: #c1d8ca; font-size: .72rem; font-variant-numeric: tabular-nums; }
 .sample-source { margin-top: 14px; }
-.sample-source a { color: #dcffe9; font-weight: 720; text-underline-offset: 3px; }
 
 .data-section { padding-block: clamp(38px, 6.5vw, 78px); border-bottom: 1px solid var(--data-line); }
 .data-section h2 { color: var(--data-green); font-size: clamp(1.75rem, 4vw, 2.85rem); font-weight: 600; line-height: 1.1; letter-spacing: -.045em; text-wrap: balance; }
@@ -141,10 +125,8 @@ section[id] { scroll-margin-top: 24px; }
   .data-hero-copy > :nth-child(n + 4) { animation-delay: 160ms; }
   .data-sample { animation-delay: 130ms; }
   .data-sample::before { animation: sample-sheen 1.4s .2s ease-out both; }
-  .sample-track span { animation: sample-bar .72s cubic-bezier(.22, 1, .36, 1) both; }
-  .sample-markets[data-changing] .sample-track span { animation-duration: .45s; }
-  .sample-markets li:nth-child(2n) .sample-track span { animation-delay: 50ms; }
-  .sample-markets li:nth-child(3n) .sample-track span { animation-delay: 90ms; }
+  .sample-line { stroke-dasharray: 1; animation: sample-draw .95s .2s cubic-bezier(.22, 1, .36, 1) both; }
+  .sample-area { animation: sample-fill .65s .48s ease both; }
   [data-reveal].data-entered { animation: data-settle .65s cubic-bezier(.22, 1, .36, 1) both; }
   .data-use-grid > :nth-child(2), .data-flow > :nth-child(2) { animation-delay: 70ms; }
   .data-use-grid > :nth-child(3), .data-flow > :nth-child(3) { animation-delay: 140ms; }
@@ -155,7 +137,8 @@ section[id] { scroll-margin-top: 24px; }
   .data-use-grid article:hover, .data-flow li:hover { border-color: #9bbda8; }
   .data-questions details[open] p { animation: data-settle .3s ease-out both; }
   @keyframes data-settle { from { transform: translateY(14px); } to { transform: none; } }
-  @keyframes sample-bar { from { transform: scaleX(0); } to { transform: scaleX(var(--share)); } }
+  @keyframes sample-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes sample-fill { from { opacity: 0; } to { opacity: 1; } }
   @keyframes sample-sheen {
     from { opacity: 0; transform: translateX(-72%); }
     35% { opacity: 1; }
