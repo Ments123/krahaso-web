@@ -296,7 +296,9 @@ test('describes licensed API access and shows a limited preview without linking 
   assert.equal((html.match(/<h1>/g) ?? []).length, 1);
   assert.match(html, /Grocery basket preview/);
   assert.match(html, /Weekly index · 20 October to 17 November 2026/);
-  assert.equal((html.match(/class="sample-line(?: sample-line-alt)?"/g) ?? []).length, 2);
+  const marketCodes = [...html.matchAll(/<li data-market="([A-Z]{2})"/g)].map((match) => match[1]).sort();
+  assert.deepEqual(marketCodes, ['AL', 'BA', 'BG', 'GR', 'HR', 'ME', 'MK', 'RO', 'RS', 'SI', 'XK']);
+  assert.equal((html.match(/class="sample-line series-[a-z]+"/g) ?? []).length, 5);
   assert.match(html, /Price records processed per day<\/dt><dd>23\.9M<\/dd>/);
   assert.match(html, /Distinct price observations per day<\/dt><dd>1\.26M<\/dd>/);
   assert.match(html, /Measured 11–17 November 2026/);

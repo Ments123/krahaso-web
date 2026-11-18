@@ -12,6 +12,7 @@
 
 - [Krahaso Data](https://krahaso.app/en/data/) licenses daily and historical supermarket price data for brand monitoring, retail price benchmarking and market research across 11 Balkan and Southeast European markets.
 - Across 11–17 November 2026, Krahaso averaged 23.9 million price records processed and 1.26 million distinct price observations per day. Processed records include repeat entries. Distinct observations count one product per retailer per day. There were 213 active retailers, counted per market.
-- [Grocery basket preview](https://krahaso.app/en/data/#basket-index) shows five rounded weekly readings each for Kosovo and Albania from 20 October to 17 November 2026. Enquire about licensing daily history, product-level prices and API access.
+- [Market coverage preview](https://krahaso.app/en/data/#market-preview) shows seven-day average daily price observations for all 11 countries, rounded to the nearest thousand.
+- [Grocery basket preview](https://krahaso.app/en/data/#basket-index) shows selected weekly observations for Albania, Bosnia and Herzegovina, Kosovo, Montenegro and North Macedonia. Enquire about licensing daily history, product-level prices and API access.
 - [Institutional portal](https://stats.krahaso.app/login): portal prepared for the Kosovo Agency of Statistics, with partner sign-in.
 - Commercial enquiries: partneret@krahaso.app.

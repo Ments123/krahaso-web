@@ -27,7 +27,7 @@
             "@id": "https://krahaso.app/en/data/#webpage",
             "url": "https://krahaso.app/en/data/",
             "name": "Balkan supermarket price data and grocery price API",
-            "description": "Commercial access to daily and historical supermarket price data across 11 Balkan and Southeast European markets, with a limited index preview for Kosovo and Albania.",
+            "description": "Commercial access to daily and historical supermarket price data across 11 Balkan and Southeast European markets, with a chart showing coverage by country.",
             "inLanguage": "en",
             "dateModified": "2026-11-19",
             "mainEntity": { "@id": "https://krahaso.app/en/data/#dataset" }
@@ -62,7 +62,7 @@
       <nav class="data-shell data-nav" aria-label="Main navigation">
         <a class="data-brand" href="/"><img src="/favicon.png" alt="" width="36" height="36"> Krahaso</a>
         <div class="data-nav-links">
-          <a href="#basket-index">Data preview</a>
+          <a href="#market-preview">Data preview</a>
           <a href="#api-access">API access</a>
         </div>
       </nav>
@@ -81,27 +81,31 @@
               <a class="data-button data-button-ghost" href="#api-access">Explore API access <span aria-hidden="true">↓</span></a>
             </div>
           </div>
-          <section class="data-sample" id="basket-index" aria-labelledby="sample-title">
+          <section class="data-sample" id="market-preview" aria-labelledby="sample-title">
             <div class="sample-heading">
-              <h2 id="sample-title">Grocery basket preview</h2>
-              <p>Weekly index · 20 October to 17 November 2026</p>
+              <h2 id="sample-title">All 11 markets</h2>
+              <p>Daily price observations · 11–17 November 2026</p>
             </div>
-            <dl class="sample-series" aria-label="Rounded change since 20 October 2026">
-              <div><dt>Kosovo</dt><dd>+0.3%</dd></div>
-              <div><dt>Albania</dt><dd>+0.9%</dd></div>
-            </dl>
-            <div class="sample-plot">
-              <div class="sample-scale" aria-hidden="true"><span>101.2</span><span>100.6</span><span>100.0</span></div>
-              <svg class="sample-trend" viewBox="0 0 360 126" preserveAspectRatio="none" role="img" aria-labelledby="sample-chart-title" aria-describedby="sample-chart-detail">
-                <title id="sample-chart-title">Weekly grocery basket indices in Kosovo and Albania</title>
-                <desc id="sample-chart-detail">The dates are 20 October, 27 October, 3 November, 10 November and 17 November 2026. Kosovo's readings are 100.0, 100.1, 100.3, 100.3 and 100.3. Albania's readings are 100.0, 101.0, 101.0, 101.0 and 100.9.</desc>
-                <path class="sample-grid" d="M0 10H360M0 64H360M0 118H360" vector-effect="non-scaling-stroke"/>
-                <path class="sample-line" pathLength="1" d="M0 118L90 109 180 91 270 91 360 91" vector-effect="non-scaling-stroke"/>
-                <path class="sample-line sample-line-alt" pathLength="1" d="M0 118L90 28 180 28 270 28 360 37" vector-effect="non-scaling-stroke"/>
-              </svg>
+            <div class="market-picker" hidden>
+              <label for="market-highlight">Highlight a market</label>
+              <select id="market-highlight" aria-controls="market-chart">
+                <option value="">All 11 markets</option>
+              </select>
             </div>
-            <div class="sample-dates" aria-hidden="true"><span>20 Oct</span><span>3 Nov</span><span>17 Nov</span></div>
-            <p class="sample-source">Five rounded weekly readings per market. Both series start at 100 on 20 October. Daily history is available under licence.</p>
+            <ul class="market-chart" id="market-chart" aria-label="Average distinct daily price observations by market">
+              <li data-market="HR"><span>Croatia</span><span class="market-track" style="--market-volume:546" aria-hidden="true"></span><data value="546000">546K</data></li>
+              <li data-market="RS"><span>Serbia</span><span class="market-track" style="--market-volume:277" aria-hidden="true"></span><data value="277000">277K</data></li>
+              <li data-market="MK"><span>North Macedonia</span><span class="market-track" style="--market-volume:112" aria-hidden="true"></span><data value="112000">112K</data></li>
+              <li data-market="BA"><span>Bosnia and Herzegovina</span><span class="market-track" style="--market-volume:69" aria-hidden="true"></span><data value="69000">69K</data></li>
+              <li data-market="BG"><span>Bulgaria</span><span class="market-track" style="--market-volume:49" aria-hidden="true"></span><data value="49000">49K</data></li>
+              <li data-market="AL"><span>Albania</span><span class="market-track" style="--market-volume:47" aria-hidden="true"></span><data value="47000">47K</data></li>
+              <li data-market="SI"><span>Slovenia</span><span class="market-track" style="--market-volume:47" aria-hidden="true"></span><data value="47000">47K</data></li>
+              <li data-market="RO"><span>Romania</span><span class="market-track" style="--market-volume:40" aria-hidden="true"></span><data value="40000">40K</data></li>
+              <li data-market="XK"><span>Kosovo</span><span class="market-track" style="--market-volume:30" aria-hidden="true"></span><data value="30000">30K</data></li>
+              <li data-market="ME"><span>Montenegro</span><span class="market-track" style="--market-volume:21" aria-hidden="true"></span><data value="21000">21K</data></li>
+              <li data-market="GR"><span>Greece</span><span class="market-track" style="--market-volume:20" aria-hidden="true"></span><data value="20000">20K</data></li>
+            </ul>
+            <p class="sample-source">Seven-day averages, rounded to the nearest thousand. Daily history and product-level data are available under licence.</p>
           </section>
           <div class="data-scale">
             <dl class="data-metrics" aria-label="Krahaso Data in numbers" aria-describedby="data-scale-note">
@@ -146,15 +150,33 @@
         <div data-reveal>
           <p>Use dated observations to study price changes over time in grocery and household products. Available history and retailer coverage vary by market and category.</p>
           <p>Request historical data covering the dates, categories and retailers relevant to your analysis.</p>
-        </div>
-      </section>
-
-      <section class="data-section data-shell data-detail" aria-labelledby="markets-title">
-        <h2 id="markets-title" data-reveal>11 markets across Southeast Europe</h2>
-        <div data-reveal>
-          <ul class="data-markets" aria-label="Markets covered">
-            <li>Albania</li><li>Bosnia and Herzegovina</li><li>Bulgaria</li><li>Croatia</li><li>Greece</li><li>Kosovo</li><li>Montenegro</li><li>North Macedonia</li><li>Romania</li><li>Serbia</li><li>Slovenia</li>
-          </ul>
+          <details class="data-history-preview" id="basket-index">
+            <summary>View the five-market grocery basket preview</summary>
+            <div class="data-sample history-chart">
+              <div class="sample-heading">
+                <h3>Grocery basket preview</h3>
+                <p>Weekly index · 20 October to 17 November 2026</p>
+              </div>
+              <ul class="sample-series" aria-label="Basket preview markets">
+                <li class="series-xk">Kosovo</li><li class="series-al">Albania</li><li class="series-mk">North Macedonia</li><li class="series-me">Montenegro</li><li class="series-ba">Bosnia and Herzegovina</li>
+              </ul>
+              <div class="sample-plot">
+                <div class="sample-scale" aria-hidden="true"><span>101.2</span><span>100.5</span><span>99.8</span></div>
+                <svg class="sample-trend" viewBox="0 0 360 144" preserveAspectRatio="none" role="img" aria-labelledby="sample-chart-title" aria-describedby="sample-chart-detail">
+                  <title id="sample-chart-title">Weekly grocery basket movements for five markets</title>
+                  <desc id="sample-chart-detail">The dates are 20 October, 27 October, 3 November, 10 November and 17 November 2026. Kosovo reads 100.0, 100.1, 100.3, 100.3 and 100.3. Albania reads 100.0, 101.0, 101.0, 101.0 and 100.9. North Macedonia reads 100.0, 100.0, 100.1, 100.1 and 100.4. Montenegro reads 100.0, 99.9, 100.2, 100.3 and 100.1. Bosnia and Herzegovina reads 100.0 on both 10 and 17 November.</desc>
+                  <path class="sample-grid" d="M0 10H360M0 73H360M0 136H360" vector-effect="non-scaling-stroke"/>
+                  <path class="sample-line series-xk" pathLength="1" d="M0 118L90 109 180 91 270 91 360 91" vector-effect="non-scaling-stroke"/>
+                  <path class="sample-line series-al" pathLength="1" d="M0 118L90 28 180 28 270 28 360 37" vector-effect="non-scaling-stroke"/>
+                  <path class="sample-line series-mk" pathLength="1" d="M0 118L90 118 180 109 270 109 360 82" vector-effect="non-scaling-stroke"/>
+                  <path class="sample-line series-me" pathLength="1" d="M0 118L90 127 180 100 270 91 360 109" vector-effect="non-scaling-stroke"/>
+                  <path class="sample-line series-ba" pathLength="1" d="M270 118L360 118" vector-effect="non-scaling-stroke"/>
+                </svg>
+              </div>
+              <div class="sample-dates" aria-hidden="true"><span>20 Oct</span><span>3 Nov</span><span>17 Nov</span></div>
+              <p class="sample-source">Each market starts at 100 on its first displayed date. The preview for Bosnia and Herzegovina begins on 10 November.</p>
+            </div>
+          </details>
         </div>
       </section>
 
@@ -186,8 +208,8 @@
             <p>Request a sample for the markets, products and dates you need. We’ll confirm the data fields and integration steps and arrange API key access for licensed partners.</p>
           </details>
           <details data-reveal>
-            <summary>What does the basket preview show?</summary>
-            <p>Five rounded weekly readings from Kosovo and Albania, indexed to 100 on 20 October 2026. A commercial licence can include daily history and product-level extracts.</p>
+            <summary>What does the data preview show?</summary>
+            <p>Rounded daily observation counts for all 11 markets and an example of weekly basket movements in five markets. A commercial licence can include daily history and product-level extracts.</p>
           </details>
         </div>
       </section>
