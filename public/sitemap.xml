@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://krahaso.app/</loc>
+    <lastmod>2026-11-18</lastmod>
+  </url>
+  <url>
+    <loc>https://krahaso.app/data/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <xhtml:link rel="alternate" hreflang="sq" href="https://krahaso.app/data/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://krahaso.app/en/data/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://krahaso.app/data/"/>
+  </url>
+  <url>
+    <loc>https://krahaso.app/en/data/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <xhtml:link rel="alternate" hreflang="sq" href="https://krahaso.app/data/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://krahaso.app/en/data/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://krahaso.app/data/"/>
   </url>
 </urlset>

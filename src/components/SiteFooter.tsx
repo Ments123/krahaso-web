@@ -15,6 +15,8 @@ export function SiteFooter() {
         </div>
         <nav aria-label="Navigimi në fund">
           <AppAcquisitionCta placement="footer" compact />
+          <a href="/data/">Krahaso Data</a>
+          <a href="https://stats.krahaso.app/balkan?lang=sq">Indeksi i çmimeve</a>
           <a href="https://api.krahaso.app/privacy" target="_blank" rel="noopener noreferrer">
             Privatësia
           </a>

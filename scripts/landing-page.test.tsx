@@ -54,7 +54,7 @@ test('uses the approved barcode-first hero copy and free badge', () => {
 
   assert.match(
     html,
-    /Skano ose kërko produktin dhe shiko çmimet që kemi nga marketet e Kosovës\./,
+    /Skano ose kërko produktin dhe krahaso çmimet e marketeve në qytetin tënd\./,
   );
   assert.match(html, />Falas<\/span>/);
   assert.doesNotMatch(html, /Falë pagesë/);

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
+import './app-updates.css';
 import { trackPageView } from './lib/analytics';
 
 // The visit itself, sent once per load. Without it the store clicks in
@@ -9,8 +10,15 @@ import { trackPageView } from './lib/analytics';
 // which is the whole reason this file changed.
 trackPageView();
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const root = document.getElementById('root')!;
+const app = (
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
 );
+
+if (root.firstElementChild) {
+  ReactDOM.hydrateRoot(root, app);
+} else {
+  ReactDOM.createRoot(root).render(app);
+}
