@@ -294,9 +294,13 @@ test('describes licensed API access and shows a limited preview without linking 
     permanent: true,
   });
   assert.equal((html.match(/<h1>/g) ?? []).length, 1);
-  assert.match(html, /Ready-to-use API keys/);
-  assert.match(html, /Kosovo grocery basket preview/);
-  assert.match(html, /Five weekly points from 20 October to 17 November 2026/);
+  assert.match(html, /Grocery basket preview/);
+  assert.match(html, /Weekly index · 20 October to 17 November 2026/);
+  assert.equal((html.match(/class="sample-line(?: sample-line-alt)?"/g) ?? []).length, 2);
+  assert.match(html, /Price records processed per day<\/dt><dd>23\.9M<\/dd>/);
+  assert.match(html, /Distinct price observations per day<\/dt><dd>1\.26M<\/dd>/);
+  assert.match(html, /Measured 11–17 November 2026/);
+  assert.doesNotMatch(html + discovery, /How Krahaso records prices|retailer price lists|online catalogues|promotional leaflets/i);
   assert.match(html, /Request a licence quote/);
   assert.match(html, /mailto:partneret@krahaso\.app\?subject=Krahaso%20Data%20API%20access/);
   assert.match(html, /https:\/\/stats\.krahaso\.app\/login/);
