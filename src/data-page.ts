@@ -2,19 +2,32 @@ import { afterInitialPaint } from './motion/afterInitialPaint';
 
 const marketPicker = document.querySelector<HTMLElement>('.market-picker');
 const marketSelect = marketPicker?.querySelector('select');
-const marketRows = document.querySelectorAll<HTMLLIElement>('#market-chart > li');
+const marketView = marketPicker?.querySelector('button');
+const marketChart = document.querySelector<HTMLElement>('#market-chart');
+const marketSelection = document.querySelector<HTMLElement>('.market-selection');
 
-if (marketPicker && marketSelect && marketRows.length) {
+if (marketPicker && marketSelect && marketView && marketChart && marketSelection) {
+  const marketRows = Array.from(marketChart.querySelectorAll<HTMLLIElement>('li'));
   for (const row of marketRows) {
     const name = row.firstElementChild?.textContent;
     if (name && row.dataset.market) marketSelect.add(new Option(name, row.dataset.market));
   }
-  marketPicker.hidden = false;
-  marketSelect.addEventListener('change', () => {
+  const updateSelection = () => {
+    const selected = marketRows.find(row => row.dataset.market === marketSelect.value);
     for (const row of marketRows) {
-      row.toggleAttribute('data-selected', row.dataset.market === marketSelect.value);
+      row.toggleAttribute('data-selected', row === selected);
     }
+    const name = selected?.firstElementChild?.textContent;
+    const volume = selected?.querySelector('data')?.textContent;
+    marketSelection.textContent = name && volume ? `${name} · ${volume} distinct daily observations` : '';
+  };
+  marketSelect.addEventListener('change', updateSelection);
+  marketView.addEventListener('click', () => {
+    const comparing = marketChart.toggleAttribute('data-compare');
+    marketView.setAttribute('aria-pressed', String(comparing));
   });
+  updateSelection();
+  marketPicker.hidden = false;
 }
 
 afterInitialPaint(() => {

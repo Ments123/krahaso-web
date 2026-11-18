@@ -84,28 +84,30 @@
           <section class="data-sample" id="market-preview" aria-labelledby="sample-title">
             <div class="sample-heading">
               <h2 id="sample-title">All 11 markets</h2>
-              <p>Daily price observations · 11–17 November 2026</p>
+              <p>Average daily price observations · 11–17 November 2026</p>
             </div>
             <div class="market-picker" hidden>
-              <label for="market-highlight">Highlight a market</label>
+              <label class="visually-hidden" for="market-highlight">Choose a market</label>
               <select id="market-highlight" aria-controls="market-chart">
-                <option value="">All 11 markets</option>
+                <option value="">All markets</option>
               </select>
+              <button type="button" class="market-view" aria-controls="market-chart" aria-pressed="false">Compare volumes</button>
             </div>
+            <p class="market-selection" role="status"></p>
             <ul class="market-chart" id="market-chart" aria-label="Average distinct daily price observations by market">
-              <li data-market="HR"><span>Croatia</span><span class="market-track" style="--market-volume:546" aria-hidden="true"></span><data value="546000">546K</data></li>
-              <li data-market="RS"><span>Serbia</span><span class="market-track" style="--market-volume:277" aria-hidden="true"></span><data value="277000">277K</data></li>
-              <li data-market="MK"><span>North Macedonia</span><span class="market-track" style="--market-volume:112" aria-hidden="true"></span><data value="112000">112K</data></li>
+              <li data-market="AL"><span>Albania</span><span class="market-track" style="--market-volume:47" aria-hidden="true"></span><data value="47000">47K</data></li>
               <li data-market="BA"><span>Bosnia and Herzegovina</span><span class="market-track" style="--market-volume:69" aria-hidden="true"></span><data value="69000">69K</data></li>
               <li data-market="BG"><span>Bulgaria</span><span class="market-track" style="--market-volume:49" aria-hidden="true"></span><data value="49000">49K</data></li>
-              <li data-market="AL"><span>Albania</span><span class="market-track" style="--market-volume:47" aria-hidden="true"></span><data value="47000">47K</data></li>
-              <li data-market="SI"><span>Slovenia</span><span class="market-track" style="--market-volume:47" aria-hidden="true"></span><data value="47000">47K</data></li>
-              <li data-market="RO"><span>Romania</span><span class="market-track" style="--market-volume:40" aria-hidden="true"></span><data value="40000">40K</data></li>
+              <li data-market="HR"><span>Croatia</span><span class="market-track" style="--market-volume:546" aria-hidden="true"></span><data value="546000">546K</data></li>
+              <li data-market="GR"><span>Greece</span><span class="market-track" style="--market-volume:20" aria-hidden="true"></span><data value="20000">20K</data></li>
               <li data-market="XK"><span>Kosovo</span><span class="market-track" style="--market-volume:30" aria-hidden="true"></span><data value="30000">30K</data></li>
               <li data-market="ME"><span>Montenegro</span><span class="market-track" style="--market-volume:21" aria-hidden="true"></span><data value="21000">21K</data></li>
-              <li data-market="GR"><span>Greece</span><span class="market-track" style="--market-volume:20" aria-hidden="true"></span><data value="20000">20K</data></li>
+              <li data-market="MK"><span>North Macedonia</span><span class="market-track" style="--market-volume:112" aria-hidden="true"></span><data value="112000">112K</data></li>
+              <li data-market="RO"><span>Romania</span><span class="market-track" style="--market-volume:40" aria-hidden="true"></span><data value="40000">40K</data></li>
+              <li data-market="RS"><span>Serbia</span><span class="market-track" style="--market-volume:277" aria-hidden="true"></span><data value="277000">277K</data></li>
+              <li data-market="SI"><span>Slovenia</span><span class="market-track" style="--market-volume:47" aria-hidden="true"></span><data value="47000">47K</data></li>
             </ul>
-            <p class="sample-source">Seven-day averages, rounded to the nearest thousand. Daily history and product-level data are available under licence.</p>
+            <p class="sample-source">Seven-day averages, rounded to the nearest thousand.</p>
           </section>
           <div class="data-scale">
             <dl class="data-metrics" aria-label="Krahaso Data in numbers" aria-describedby="data-scale-note">
