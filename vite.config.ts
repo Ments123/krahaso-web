@@ -8,7 +8,6 @@ export default defineConfig({
     rollupOptions: {
       input: [
         fileURLToPath(new URL('./index.html', import.meta.url)),
-        fileURLToPath(new URL('./data/index.html', import.meta.url)),
         fileURLToPath(new URL('./en/data/index.html', import.meta.url)),
       ],
     },

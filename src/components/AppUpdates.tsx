@@ -47,7 +47,7 @@ export function DataTeaser() {
           Shiko mbulimin, indeksin publik dhe mundësitë për licencim.
         </p>
       </div>
-      <a className="acquisition-link acquisition-link-primary" href="/data/">Eksploro Krahaso Data</a>
+      <a className="acquisition-link acquisition-link-primary" href="/en/data/" hrefLang="en">Eksploro Krahaso Data</a>
     </section>
   );
 }
