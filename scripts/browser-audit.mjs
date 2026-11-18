@@ -102,7 +102,9 @@ async function openPage(origin, viewport, options = {}) {
   const failedRequests = [];
 
   page.on('console', (message) => {
-    if (message.type() === 'error') consoleErrors.push(message.text());
+    const blockedExternalRequest = message.text().includes('net::ERR_BLOCKED_BY_CLIENT') &&
+      !message.location().url.startsWith(origin);
+    if (message.type() === 'error' && !blockedExternalRequest) consoleErrors.push(message.text());
   });
   page.on('pageerror', (error) => consoleErrors.push(error.message));
   page.on('requestfailed', (request) => {
@@ -172,7 +174,7 @@ async function collectPageState(page) {
     const failedImages = [...document.images]
       .filter((image) => !image.complete || image.naturalWidth === 0)
       .map((image) => image.getAttribute('src'));
-    const acquisitionLinks = [...document.querySelectorAll('.acquisition-link')]
+    const acquisitionLinks = [...document.querySelectorAll('[data-acquisition-placement]')]
       .map((anchor) => ({
         placement: anchor.getAttribute('data-acquisition-placement'),
         href: anchor.href,
@@ -402,7 +404,7 @@ for (const viewport of viewports) {
     const reverse = [];
     for (const point of [...points].reverse()) reverse.push(await sampleUniverse(page, point));
 
-    requireAudit(base.title === 'Krahaso çmimet në Kosovë | Krahaso', `${viewport.name}: wrong title`);
+    requireAudit(base.title === 'Krahaso | Krahaso çmimet e marketeve në Ballkan', `${viewport.name}: wrong title`);
     requireAudit(base.horizontalOverflow <= 0, `${viewport.name}: horizontal overflow`);
     requireAudit(base.h1Count === 1, `${viewport.name}: expected one H1`);
     requireAudit(base.duplicateIds.length === 0, `${viewport.name}: duplicate IDs`);
@@ -410,20 +412,23 @@ for (const viewport of viewports) {
     requireAudit(base.failedImages.length === 0, `${viewport.name}: failed images`);
     requireAudit(base.touchTargetFailures.length === 0, `${viewport.name}: undersized targets`);
     requireAudit(base.motionReady, `${viewport.name}: motion enhancement did not start`);
-    const acquisitionPlacements = base.acquisitionLinks
-      .map(({ placement }) => placement)
-      .sort();
+    const acquisitionPlacements = [...new Set(base.acquisitionLinks.map(({ placement }) => placement))].sort();
     requireAudit(
       JSON.stringify(acquisitionPlacements) ===
         JSON.stringify(['download', 'footer', 'hero', 'nav']),
       `${viewport.name}: acquisition placements were ${acquisitionPlacements.join(', ')}`,
     );
     for (const link of base.acquisitionLinks) {
-      requireAudit(
-        new URL(link.href).searchParams.get('referrer') ===
-          'utm_source=qa&utm_campaign=tiptop',
-        `${viewport.name}: ${link.placement} Play referrer was not preserved`,
-      );
+      const destination = new URL(link.href);
+      if (destination.hostname === 'play.google.com') {
+        requireAudit(destination.searchParams.get('referrer') === 'utm_source=qa&utm_campaign=tiptop',
+          `${viewport.name}: ${link.placement} Play referrer was not preserved`);
+      } else {
+        requireAudit(destination.hostname === 'apps.apple.com' &&
+          destination.searchParams.get('utm_source') === 'qa' &&
+          destination.searchParams.get('utm_campaign') === 'tiptop',
+          `${viewport.name}: ${link.placement} App Store campaign was not preserved`);
+      }
     }
     requireAudit(
       forward.at(-1).phoneOpacity > forward[0].phoneOpacity + 0.8,

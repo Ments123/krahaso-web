@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { featureChapters } from '../content/landing';
+import { afterInitialPaint } from '../motion/afterInitialPaint';
 import { PhoneFrame } from './PhoneFrame';
 
 export function FeatureStory() {
@@ -11,6 +12,7 @@ export function FeatureStory() {
 
     const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
     let active = true;
+    let initialPaintComplete = false;
     let setupVersion = 0;
     let cleanupMotion: (() => void) | undefined;
 
@@ -150,14 +152,18 @@ export function FeatureStory() {
 
     const handleMotionPreference = () => {
       teardownMotion();
-      if (!motionPreference.matches) void setupMotion();
+      if (initialPaintComplete && !motionPreference.matches) void setupMotion();
     };
 
     motionPreference.addEventListener('change', handleMotionPreference);
-    void setupMotion();
+    const cancelInitialSetup = afterInitialPaint(() => {
+      initialPaintComplete = true;
+      void setupMotion();
+    });
 
     return () => {
       active = false;
+      cancelInitialSetup();
       motionPreference.removeEventListener('change', handleMotionPreference);
       teardownMotion();
     };

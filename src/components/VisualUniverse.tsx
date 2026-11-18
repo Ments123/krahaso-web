@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { universeTiles } from '../content/landing';
+import { afterInitialPaint } from '../motion/afterInitialPaint';
 import { getUniverseState, type UniverseMode } from '../motion/progress';
 import { PhoneFrame } from './PhoneFrame';
 
@@ -25,6 +26,7 @@ export function VisualUniverse() {
 
     const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
     let active = true;
+    let initialPaintComplete = false;
     let setupVersion = 0;
     let cleanupMotion: (() => void) | undefined;
 
@@ -131,14 +133,18 @@ export function VisualUniverse() {
 
     const handleMotionPreference = () => {
       teardownMotion();
-      if (!motionPreference.matches) void setupMotion();
+      if (initialPaintComplete && !motionPreference.matches) void setupMotion();
     };
 
     motionPreference.addEventListener('change', handleMotionPreference);
-    void setupMotion();
+    const cancelInitialSetup = afterInitialPaint(() => {
+      initialPaintComplete = true;
+      void setupMotion();
+    });
 
     return () => {
       active = false;
+      cancelInitialSetup();
       motionPreference.removeEventListener('change', handleMotionPreference);
       teardownMotion();
     };
