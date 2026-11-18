@@ -5,6 +5,7 @@ import { OfferProof } from './components/OfferProof';
 import { SiteFooter } from './components/SiteFooter';
 import { SiteHeader } from './components/SiteHeader';
 import { VisualUniverse } from './components/VisualUniverse';
+import { AppUpdates, DataTeaser } from './components/AppUpdates';
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <VisualUniverse />
         <FeatureStory />
         <OfferProof />
+        <AppUpdates />
+        <DataTeaser />
         <FinalDownload />
       </main>
       <SiteFooter />

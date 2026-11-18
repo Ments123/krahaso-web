@@ -29,7 +29,7 @@ test('keeps the Vite production foundation and real brand assets', async () => {
   assert.equal(pkg.scripts.dev, 'vite');
   assert.equal(
     pkg.scripts.build,
-    'tsc -b && vite build && npm run verify:bundle',
+    'tsc -b && vite build && node --import tsx scripts/prerender.tsx && npm run verify:bundle',
   );
   assert.ok(pkg.dependencies.react);
   assert.ok(pkg.dependencies.gsap);
@@ -61,10 +61,10 @@ test('ships semantic metadata, app structured data and crawler infrastructure', 
   const vercel = JSON.parse(vercelSource);
 
   assert.match(html, /<html lang="sq">/);
-  assert.match(html, /<title>Krahaso çmimet në Kosovë, Shqipëri, Maqedoninë e Veriut dhe Mal të Zi<\/title>/);
+  assert.match(html, /<title>Krahaso \| Krahaso çmimet e marketeve në Ballkan<\/title>/);
   assert.match(
     html,
-    /content="Skano ose kërko produktin dhe shiko çmimet që kemi nga marketet në Kosovë, Shqipëri, Maqedoninë e Veriut dhe Mal të Zi\."/,
+    /content="Krahaso çmimet në Kosovë, Shqipëri, Maqedoninë e Veriut, Mal të Zi dhe Bosnjë e Hercegovinë. Gjej oferta, skano barkode dhe krahaso shportën\."/,
   );
   assert.match(html, /rel="canonical" href="https:\/\/krahaso\.app\/"/);
   assert.match(
@@ -84,7 +84,7 @@ test('ships semantic metadata, app structured data and crawler infrastructure', 
   assert.deepEqual(application, {
     '@type': 'MobileApplication',
     '@id': 'https://krahaso.app/#android-app',
-    name: 'Krahaso: Çmimet në Kosovë',
+    name: 'Krahaso: Çmimet e marketeve',
     operatingSystem: 'Android',
     applicationCategory: 'ShoppingApplication',
     installUrl: 'https://play.google.com/store/apps/details?id=com.krahaso.app',
@@ -97,7 +97,7 @@ test('ships semantic metadata, app structured data and crawler infrastructure', 
   assert.deepEqual(iosApplication, {
     '@type': 'MobileApplication',
     '@id': 'https://krahaso.app/#ios-app',
-    name: 'Krahaso: Çmimet në Kosovë',
+    name: 'Krahaso: Çmimet e marketeve',
     operatingSystem: 'iOS',
     applicationCategory: 'ShoppingApplication',
     installUrl: 'https://apps.apple.com/us/app/krahaso/id6806572228',
@@ -273,4 +273,36 @@ test('keeps performance and rendered QA reproducible on a clean checkout', async
   assert.match(browserAudit, /headerClearance/);
   assert.match(browserAudit, /clippedText/);
   assert.match(requirements, /^Pillow==\d+\.\d+\.\d+$/m);
+});
+
+test('describes the licensed dataset and public index on both crawlable data pages', async () => {
+  const [albanian, english, sitemap] = await Promise.all([
+    read('data/index.html'),
+    read('en/data/index.html'),
+    read('public/sitemap.xml'),
+  ]);
+  for (const [lang, html, route] of [['sq', albanian, '/data/'], ['en', english, '/en/data/']]) {
+    assert.ok(html.includes('<html lang="' + lang + '">'));
+    assert.ok(html.includes('rel="canonical" href="https://krahaso.app' + route + '"'));
+    assert.ok(html.includes('hreflang="en" href="https://krahaso.app/en/data/"'));
+    assert.ok(html.includes('hreflang="sq" href="https://krahaso.app/data/"'));
+    assert.ok(sitemap.includes('<loc>https://krahaso.app' + route + '</loc>'));
+    assert.equal((html.match(/<h1>/g) ?? []).length, 1);
+    assert.equal((html.match(/<li>/g) ?? []).length, 11);
+    assert.match(html, /<dd>6M\+<\/dd>/);
+    assert.match(html, /mailto:partneret@krahaso\.app/);
+    assert.match(html, /https:\/\/stats\.krahaso\.app\/login/);
+
+    const source = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
+    const graph = JSON.parse(source)['@graph'];
+    const licensedData = graph.find((entry) => entry['@id'] === 'https://krahaso.app/data/#dataset');
+    const publicData = graph.find((entry) => entry['@id'] === 'https://stats.krahaso.app/balkan#dataset');
+    assert.equal(licensedData.isAccessibleForFree, false);
+    assert.equal(licensedData.spatialCoverage.length, 11);
+    assert.equal(publicData.isAccessibleForFree, true);
+    assert.equal(publicData.distribution.length, 2);
+    for (const download of publicData.distribution) {
+      assert.ok(html.includes('href="' + download.contentUrl + '"'));
+    }
+  }
 });

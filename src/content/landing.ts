@@ -35,7 +35,7 @@ export const featureChapters = [
     title: 'Kërko',
     eyebrow: 'Gjeje shpejt',
     description:
-      'Kërko me emër ose shfleto kategoritë për të gjetur produktin që po kërkon.',
+      'Kërko me emër ose markë, edhe me gabime të vogla në shkrim, ose shfleto kategoritë.',
   },
   {
     id: 'ofertat',
@@ -44,7 +44,7 @@ export const featureChapters = [
     title: 'Ofertat',
     eyebrow: 'Shiko çfarë ka sot',
     description:
-      'Ofertat që i kemi në dispozicion, të mbledhura nga marketet e Kosovës në një pamje.',
+      'Shfleto ofertat javore dhe krahaso çmimet nga fletushkat e marketeve në zonën tënde.',
   },
   {
     id: 'skano',

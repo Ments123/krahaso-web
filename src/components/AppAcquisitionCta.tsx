@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { SiApple, SiGoogleplay } from 'react-icons/si';
 import { preserveUtm, trackEvent } from '../lib/analytics';
 
@@ -19,6 +20,12 @@ export function AppAcquisitionCta({
   compact = false,
   onNavigate,
 }: Props) {
+  const [links, setLinks] = useState({ play: PLAY_STORE_URL, apple: APP_STORE_URL });
+
+  useEffect(() => {
+    setLinks({ play: preserveUtm(PLAY_STORE_URL), apple: preserveUtm(APP_STORE_URL) });
+  }, []);
+
   const label = (store: 'play' | 'apple') => {
     if (placement === 'footer' || compact) {
       return store === 'play' ? 'Google Play' : 'App Store';
@@ -30,7 +37,7 @@ export function AppAcquisitionCta({
   return (
     <div className={`acquisition-links ${compact ? 'acquisition-links-compact' : ''}`}>
       <a
-        href={preserveUtm(PLAY_STORE_URL)}
+        href={links.play}
         target="_blank"
         rel="noopener noreferrer"
         data-acquisition-placement={placement}
@@ -46,7 +53,7 @@ export function AppAcquisitionCta({
         <span>{label('play')}</span>
       </a>
       <a
-        href={preserveUtm(APP_STORE_URL)}
+        href={links.apple}
         target="_blank"
         rel="noopener noreferrer"
         data-acquisition-placement={placement}

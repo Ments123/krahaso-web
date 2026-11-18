@@ -12,14 +12,14 @@ export function HeroSection() {
           <p className="eyebrow hero-eyebrow">Krahaso</p>
           <h1 id="hero-title">Krahaso para se të blesh.</h1>
           <p className="hero-lede">
-            Skano ose kërko produktin dhe shiko çmimet që kemi nga marketet e Kosovës.
+            Skano ose kërko produktin dhe krahaso çmimet e marketeve në qytetin tënd.
           </p>
           <div className="hero-actions">
             <AppAcquisitionCta placement="hero" />
           </div>
           <p className="hero-trust">
             <span className="trust-dot" aria-hidden="true" />
-            Çmime reale nga marketet e Kosovës
+            Çmime nga marketet në pesë vende të Ballkanit
           </p>
         </div>
 
