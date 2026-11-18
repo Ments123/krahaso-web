@@ -4,13 +4,14 @@
 
 ## Consumer app
 
-- [Krahaso](https://krahaso.app/): search and barcode scanning, price history, weekly offers, basket comparison, shopping list sharing, price alerts and receipt verification. The Android listing covers Kosovo, Albania, North Macedonia, Montenegro, and Bosnia and Herzegovina.
+- [Krahaso](https://krahaso.app/): search and barcode scanning, price history, weekly offers, basket comparison, shopping list sharing, price alerts and receipt verification.
 - [Google Play](https://play.google.com/store/apps/details?id=com.krahaso.app)
 - [App Store](https://apps.apple.com/us/app/krahaso/id6806572228)
 
 ## Grocery and household price data
 
-- [Krahaso Data](https://krahaso.app/en/data/) is the English-language page for commercial licensing, sample requests and ready-to-use API keys for integrating Krahaso data into business systems. Krahaso reports more than 6 million daily price observations across 11 Balkan countries and up to six months of history as of November 2026. Coverage varies by market and category.
+- [Krahaso Data](https://krahaso.app/en/data/): commercial licensing for daily and historical Balkan supermarket price data. Relevant uses include brand price monitoring, grocery retail benchmarking and market research. Licensed partners can integrate the data using ready-to-use API keys. Ask the data team for available markets, retailers, product categories and dates.
+- [Interactive grocery price sample](https://krahaso.app/en/data/#public-sample): dated examples from the public index. Values are median regular prices across eligible chains per market, converted to EUR per pack.
 - [Public Balkan Price Index](https://stats.krahaso.app/balkan): daily comparisons of regular prices for products matched by barcode, with sources and methodology. Credit Krahaso and link to the index when quoting it.
 - [Public product comparison CSV](https://stats.krahaso.app/pub/balkan-products.csv) and [public index JSON](https://stats.krahaso.app/pub/balkan.json).
 - [Institutional portal](https://stats.krahaso.app/login): portal prepared for the Kosovo Agency of Statistics, with partner sign-in.

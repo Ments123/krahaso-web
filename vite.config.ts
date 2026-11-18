@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      input: [
-        fileURLToPath(new URL('./index.html', import.meta.url)),
-        fileURLToPath(new URL('./en/data/index.html', import.meta.url)),
-      ],
+      input: {
+        index: fileURLToPath(new URL('./index.html', import.meta.url)),
+        data: fileURLToPath(new URL('./en/data/index.html', import.meta.url)),
+      },
     },
   },
 });

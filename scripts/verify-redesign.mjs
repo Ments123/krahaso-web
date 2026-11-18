@@ -292,9 +292,10 @@ test('describes API access, the licensed dataset and public index on the English
     permanent: true,
   });
   assert.equal((html.match(/<h1>/g) ?? []).length, 1);
-  assert.equal((html.match(/<li>/g) ?? []).length, 11);
-  assert.match(html, /<dd>6M\+<\/dd>/);
-  assert.match(html, /ready-to-use API keys/);
+  assert.match(html, /Ready-to-use API keys/);
+  assert.match(html, /<time id="sample-date" datetime="\d{4}-\d{2}-\d{2}">/);
+  assert.match(html, /id="sample-markets"[\s\S]*<data value="\d+\.\d{2}">€/);
+  assert.match(html, /<select id="sample-product" disabled>/);
   assert.match(html, /mailto:partneret@krahaso\.app\?subject=Krahaso%20Data%20API%20access/);
   assert.match(html, /https:\/\/stats\.krahaso\.app\/login/);
 
@@ -303,7 +304,7 @@ test('describes API access, the licensed dataset and public index on the English
   const licensedData = graph.find((entry) => entry['@id'] === 'https://krahaso.app/en/data/#dataset');
   const publicData = graph.find((entry) => entry['@id'] === 'https://stats.krahaso.app/balkan#dataset');
   assert.equal(licensedData.isAccessibleForFree, false);
-  assert.equal(licensedData.spatialCoverage.length, 11);
+  assert.equal(licensedData.spatialCoverage.name, 'Balkans');
   assert.equal(publicData.isAccessibleForFree, true);
   assert.equal(publicData.distribution.length, 2);
   for (const download of publicData.distribution) {
