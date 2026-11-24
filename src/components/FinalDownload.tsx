@@ -5,9 +5,9 @@ export function FinalDownload() {
     <section id="shkarko" className="final-download" aria-labelledby="download-title">
       <div className="final-download-inner section-shell">
         <div>
-          <p className="eyebrow">Zgjedhja fillon me informacion</p>
-          <h2 id="download-title">Mos paguaj më shumë pa e ditur.</h2>
-          <p>Krahaso para se të blesh.</p>
+          <p className="eyebrow">Falas për Android dhe iPhone</p>
+          <h2 id="download-title">Merre Krahaso me vete.</h2>
+          <p>Herën tjetër që je para raftit, skano barkodin dhe krahaso çmimet në qytetin tënd.</p>
         </div>
         <div className="final-download-actions">
           <AppAcquisitionCta placement="download" inverse />

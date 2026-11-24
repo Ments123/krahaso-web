@@ -77,20 +77,27 @@ export const featureChapters = [
 
 export type FeatureId = (typeof featureChapters)[number]['id'];
 
-export const universeTiles = [
-  { src: '/products/coffee.webp', alt: 'Pako kafeje', kind: 'product' },
-  { src: '/logos/viva.png', alt: 'Viva Fresh Store', kind: 'logo' },
-  { src: '/products/oil.webp', alt: 'Shishe vaji', kind: 'product' },
-  { src: '/logos/interex.png', alt: 'Interex', kind: 'logo' },
-  { src: '/logos/superviva.png', alt: 'Super Viva', kind: 'logo' },
-  { src: '/products/eggs.webp', alt: 'Pako vezësh', kind: 'product' },
-  { src: '/logos/maxi.png', alt: 'Maxi', kind: 'logo' },
-  { src: '/products/detergent.webp', alt: 'Detergjent', kind: 'product' },
+export const liveMarkets = [
+  'Kosovë',
+  'Shqipëri',
+  'Maqedoni e Veriut',
+  'Mal i Zi',
+  'Bosnjë e Hercegovinë',
 ] as const;
 
-export const retailerLogos = [
-  { src: '/logos/viva.png', alt: 'Viva Fresh Store' },
-  { src: '/logos/interex.png', alt: 'Interex' },
-  { src: '/logos/superviva.png', alt: 'Super Viva' },
-  { src: '/logos/maxi.png', alt: 'Maxi' },
+const retailers = {
+  viva: { src: '/logos/viva.png', alt: 'Viva Fresh Store' },
+  interex: { src: '/logos/interex.png', alt: 'Interex' },
+  maxi: { src: '/logos/maxi.png', alt: 'Maxi' },
+} as const;
+
+export const retailerLogos = Object.values(retailers);
+
+export const universeTiles = [
+  { area: 'coffee', src: '/products/coffee.webp', kind: 'product' },
+  { area: 'oil', src: '/products/oil.webp', kind: 'product' },
+  { area: 'interex', ...retailers.interex, kind: 'logo' },
+  { area: 'viva', ...retailers.viva, kind: 'logo' },
+  { area: 'eggs', src: '/products/eggs.webp', kind: 'product' },
+  { area: 'detergent', src: '/products/detergent.webp', kind: 'product' },
 ] as const;

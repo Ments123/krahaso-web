@@ -234,13 +234,24 @@ async function sampleUniverse(page, progress) {
     const opacityOf = (selector) =>
       Number(getComputedStyle(document.querySelector(selector)).opacity);
     const phoneRect = document.querySelector('.universe-phone').getBoundingClientRect();
+    const scene = document.querySelector('.universe-scene').getBoundingClientRect();
+    const viva = document.querySelector('.universe-gallery img[src="/logos/viva.png"]');
+    const logo = viva?.getBoundingClientRect();
+    const cells = [...document.querySelectorAll('.universe-tile')].map((cell) => cell.getBoundingClientRect());
+    const distinctCells = new Set(cells.filter((box) => box.width && box.height)
+      .map((box) => [Math.round(box.x), Math.round(box.y)].join(','))).size;
 
     return {
       progress: value,
+      distinctCells,
+      vivaOnRight: !!logo && viva.naturalWidth > 0 && logo.width > 0 &&
+        logo.left + logo.width / 2 > phoneRect.right && logo.right <= scene.right &&
+        logo.top >= scene.top && logo.bottom <= scene.bottom,
       galleryScale: scaleOf('.universe-gallery'),
       phoneScale: scaleOf('.universe-phone'),
       phoneOpacity: opacityOf('.universe-phone'),
       copyOpacity: opacityOf('.universe-copy'),
+      headingClearance: phoneRect.top - document.querySelector('#universe-title').getBoundingClientRect().bottom,
       phoneCenterOffset:
         phoneRect.left + phoneRect.width / 2 - window.innerWidth / 2,
     };
@@ -442,6 +453,14 @@ for (const viewport of viewports) {
       Math.abs(forward.find(({ progress }) => progress === 0.55).phoneCenterOffset) <= 2,
       `${viewport.name}: revealed phone was not horizontally centred`,
     );
+    for (const sample of [...forward, ...reverse].filter(({ progress }) => progress <= 0.8)) {
+      requireAudit(sample.distinctCells === 6, `${viewport.name}: retailer gallery tiles are hidden or stacked`);
+      requireAudit(sample.copyOpacity === 1, `${viewport.name}: gallery heading disappeared`);
+      if (sample.phoneOpacity >= 0.5) {
+        requireAudit(sample.headingClearance >= 8, `${viewport.name}: phone covered the gallery heading`);
+        requireAudit(sample.vivaOnRight, `${viewport.name}: Viva Fresh is not visible beside the phone`);
+      }
+    }
 
     for (const sample of forward) {
       const matching = reverse.find(({ progress }) => progress === sample.progress);
@@ -491,7 +510,9 @@ for (const viewport of viewports) {
       });
       await page.setViewportSize({ width: 844, height: 390 });
       await page.waitForTimeout(220);
-      await sampleUniverse(page, 0.55);
+      const landscapeReveal = await sampleUniverse(page, 0.55);
+      requireAudit(landscapeReveal.headingClearance >= 8 && landscapeReveal.vivaOnRight,
+        'landscape phone obscured the heading or the right-hand retailer');
       const landscape = await page.evaluate(() => ({
         ready: document.querySelector('#universi')?.classList.contains('motion-ready'),
         pinSpacers: document.querySelectorAll('.pin-spacer').length,
@@ -623,6 +644,7 @@ for (const viewport of viewports) {
         phoneOpacity: Number(getComputedStyle(phone).opacity),
         phoneVisibility: getComputedStyle(phone).visibility,
         copyOpacity: Number(getComputedStyle(copy).opacity),
+        headingClearance: phone.getBoundingClientRect().top - document.querySelector('#universe-title').getBoundingClientRect().bottom,
         heroAnimationName: getComputedStyle(hero).animationName,
         horizontalOverflow:
           document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -643,6 +665,7 @@ for (const viewport of viewports) {
       'reduced motion phone was not visible',
     );
     requireAudit(result.copyOpacity === 1, 'reduced motion copy was not visible');
+    requireAudit(result.headingClearance >= 8, 'reduced motion phone covered the gallery heading');
     requireAudit(result.heroAnimationName === 'none', 'reduced motion hero kept animating');
     requireAudit(result.horizontalOverflow <= 0, 'reduced motion layout overflowed');
     requireAudit(session.consoleErrors.length === 0, 'reduced motion console errors');

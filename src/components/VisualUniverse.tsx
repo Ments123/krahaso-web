@@ -9,7 +9,6 @@ export function VisualUniverse() {
   const stageRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
-  const copyRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -17,10 +16,9 @@ export function VisualUniverse() {
     const stage = stageRef.current;
     const gallery = galleryRef.current;
     const phone = phoneRef.current;
-    const copy = copyRef.current;
     const overlay = overlayRef.current;
 
-    if (!root || !stage || !gallery || !phone || !copy || !overlay) {
+    if (!root || !stage || !gallery || !phone || !overlay) {
       return undefined;
     }
 
@@ -32,7 +30,7 @@ export function VisualUniverse() {
 
     const resetFallback = () => {
       root.classList.remove('motion-ready');
-      [stage, gallery, ...gallery.querySelectorAll<HTMLElement>('.universe-tile-media'), phone, copy, overlay]
+      [stage, gallery, ...gallery.querySelectorAll<HTMLElement>('.universe-tile-media'), phone, overlay]
         .forEach((element) => element.removeAttribute('style'));
     };
 
@@ -62,7 +60,7 @@ export function VisualUniverse() {
           media.revert();
           context?.revert();
           root.classList.remove('motion-ready');
-          gsap.set([stage, gallery, ...tiles, phone, copy, overlay], { clearProps: 'all' });
+          gsap.set([stage, gallery, ...tiles, phone, overlay], { clearProps: 'all' });
         };
         const render = (mode: UniverseMode, progress: number) => {
           const state = getUniverseState(progress, mode);
@@ -77,10 +75,12 @@ export function VisualUniverse() {
           gsap.set(phone, {
             autoAlpha: state.phoneOpacity,
             scale: state.phoneScale,
+            // Clear any pixel translation parsed from the static CSS centring.
+            x: 0,
+            y: 0,
             xPercent: -50,
             yPercent: -50 - 18 * exitProgress,
           });
-          gsap.set(copy, { autoAlpha: state.copyOpacity });
           gsap.set(overlay, { autoAlpha: exitProgress });
         };
 
@@ -153,24 +153,23 @@ export function VisualUniverse() {
   return (
     <section id="universi" ref={rootRef} className="visual-universe" aria-labelledby="universe-title">
       <div ref={stageRef} className="universe-stage">
-        <div ref={galleryRef} className="universe-gallery" aria-hidden="true">
-          {universeTiles.map((tile, index) => (
-            <div className={`universe-tile universe-tile-${index + 1}`} key={tile.src}>
-              <div className={`universe-tile-media universe-tile-${tile.kind}`}>
-                <img src={tile.src} alt="" loading="lazy" decoding="async" />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div ref={phoneRef} className="universe-phone">
-          <p className="eyebrow universe-kicker">Një pamje. Më shumë qartësi.</p>
-          <PhoneFrame screen="homeFeed" />
-        </div>
-
-        <div ref={copyRef} className="universe-copy">
+        <header className="universe-copy">
           <p className="eyebrow">Në xhepin tënd</p>
           <h2 id="universe-title">Nga rafti te zgjedhja.</h2>
+        </header>
+        <div className="universe-scene">
+          <div ref={galleryRef} className="universe-gallery" aria-hidden="true">
+            {universeTiles.map((tile) => (
+              <div className="universe-tile" style={{ gridArea: tile.area }} key={tile.area}>
+                <div className={`universe-tile-media universe-tile-${tile.kind}`}>
+                  <img src={tile.src} alt="" loading="lazy" decoding="async" />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div ref={phoneRef} className="universe-phone">
+            <PhoneFrame screen="homeFeed" />
+          </div>
         </div>
         <div ref={overlayRef} className="universe-exit-overlay" aria-hidden="true" />
       </div>

@@ -67,11 +67,33 @@ test('provides a keyboard skip link to the main content', () => {
   assert.match(html, /<main id="main-content" tabindex="-1">/);
 });
 
+test('names the live app markets in the hero separately from the Balkan expansion', () => {
+  const hero = renderToStaticMarkup(<App />).match(/<section id="fillimi"[\s\S]*?<\/section>/)?.[0] ?? '';
+  const list = hero.match(/<ul\b[^>]*>([\s\S]*?)<\/ul>/)?.[1] ?? '';
+  const countries = [...list.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)]
+    .map(([, name]) => name.replace(/<[^>]+>/g, '').trim());
+  assert.deepEqual(countries, ['Kosovë', 'Shqipëri', 'Maqedoni e Veriut', 'Mal i Zi', 'Bosnjë e Hercegovinë']);
+  assert.match(hero.slice(hero.indexOf('</ul>')), /Së shpejti në gjithë Ballkanin\./);
+});
+
+test('shows the genuine Viva Fresh mark once per retailer display and never shows Super Viva', () => {
+  const html = renderToStaticMarkup(<App />);
+  assert.ok(!/super\s?viva/i.test(html), 'the retired Super Viva tile is still on the page');
+  for (const id of ['universi', 'ofertat']) {
+    const section = html.match(new RegExp(`<section id="${id}"[\\s\\S]*?</section>`))?.[0] ?? '';
+    assert.equal((section.match(/src="\/logos\/viva\.png"/g) ?? []).length, 1, id);
+    assert.match(section, /src="\/logos\/interex\.png"/);
+    if (id === 'ofertat') assert.match(section, /src="\/logos\/maxi\.png"/);
+  }
+  assert.match(html, /src="\/logos\/viva\.png" alt="Viva Fresh Store"/);
+});
+
 test('renders one clear product story with stable download actions', () => {
   const html = renderToStaticMarkup(<App />);
 
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-  assert.match(html, /Krahaso para se të blesh\./);
+  const heading = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? '';
+  assert.equal(heading.replace(/<[^>]+>/g, ''), 'Krahaso para se të blesh.');
 
   for (const id of ['fillimi', 'universi', 'veçorite', 'ofertat', 'shkarko']) {
     assert.match(html, new RegExp(`id="${id}"`), `missing #${id}`);
@@ -165,28 +187,24 @@ test('maps Visual Universe progress deterministically across viewports', async (
     mediaScale: 1.18,
     phoneOpacity: 0,
     phoneScale: 0.92,
-    copyOpacity: 1,
   });
   assert.deepEqual(getUniverseState(0.68), {
-    galleryScale: 0.52,
+    galleryScale: 0.78,
     mediaScale: 1,
     phoneOpacity: 1,
     phoneScale: 1,
-    copyOpacity: 0,
   });
   assert.deepEqual(getUniverseState(0, 'mobile'), {
-    galleryScale: 0.86,
+    galleryScale: 0.96,
     mediaScale: 1.08,
     phoneOpacity: 0,
     phoneScale: 0.92,
-    copyOpacity: 1,
   });
   assert.deepEqual(getUniverseState(0.6, 'mobile'), {
-    galleryScale: 0.52,
+    galleryScale: 0.74,
     mediaScale: 0.96,
     phoneOpacity: 1,
     phoneScale: 1,
-    copyOpacity: 0,
   });
   assert.deepEqual(getUniverseState(2), getUniverseState(1));
   assert.deepEqual(getUniverseState(-1), getUniverseState(0));
