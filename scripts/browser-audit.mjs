@@ -234,12 +234,19 @@ async function sampleUniverse(page, progress) {
     const opacityOf = (selector) =>
       Number(getComputedStyle(document.querySelector(selector)).opacity);
     const phoneRect = document.querySelector('.universe-phone').getBoundingClientRect();
-    const visibleCells = [...document.querySelectorAll('.universe-tile')]
-      .map((cell) => cell.getBoundingClientRect()).filter((box) => box.width && box.height);
+    const scene = document.querySelector('.universe-scene').getBoundingClientRect();
+    const viva = document.querySelector('.universe-gallery img[src="/logos/viva.png"]');
+    const logo = viva?.getBoundingClientRect();
+    const cells = [...document.querySelectorAll('.universe-tile')].map((cell) => cell.getBoundingClientRect());
+    const distinctCells = new Set(cells.filter((box) => box.width && box.height)
+      .map((box) => [Math.round(box.x), Math.round(box.y)].join(','))).size;
 
     return {
       progress: value,
-      distinctCells: new Set(visibleCells.map((box) => [Math.round(box.x), Math.round(box.y)].join(','))).size === visibleCells.length,
+      distinctCells,
+      vivaOnRight: !!logo && viva.naturalWidth > 0 && logo.width > 0 &&
+        logo.left + logo.width / 2 > phoneRect.right && logo.right <= scene.right &&
+        logo.top >= scene.top && logo.bottom <= scene.bottom,
       galleryScale: scaleOf('.universe-gallery'),
       phoneScale: scaleOf('.universe-phone'),
       phoneOpacity: opacityOf('.universe-phone'),
@@ -447,10 +454,11 @@ for (const viewport of viewports) {
       `${viewport.name}: revealed phone was not horizontally centred`,
     );
     for (const sample of [...forward, ...reverse].filter(({ progress }) => progress <= 0.8)) {
-      requireAudit(sample.distinctCells, `${viewport.name}: retailer gallery tiles are stacked`);
+      requireAudit(sample.distinctCells === 6, `${viewport.name}: retailer gallery tiles are hidden or stacked`);
       requireAudit(sample.copyOpacity === 1, `${viewport.name}: gallery heading disappeared`);
       if (sample.phoneOpacity >= 0.5) {
         requireAudit(sample.headingClearance >= 8, `${viewport.name}: phone covered the gallery heading`);
+        requireAudit(sample.vivaOnRight, `${viewport.name}: Viva Fresh is not visible beside the phone`);
       }
     }
 
@@ -502,7 +510,9 @@ for (const viewport of viewports) {
       });
       await page.setViewportSize({ width: 844, height: 390 });
       await page.waitForTimeout(220);
-      await sampleUniverse(page, 0.55);
+      const landscapeReveal = await sampleUniverse(page, 0.55);
+      requireAudit(landscapeReveal.headingClearance >= 8 && landscapeReveal.vivaOnRight,
+        'landscape phone obscured the heading or the right-hand retailer');
       const landscape = await page.evaluate(() => ({
         ready: document.querySelector('#universi')?.classList.contains('motion-ready'),
         pinSpacers: document.querySelectorAll('.pin-spacer').length,

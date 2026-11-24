@@ -92,7 +92,8 @@ test('renders one clear product story with stable download actions', () => {
   const html = renderToStaticMarkup(<App />);
 
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-  assert.match(html, /Krahaso para se të blesh\./);
+  const heading = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? '';
+  assert.equal(heading.replace(/<[^>]+>/g, ''), 'Krahaso para se të blesh.');
 
   for (const id of ['fillimi', 'universi', 'veçorite', 'ofertat', 'shkarko']) {
     assert.match(html, new RegExp(`id="${id}"`), `missing #${id}`);
