@@ -6,36 +6,28 @@ export function OfferProof() {
     <section id="ofertat" className="offer-proof" aria-labelledby="offers-title">
       <div className="offer-proof-inner section-shell">
         <div className="offer-proof-copy">
-          <p className="eyebrow">Oferta që mund t’i shohësh</p>
+          <p className="eyebrow">Nga fletushkat e javës</p>
           <h2 id="offers-title">Ofertat e marketeve, në një vend.</h2>
           <p>
-            Shfleto ofertat që Krahaso i ka në dispozicion dhe hyr te marketi
-            ose produkti që të intereson. Çmimet në aplikacion pasqyrojnë të
-            dhënat e mbledhura nga marketet.
+            Shfleto fletushkat, gjej produktin që të duhet dhe krahaso ofertat
+            në zonën tënde. Marketet dhe ofertat ndryshojnë sipas qytetit.
           </p>
-          <div className="retailer-strip" aria-label="Disa nga marketet që shfaqen në Krahaso">
+          <ul className="retailer-strip" role="list" aria-label="Disa nga marketet që shfaqen në Krahaso">
             {retailerLogos.map((logo) => (
-              <div className="retailer-logo" key={logo.src}>
+              <li className="retailer-logo" key={logo.src}>
                 <img src={logo.src} alt={logo.alt} loading="lazy" decoding="async" />
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div className="offer-proof-visual">
-          <div className="offer-proof-card offer-proof-card-left" aria-hidden="true">
-            <span>Oferta</span>
-            <strong>Kur i kemi, i sheh këtu.</strong>
-          </div>
           <PhoneFrame
             className="offer-phone"
             screen="offers"
             label="Pamje reale e ofertave në aplikacionin Krahaso"
           />
-          <div className="offer-proof-card offer-proof-card-right" aria-hidden="true">
-            <span>Kosovë</span>
-            <strong>Marketet në një aplikacion.</strong>
-          </div>
+          <p className="offer-caption">Një vështrim brenda aplikacionit · Ofertat</p>
         </div>
       </div>
     </section>

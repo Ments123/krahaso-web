@@ -234,13 +234,17 @@ async function sampleUniverse(page, progress) {
     const opacityOf = (selector) =>
       Number(getComputedStyle(document.querySelector(selector)).opacity);
     const phoneRect = document.querySelector('.universe-phone').getBoundingClientRect();
+    const visibleCells = [...document.querySelectorAll('.universe-tile')]
+      .map((cell) => cell.getBoundingClientRect()).filter((box) => box.width && box.height);
 
     return {
       progress: value,
+      distinctCells: new Set(visibleCells.map((box) => [Math.round(box.x), Math.round(box.y)].join(','))).size === visibleCells.length,
       galleryScale: scaleOf('.universe-gallery'),
       phoneScale: scaleOf('.universe-phone'),
       phoneOpacity: opacityOf('.universe-phone'),
       copyOpacity: opacityOf('.universe-copy'),
+      headingClearance: phoneRect.top - document.querySelector('#universe-title').getBoundingClientRect().bottom,
       phoneCenterOffset:
         phoneRect.left + phoneRect.width / 2 - window.innerWidth / 2,
     };
@@ -442,6 +446,13 @@ for (const viewport of viewports) {
       Math.abs(forward.find(({ progress }) => progress === 0.55).phoneCenterOffset) <= 2,
       `${viewport.name}: revealed phone was not horizontally centred`,
     );
+    for (const sample of [...forward, ...reverse].filter(({ progress }) => progress <= 0.8)) {
+      requireAudit(sample.distinctCells, `${viewport.name}: retailer gallery tiles are stacked`);
+      requireAudit(sample.copyOpacity === 1, `${viewport.name}: gallery heading disappeared`);
+      if (sample.phoneOpacity >= 0.5) {
+        requireAudit(sample.headingClearance >= 8, `${viewport.name}: phone covered the gallery heading`);
+      }
+    }
 
     for (const sample of forward) {
       const matching = reverse.find(({ progress }) => progress === sample.progress);
@@ -623,6 +634,7 @@ for (const viewport of viewports) {
         phoneOpacity: Number(getComputedStyle(phone).opacity),
         phoneVisibility: getComputedStyle(phone).visibility,
         copyOpacity: Number(getComputedStyle(copy).opacity),
+        headingClearance: phone.getBoundingClientRect().top - document.querySelector('#universe-title').getBoundingClientRect().bottom,
         heroAnimationName: getComputedStyle(hero).animationName,
         horizontalOverflow:
           document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -643,6 +655,7 @@ for (const viewport of viewports) {
       'reduced motion phone was not visible',
     );
     requireAudit(result.copyOpacity === 1, 'reduced motion copy was not visible');
+    requireAudit(result.headingClearance >= 8, 'reduced motion phone covered the gallery heading');
     requireAudit(result.heroAnimationName === 'none', 'reduced motion hero kept animating');
     requireAudit(result.horizontalOverflow <= 0, 'reduced motion layout overflowed');
     requireAudit(session.consoleErrors.length === 0, 'reduced motion console errors');

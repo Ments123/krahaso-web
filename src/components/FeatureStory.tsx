@@ -172,11 +172,11 @@ export function FeatureStory() {
   return (
     <section id="veçorite" ref={rootRef} className="feature-story" aria-labelledby="features-title">
       <div className="story-intro section-shell">
-        <p className="eyebrow">Hap pas hapi</p>
-        <h2 id="features-title">Bli me më shumë informacion.</h2>
+        <p className="eyebrow">Si funksionon</p>
+        <h2 id="features-title">Nise me një produkt.</h2>
         <p>
-          Krahaso të ndihmon ta gjesh produktin, t’i shohësh ofertat dhe të
-          kuptosh çfarë të dhënash kemi—para se të vendosësh.
+          Kërko qumështin që blen zakonisht ose skano barkodin në raft.
+          Shiko ku kushton më pak, pastaj krahaso gjithë shportën.
         </p>
       </div>
 

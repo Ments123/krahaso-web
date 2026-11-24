@@ -27,11 +27,12 @@ export function AppAcquisitionCta({
   }, []);
 
   const label = (store: 'play' | 'apple') => {
+    const name = store === 'play' ? 'Google Play' : 'App Store';
     if (placement === 'footer' || compact) {
-      return store === 'play' ? 'Google Play' : 'App Store';
+      return <span>{name}</span>;
     }
 
-    return store === 'play' ? 'Shkarko në Google Play' : 'Shkarko në App Store';
+    return <span className="store-label"><span className="store-lead">Shkarko në</span>{' '}<span className="store-name">{name}</span></span>;
   };
 
   return (
@@ -50,7 +51,7 @@ export function AppAcquisitionCta({
         }}
       >
         <SiGoogleplay aria-hidden="true" />
-        <span>{label('play')}</span>
+        {label('play')}
       </a>
       <a
         href={links.apple}
@@ -67,7 +68,7 @@ export function AppAcquisitionCta({
         }}
       >
         <SiApple aria-hidden="true" />
-        <span>{label('apple')}</span>
+        {label('apple')}
       </a>
     </div>
   );

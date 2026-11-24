@@ -20,11 +20,14 @@ const features = [
 export function AppUpdates() {
   return (
     <section className="app-updates section-shell" aria-labelledby="updates-title">
-      <h2 id="updates-title">Çfarë mund të bësh me Krahaso?</h2>
-      <p className="app-updates-intro">
-        Aplikacioni krahason çmimet në Kosovë, Shqipëri, Maqedoninë e Veriut, Mal të Zi
-        dhe Bosnjë e Hercegovinë. Mund ta përdorësh në shqip, anglisht, serbisht dhe maqedonisht.
-      </p>
+      <div className="app-updates-heading">
+        <p className="eyebrow">Për blerjet e përditshme</p>
+        <h2 id="updates-title">Jo vetëm çmimi i sotëm.</h2>
+        <p className="app-updates-intro">
+          Ndiq çmimet dhe planifiko blerjet me familjen. Krahaso mund ta përdorësh
+          në shqip, anglisht, serbisht dhe maqedonisht.
+        </p>
+      </div>
       <div className="app-updates-grid">
         {features.map(({ title, text }) => (
           <article key={title}>
@@ -41,10 +44,11 @@ export function DataTeaser() {
   return (
     <section className="data-teaser section-shell" aria-labelledby="partner-data-title">
       <div>
+        <p className="eyebrow">Krahaso për biznese</p>
         <h2 id="partner-data-title">Të dhëna për marka dhe supermarkete</h2>
         <p>
-          Krahaso mbledh mbi 6 milionë vëzhgime çmimesh në ditë në 11 vende të Ballkanit.
-          Shiko mbulimin, indeksin publik dhe mundësitë për licencim.
+          Me Krahaso Data mund të ndjekësh tregun në 11 vende të Ballkanit.
+          Shiko mbulimin rajonal, indeksin e çmimeve dhe mundësitë për licencim.
         </p>
       </div>
       <a className="acquisition-link acquisition-link-primary" href="/en/data/" hrefLang="en">Eksploro Krahaso Data</a>

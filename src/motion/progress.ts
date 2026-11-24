@@ -3,7 +3,6 @@ export type UniverseState = {
   mediaScale: number;
   phoneOpacity: number;
   phoneScale: number;
-  copyOpacity: number;
 };
 
 export type UniverseMode = 'desktop' | 'mobile';
@@ -24,19 +23,17 @@ export function getUniverseState(
 
   if (mode === 'mobile') {
     return {
-      galleryScale: map(progress, 0, 0.6, 0.86, 0.52),
+      galleryScale: map(progress, 0, 0.6, 0.96, 0.74),
       mediaScale: map(progress, 0, 0.6, 1.08, 0.96),
       phoneOpacity: map(progress, 0.24, 0.56, 0, 1),
       phoneScale: map(progress, 0.24, 0.56, 0.92, 1),
-      copyOpacity: map(progress, 0.16, 0.44, 1, 0),
     };
   }
 
   return {
-    galleryScale: map(progress, 0, 0.68, 1, 0.52),
+    galleryScale: map(progress, 0, 0.68, 1, 0.78),
     mediaScale: map(progress, 0, 0.68, 1.18, 1),
     phoneOpacity: map(progress, 0.25, 0.56, 0, 1),
     phoneScale: map(progress, 0.25, 0.56, 0.92, 1),
-    copyOpacity: map(progress, 0.18, 0.46, 1, 0),
   };
 }
